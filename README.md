@@ -1,3 +1,10 @@
+## Docs have moved to Gitbook: http://docs.cal.com/ and https://developer.cal.com/ 
+
+This repository has been archived in favor of Gitbook
+___
+
+
+
 <!-- PROJECT LOGO -->
 <div align="right">
   <a href="https://github.com/calcom/cal.com">
