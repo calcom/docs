@@ -19,9 +19,3 @@ export const AuthorCard = ({ author }) => {
       </div>
     </div>
 }
-
-<AuthorCard author={{
-  name: "Michael Fester",
-  twitter: "michaelfester",
-  avatarUrl: "https://res.cloudinary.com/djp21wtxm/image/upload/v1651630007/Me_uyndrz.jpg"
-}}/>
