@@ -4,7 +4,7 @@ import { Logo } from "@components/common-alt/logo"
 import config from "@project-config"
 
 export const Footer = ({ sidebar, hideGuides, skipLogoColumn, background, compact, path }) => {
-  return <div className="relative not-prose hidden">
+  return <footer className="relative not-prose hidden">
       <Section hideGuides={hideGuides} noPaddingX={sidebar} full background="light" rounded padding={compact ? "sm" : "md"} className="footer text-lg font-medium rounded-lg">
         <div className={cn(
           "grid gap-8 px-4 sm:px-12",
@@ -31,5 +31,5 @@ export const Footer = ({ sidebar, hideGuides, skipLogoColumn, background, compac
           </ul>
         </div>
       </Section>
-    </div>
+    </footer>
 }
