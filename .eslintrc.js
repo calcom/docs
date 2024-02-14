@@ -47,7 +47,7 @@ module.exports = {
           ['parent', 'sibling', 'index'],
           'object',
         ],
-        pathGroups: [{ pattern: '@/**', group: 'internal' }],
+        pathGroups: [{ pattern: '@**', group: 'internal' }],
         'newlines-between': 'always',
       },
     ],

@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import cn from "classnames"
-import { NavigationBar } from "@/components/common/navigationbar"
-import { Section } from "@/components/ui/section"
-import { Footer } from "@/components/common/footer"
-import config from "@/project-config"
+import { NavigationBar } from "@components/common-alt/navigationbar"
+import { Section } from "@components/uicomp/section"
+import { Footer } from "@components/common-alt/footer"
+import config from "@project-config"
 import Link from "next/link";
 
 export const Template = ({ title, titleHref, showNavbarGuides, path, fixedHeading, noFooter, meta, files, children, searchData, idPathMetaMap }) => {

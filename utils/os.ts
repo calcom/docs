@@ -13,4 +13,3 @@ export const getOS = (): OS | undefined => {
 export const isMacLike = (os: OS) => {
   return os === OS.mac
 }
-

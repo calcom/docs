@@ -137,11 +137,11 @@ export async function load(source, getResolve, getOptions, resourcePath, addCont
 import yaml from 'js-yaml';
 // renderers is imported separately so Markdoc isn't sent to the client
 import Markdoc, {renderers} from '@markdoc/markdoc'
-import components from "@/markdoc.components"
+import components from "@markdoc.components"
 
-import markdocConfig from "@/markdoc.config"
+import markdocConfig from "@markdoc.config"
 
-import {getSchema, defaultObject} from "@/markdoc/runtime";
+import {getSchema, defaultObject} from "@markdoc/runtime";
 
 /**
  * Schema is imported like this so end-user's code is compiled using build-in babel/webpack configs.

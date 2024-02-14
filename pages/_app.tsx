@@ -1,9 +1,9 @@
 import * as React from "react";
-import "@/styles/main.css";
+import "@styles/main.css";
 
-import { Template as DocTemplate } from "@/templates/doc";
+import { Template as DocTemplate } from "@templates/doc";
 import { AppProps } from "next/app";
-import motifConfig from "@/motif.json";
+import motifConfig from "@motif.json";
 import { MDXProvider } from "@mdx-js/react";
 import Link from "next/link";
 import Image from "next/image";

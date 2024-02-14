@@ -1,6 +1,6 @@
 import grayMatter from "gray-matter";
 import { parseISO } from "date-fns";
-import { TagColor } from "@/utils/colors";
+import { TagColor } from "@utils/colors";
 
 export enum Tag {
   Publishing = "Publishing",

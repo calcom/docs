@@ -2,17 +2,17 @@ import * as React from "react";
 
 import cn from "classnames"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { removeFileExtension, toPathMetaMap, toIdPathMetaMap } from "@/utils/files"
-import { Template as BaseTemplate } from "@/templates/base"
-import { Section } from "@/components/ui/section"
-import { Search, filesToSearchData } from "@/components/common/search"
-import { AnimatedSidebar } from "@/components/ui/animatedsidebar"
-import { Footer } from "@/components/common/footer"
-import { TOC } from "@/components/ui/toc"
-import { Feedback } from "@/components/ui/feedback"
-// import { Prompt } from "@/components/common/prompt"
-import { getPrevNext } from "@/utils/sidebar"
-import config from "@/project-config"
+import { removeFileExtension, toPathMetaMap, toIdPathMetaMap } from "@utils/files"
+import { Template as BaseTemplate } from "@templates/base"
+import { Section } from "@components/uicomp/section"
+import { Search, filesToSearchData } from "@components/common-alt/search"
+import { AnimatedSidebar } from "@components/uicomp/animated-sidebar"
+import { Footer } from "@components/common-alt/footer"
+import { TOC } from "@components/uicomp/toc"
+import { Feedback } from "@components/uicomp/feedback"
+// import { Prompt } from "@components/common-alt/prompt"
+import { getPrevNext } from "@utils/sidebar"
+import config from "@project-config"
 
 export const NextPrevLink = ({ slug, title, isPrev }) => {
   return <div className={!isPrev ? "text-right" : ""}>
