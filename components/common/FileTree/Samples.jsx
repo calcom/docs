@@ -1,6 +1,6 @@
-import { FileTree } from "@components/common/filetree"
-import { Bleed } from "@components/ui/bleed"
-import { Wrapper } from "@components/ui/wrapper"
+import { FileTree } from "@/components/common/filetree"
+import { Bleed } from "@/components/ui/bleed"
+import { Wrapper } from "@/components/ui/wrapper"
 
 export const samples = {
   "local": {

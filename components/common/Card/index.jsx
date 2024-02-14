@@ -1,4 +1,4 @@
-import { Button } from "@components/ui/button"
+import { Button } from "@/components/ui/button"
 
 export const Card = ({
   title,
@@ -11,7 +11,7 @@ export const Card = ({
       {Icon && <Icon className="ml-[-3px] mb-1 sm:mb-2 w-8 h-8 flex-none" />}
       <h1 className="text-neutral-900 font-semibold text-smb">{ title }</h1>
       <p className="text-neutral-700 text-smb leading-relaxed">{ children }</p>
-      { cta && 
+      { cta &&
         <Button type="info" size="smb" variant="link" href={ctaHref}>
           {cta}
         </Button>

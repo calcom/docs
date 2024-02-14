@@ -6,7 +6,7 @@ import { IconButton } from "@/components/ui/iconbutton"
 import { Menu } from "@/components/icons/menu"
 import { MenuAlt1 } from "@/components/icons/menualt1"
 import { AnimatedSidebar } from "@/components/ui/animatedsidebar"
-import config from "/project-config"
+import config from "@/project-config"
 import { Guides } from "@/components/ui/guides"
 import { Dialog } from "@/components/ui/dialog"
 import { Search, filesToSearchData } from "@/components/common/search"
@@ -93,12 +93,3 @@ export const NavigationBar = ({ showGuides, path, tabs, searchData, idPathMetaMa
       }
     </header>
 }
-
-<NavigationBar showGuides={true} path="/" tabs={[
-    { label: "Pricing", href: "https://cal.com/pricing" },
-    { label: "Infra", href: "https://cal.com/infrastructure" },
-    { label: "Apps", href: "https://cal.com/apps" },
-    { label: "Docs", href: "/" },
-    { label: "Blog", href: "https://cal.com/blog"
-     }
-  ]} />

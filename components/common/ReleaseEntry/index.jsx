@@ -1,8 +1,8 @@
 
-import { Section } from "@components/ui/section"
-import { EntryDate } from "@components/common/entrydate"
-import { Tag } from "@components/ui/tag"
-import { getColor, parseReleaseText, Tag as ReleaseFeatureTag } from "@utils/releases"
+import { Section } from "@/components/ui/section"
+import { EntryDate } from "@/components/common/entrydate"
+import { Tag } from "@/components/ui/tag"
+import { getColor, parseReleaseText, Tag as ReleaseFeatureTag } from "@/utils/releases"
 
 export const ReleaseItem = ({ date, body, items, tag }) => {
   return <div className="grid md:grid-cols-4 gap-x-8 gap-y-3">

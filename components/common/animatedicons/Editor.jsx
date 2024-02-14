@@ -1,5 +1,5 @@
-import { Users } from "@components/icons/users"
-import { Terminal } from "@components/icons/terminal"
+import { Users } from "@/components/icons/users"
+import { Terminal } from "@/components/icons/terminal"
 
 export const Editor = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

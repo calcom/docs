@@ -1,6 +1,6 @@
 import React from "react"
 import cn from "classnames"
-import { CheckLine } from "@components/icons/check"
+import { CheckLine } from "@/components/icons/check"
 
 export const getColorClassName = (color, onDark) => {
   if (onDark) {

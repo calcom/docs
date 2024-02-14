@@ -1,7 +1,7 @@
 import { useState } from "react"
 import cn from "classnames"
-import config from "/project-config"
-import { ChevronRight } from "@components/icons/chevronright";
+import config from "@/project-config"
+import { ChevronRight } from "@/components/icons/chevronright";
 
 export const Cursor = ({ element, fast, className }) => {
   return <div

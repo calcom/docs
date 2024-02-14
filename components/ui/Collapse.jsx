@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import cn from "classnames"
-import { ChevronDown } from "@components/icons/chevrondown"
+import { ChevronDown } from "@/components/icons/chevrondown"
 
 export const Collapse = ({ title, children }) => {
   const contentRef = useRef()
   const [state, setState] = useState({ open: false, height: 0 })
-  
+
   const toggleOpen = useCallback(() => {
     setState(s => {
       if (s.open) {

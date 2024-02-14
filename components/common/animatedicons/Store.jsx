@@ -1,5 +1,5 @@
-import { DocumentText } from "@components/icons/documenttext"
-import { LockOpen } from "@components/icons/lockopen"
+import { DocumentText } from "@/components/icons/documenttext"
+import { LockOpen } from "@/components/icons/lockopen"
 
 export const Store = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

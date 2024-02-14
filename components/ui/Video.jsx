@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react"
 import cn from "classnames"
-import { Play } from "@components/icons/play"
+import { Play } from "@/components/icons/play"
 
 export const Video = ({ src, title, bleed, noPadding, playPosition, playLabel, Overlay }) => {
   const [isOverlayVisible, setOverlayVisible] = useState(!!Overlay)

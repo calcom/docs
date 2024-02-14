@@ -1,4 +1,4 @@
-import { Button } from "@components/ui/button"
+import { Button } from "@/components/ui/button"
 
 export const CTA = ({ label, href }) => {
   return <div className="mt-12">

@@ -1,4 +1,4 @@
-import ChevronRight from "@components/icons/chevronright"
+import ChevronRight from "@/components/icons/chevronright"
 
 export const PageLink = ({
   href,

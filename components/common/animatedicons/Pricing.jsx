@@ -1,4 +1,4 @@
-import { Tag } from "@components/icons/tag"
+import { Tag } from "@/components/icons/tag"
 
 export const Pricing = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

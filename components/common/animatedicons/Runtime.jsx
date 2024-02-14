@@ -1,4 +1,4 @@
-import { Cog } from "@components/icons/cog"
+import { Cog } from "@/components/icons/cog"
 
 export const Runtime = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

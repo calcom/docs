@@ -1,4 +1,4 @@
-import { Play } from "@components/icons/play"
+import { Play } from "@/components/icons/play"
 
 export const Migrate = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

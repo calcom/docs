@@ -1,4 +1,4 @@
-import { Bleed } from "@components/ui/bleed"
+import { Bleed } from "@/components/ui/bleed"
 
 export const CodeSample = ({ panelClassName, noPadding, bleed = true, children }) => {
   return (

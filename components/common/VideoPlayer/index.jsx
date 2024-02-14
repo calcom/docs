@@ -42,7 +42,7 @@ export const VideoPlayer = ({ src, title, className, Overlay }) => {
     </div>
 }
 
-import { Timeline } from "@components/illustrations/timeline"
+import { Timeline } from "@/components/illustrations/timeline"
 
 <VideoPlayer
     noPadding

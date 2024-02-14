@@ -6,7 +6,7 @@ import { removeFileExtension, toPathMetaMap, toIdPathMetaMap } from "@/utils/fil
 import { Template as BaseTemplate } from "@/templates/base"
 import { Section } from "@/components/ui/section"
 import { Search, filesToSearchData } from "@/components/common/search"
-import { AnimatedSidebar } from "@/components/ui/Animatedsidebar"
+import { AnimatedSidebar } from "@/components/ui/animatedsidebar"
 import { Footer } from "@/components/common/footer"
 import { TOC } from "@/components/ui/toc"
 import { Feedback } from "@/components/ui/feedback"
@@ -45,6 +45,7 @@ export const Template = ({ filename, files, path, meta, children }) => {
   const { prev, next } = getPrevNext(config.sidebar, pathMetaMap, path)
 
   const searchData = useMemo(() => {
+    console.log("files", JSON.stringify(files, null, 2));
       return filesToSearchData(files, undefined, "Home")
   }, [files])
 

@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { TrafficLights } from "@components/ui/trafficlights"
+import { TrafficLights } from "@/components/ui/trafficlights"
 
 export const Browser = ({ baseUrl, path, shadow, bleed, className }) => {
   return (

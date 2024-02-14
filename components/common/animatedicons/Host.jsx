@@ -1,5 +1,5 @@
-import { Globe } from "@components/icons/globe"
-import { FastForward } from "@components/icons/fastforward"
+import { Globe } from "@/components/icons/globe"
+import { FastForward } from "@/components/icons/fastforward"
 
 export const Host = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

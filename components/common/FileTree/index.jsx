@@ -1,4 +1,4 @@
-import { Item } from "@components/common/filetree/item"
+import { Item } from "@/components/common/filetree/item"
 
 export const FileTree = ({ tree, indent = 0 }) => {
   return <div className="bg-white">

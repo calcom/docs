@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { Bleed } from "@components/ui/bleed"
+import { Bleed } from "@/components/ui/bleed"
 
 export const getBackgroundClass = (background) => {
   switch (background) {

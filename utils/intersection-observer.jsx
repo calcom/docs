@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { minBy } from "lodash-es"
-import { getContentElement, getHeadingsSelector } from "@utils/dom"
+import { getContentElement, getHeadingsSelector } from "@/utils/dom"
 
 export const useIntersectionObserver = (
   setActiveId,

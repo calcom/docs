@@ -1,4 +1,4 @@
-import { Puzzle, PuzzleExtruded } from "@components/icons/puzzle"
+import { Puzzle, PuzzleExtruded } from "@/components/icons/puzzle"
 
 export const Tool = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

@@ -1,56 +1,15 @@
 import * as React from "react";
 import "@/styles/main.css";
 
+import { Template as DocTemplate } from "@/templates/doc";
 import { AppProps } from "next/app";
 import motifConfig from "@/motif.json";
-import dynamic from "next/dynamic";
-import fastLevenshtein from "fast-levenshtein";
-import minimatch from "minimatch";
 import { MDXProvider } from "@mdx-js/react";
 import Link from "next/link";
 import Image from "next/image";
+import Head from "next/head";
 
-export const getBestGlobMatch = (
-  globs: string[],
-  path: string
-): string | undefined => {
-  const match = globs
-    .filter((p) => minimatch(path, p))
-    .sort((m1, m2) => {
-      const d1 = fastLevenshtein.get(m1, path);
-      const d2 = fastLevenshtein.get(m2, path);
-      return d1 < d2 ? -1 : 1;
-    })?.[0];
-
-  if (match === undefined && globs.includes("**/*")) {
-    return "**/*";
-  }
-  return match;
-};
-
-const getTemplateId = (pathname: string) => {
-  const templateMappings =
-    (motifConfig.templates as { [k: string]: string }) || {};
-  const path = pathname === "/" ? "" : pathname?.replace(/^\//, "");
-  const matchingGlob = getBestGlobMatch(Object.keys(templateMappings), path);
-  return matchingGlob && templateMappings[matchingGlob];
-};
-
-// const getTemplate = (pathname: string) => {
-//   switch (getTemplateId(pathname)) {
-//     // Add other template mappings here
-//     case "doc":
-//       return dynamic(() =>
-//         import("@templates/doc.mdx").then((mod) => mod.Template)
-//       );
-//     default:
-//       return dynamic(() =>
-//         import("@templates/plain.mdx").then((mod) => mod.Template)
-//       );
-//   }
-// };
-
-const components = {
+const components: any = {
   a: ({ href, ...props }: { href: string }) => (
     <Link href={href}>
       {" "}
@@ -64,24 +23,26 @@ const components = {
 
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const Template = getTemplate(router.pathname);
-
   const meta = (Component as any).meta || {};
   const filename = (Component as any).filename || {};
   const files = (Component as any).files || {};
 
-  return (
-
-    <MDXProvider components={components}>
-      <Template
-        meta={meta}
-        path={router.pathname}
-        filename={filename}
-        files={files}
-      >
-        <Component {...pageProps} />
-      </Template>
-    </MDXProvider>
+  return (<>
+      <Head>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <meta name='apple-mobile-web-app-capable' content='yes' />
+      </Head>
+      <MDXProvider components={components}>
+        <DocTemplate
+          meta={meta}
+          path={router.pathname}
+          filename={filename}
+          files={files}
+        >
+          <Component {...pageProps} />
+        </DocTemplate>
+      </MDXProvider>
+    </>
   );
 }
 

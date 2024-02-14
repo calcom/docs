@@ -1,5 +1,6 @@
 import cn from "classnames"
-import { getOS } from "@utils/os"
+import { getOS } from "@/utils/os"
+import { useEffect, useState } from "react"
 
 export const Keys = ({
   cmd,
@@ -15,13 +16,17 @@ export const Keys = ({
   dark,
   onDark,
 }) => {
-  {/* Backslash cannot be passed in Markdoc components in the chars attribute, so have it as a boolean instead */}
-  const os = getOS()
-  if (!os) {
-    {/* Only load on client side, so we have the correct os value */}
-    return <></>
-  }
-  const macLike = os === "mac"
+  const [macLike, setMacLike] = useState(false)
+
+  useEffect(() => {
+    const os = getOS()
+    if (!os) {
+      return
+    }
+
+    setMacLike(os === "mac")
+  }, [])
+
   return (
     <span
       className={cn(
@@ -106,5 +111,3 @@ export const HelpButton = () => (
     </span>
   </span>
 )
-
-<Keys plain cmd char="K" large />

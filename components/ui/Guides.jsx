@@ -13,9 +13,6 @@ export const VerticalGuide = ({ onDark }) => {
     />
 }
 
-<br />
-<HorizontalGuide />
-
 export const HorizontalGuide = ({ className, onDark }) => {
   const guideColor = getGuideColor(onDark)
   return <div
@@ -44,5 +41,3 @@ export const Guides = ({ onDark }) => {
       </div>
     </div>
 }
-
-<Guides />

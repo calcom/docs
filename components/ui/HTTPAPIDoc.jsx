@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { HTTPResponseCodes } from "@utils/http"
-import { Tabs, Tab } from "@components/ui/tabbar" 
-import ChevronRight from "@components/icons/chevronright"
+import { HTTPResponseCodes } from "@/utils/http"
+import { Tabs, Tab } from "@/components/ui/tabbar"
+import ChevronRight from "@/components/icons/chevronright"
 import cn from "classnames"
 
 export const getColorClassName = (method) => {
@@ -198,7 +198,7 @@ export const RequestBody = ({ requestBody }) => {
       <pre>{JSON.stringify(value, null, 2)}</pre>
     </Tab>
   )) : null;
-  
+
   //const example = getRequestBodyExample(props?.properties)
   return <Tabs>
       <Tab title="Schema" className="pt-4">
@@ -363,7 +363,7 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
                      "title":"Debugging between Syed Ali Shahbaz and Hello Hello",
                      "description":null,
                      "customInputs":{
-                        
+
                      },
                      "responses":null,
                      "startTime":"2023-05-24T13:00:00.000Z",
@@ -383,10 +383,10 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
                      "recurringEventId":null,
                      "smsReminderNumber":null,
                      "scheduledJobs":[
-                        
+
                      ],
                      "metadata":{
-                        
+
                      },
                      "isRecorded":false,
                      "user":{
@@ -405,10 +405,10 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
                         }
                      ],
                      "payment":[
-                        
+
                      ],
                      "references":[
-                        
+
                      ]
                   }
                }

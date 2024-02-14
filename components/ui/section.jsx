@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { Guides } from "@components/ui/guides"
+import { Guides } from "@/components/ui/guides"
 
 export const getBackground = (background) => {
   switch (background) {

@@ -1,7 +1,7 @@
-import { DocumentText } from "@components/icons/documenttext"
-import { DocumentTextLive } from "@components/icons/documenttextlive"
-import { Folder } from "@components/icons/folder"
-import { FolderOpen } from "@components/icons/folderopen"
+import { DocumentText } from "@/components/icons/documenttext"
+import { DocumentTextLive } from "@/components/icons/documenttextlive"
+import { Folder } from "@/components/icons/folder"
+import { FolderOpen } from "@/components/icons/folderopen"
 
 export const Item = ({ file, open, indent, label, live }) => {
   return (

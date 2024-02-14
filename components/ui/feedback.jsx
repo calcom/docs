@@ -1,5 +1,5 @@
-import ThumbUp from "@components/icons/thumb-up"
-import ThumbDown from "@components/icons/thumb-down"
+import ThumbUp from "@/components/icons/thumb-up"
+import ThumbDown from "@/components/icons/thumb-down"
 import Tippy from '@tippyjs/react'
 import { useState, useCallback, useRef, useEffect } from "react"
 import toast, { Toaster, ToastBar } from "react-hot-toast"

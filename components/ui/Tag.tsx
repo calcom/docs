@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { TagColor } from "@utils/colors"
+import { TagColor } from "@/utils/colors"
 
 export const getColorClass = (color: TagColor) => {
   switch (color) {

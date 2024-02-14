@@ -1,5 +1,5 @@
 import cn from "classnames"
-import { Wrapper } from "@components/ui/wrapper"
+import { Wrapper } from "@/components/ui/wrapper"
 
 export const WrappedImage = ({ src, alt, className, type, bleed, background, legend, bordered }) => {
   return <Wrapper bleed={bleed} background={background} legend={legend}>

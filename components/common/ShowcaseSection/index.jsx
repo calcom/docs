@@ -1,6 +1,6 @@
 import cn from "classnames"
-import { Section } from "@components/ui/section"
-import { Button } from "@components/ui/button"
+import { Section } from "@/components/ui/section"
+import { Button } from "@/components/ui/button"
 
 export const getHeadingColorClass = (theme) => {
   switch (theme) {

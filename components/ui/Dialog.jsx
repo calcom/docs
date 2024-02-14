@@ -1,8 +1,8 @@
 import { Fragment, useState } from "react"
-import { Dialog as HUIDialog, Transition } from "@headlessui/react@1.7.8"
+import { Dialog as HUIDialog, Transition } from "@headlessui/react"
 import cn from "classnames"
-import { IconButton } from "@components/ui/iconbutton"
-import { Close } from "@components/icons/close"
+import { IconButton } from "@/components/ui/iconbutton"
+import { Close } from "@/components/icons/close"
 
 export const getAnimations = (position) => {
   switch (position) {
@@ -39,7 +39,7 @@ export const getAnimations = (position) => {
         leaveFrom: "opacity-100 scale-100",
         leaveTo: "opacity-0 scale-95",
       };
-  }  
+  }
 }
 
 export const Dialog = ({ isOpen, onClose, hideClose = false, position, size = "sm", children }) => {

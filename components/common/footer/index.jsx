@@ -1,7 +1,7 @@
 import cn from "classnames"
-import { Section } from "@components/ui/section"
-import { Logo } from "@components/common/logo"
-import config from "/project-config"
+import { Section } from "@/components/ui/section"
+import { Logo } from "@/components/common/logo"
+import config from "@/project-config"
 
 export const Footer = ({ sidebar, hideGuides, skipLogoColumn, background, compact, path }) => {
   return <div className="relative not-prose hidden">

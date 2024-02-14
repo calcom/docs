@@ -1,5 +1,5 @@
-import { DocumentText } from "@components/icons/documenttext"
-import { Photograph } from "@components/icons/photograph"
+import { DocumentText } from "@/components/icons/documenttext"
+import { Photograph } from "@/components/icons/photograph"
 
 export const Content = ({ className }) => {
   return <div className={`${className} aspect-square relative`}>

@@ -1,4 +1,4 @@
-import { Bleed } from "@components/ui/bleed"
+import { Bleed } from "@/components/ui/bleed"
 
 export const BorderedPanel = ({ children}) => {
   return <Bleed>

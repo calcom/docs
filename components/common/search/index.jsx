@@ -1,9 +1,9 @@
 import { forwardRef, useCallback, useEffect, useReducer, useRef, useState } from "react"
 import Fuse from "fuse.js"
 import cn from "classnames"
-import { Search as SearchIcon } from "@components/icons/search"
-import { Keys } from "@components/ui/keys"
-import { removeFileExtension } from "@utils/files"
+import { Search as SearchIcon } from "@/components/icons/search"
+import { Keys } from "@/components/ui/keys"
+import { removeFileExtension } from "@/utils/files"
 
 export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
   return <div
@@ -171,7 +171,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
       dispatch({ type: 'SET_RESULTS', results: [] })
     }
   }, [])
-  
+
   useEffect(() => {
     document.addEventListener('click', onDocumentClick, true);
     return () => {
@@ -207,7 +207,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
   const onBlur = useCallback(() => {
     dispatch({ type: 'SET_RESULTS', results: [] })
   }, [])
-  
+
   return <div className="flex flex-col">
       <SearchInput
         ref={searchInputRef}
@@ -262,7 +262,7 @@ export const filesToSearchData = (folder, parentFolderNames, rootName = "Home") 
       title: getTitle(f),
       description: getDescription(f),
       folders: folders
-    }))
+    })) || []
   for (const f of (folder.folders || [])) {
     data = data.concat(filesToSearchData(f, folders, rootName))
   }
