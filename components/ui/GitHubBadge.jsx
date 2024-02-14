@@ -21,8 +21,3 @@ export const GitHubBadge = ({ priority }) => {
         <img src={getImgSrc(priority)} />
       </a>
 }
-
-<GitHubBadge priority="low" />
-<GitHubBadge priority="medium" />
-<GitHubBadge priority="high" />
-<GitHubBadge priority="urgent" />

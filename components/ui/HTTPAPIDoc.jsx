@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { HTTPResponseCodes } from "@/utils/http"
 import { Tabs, Tab } from "@/components/ui/tabbar"
-import ChevronRight from "@/components/icons/chevronright"
+import { ChevronRight } from "@/components/icons/chevronright"
 import cn from "classnames"
 
 export const getColorClassName = (method) => {

@@ -21,16 +21,29 @@ const components: any = {
   ),
 };
 
+const getProps = (Component: any, pageProps: any) => {
+  const isMarkdoc = !!pageProps?.markdoc
+  if (isMarkdoc) {
+    const meta = pageProps.markdoc.frontmatter
+    const filename = pageProps.markdoc.file?.path || ''
+    const files = (pageProps as any).markdoc?.files || {};
+    return { meta, filename, files }
+  } else{
+    const meta = (Component as any).meta || {};
+    const filename = (Component as any).filename || '';
+    const files = (Component as any).files || {};
+    return { meta, filename, files }
+  }
+}
 
 function MyApp({ Component, pageProps, router }: AppProps) {
-  const meta = (Component as any).meta || {};
-  const filename = (Component as any).filename || '';
-  const files = (Component as any).files || {};
+  const { meta, filename, files } = getProps(Component, pageProps)
 
   return (<>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
         <meta name='apple-mobile-web-app-capable' content='yes' />
+        <title>{`${meta?.title || "Untitled"} - Cal.com Docs`}</title>
       </Head>
       <MDXProvider components={components}>
         <DocTemplate

@@ -10,6 +10,7 @@ import config from "@/project-config"
 import { Guides } from "@/components/ui/guides"
 import { Dialog } from "@/components/ui/dialog"
 import { Search, filesToSearchData } from "@/components/common/search"
+import Link from "next/link"
 
 
 export const NavigationBar = ({ showGuides, path, tabs, searchData, idPathMetaMap }) => {
@@ -79,7 +80,7 @@ export const NavigationBar = ({ showGuides, path, tabs, searchData, idPathMetaMa
       <Dialog isOpen={isOpen} position="topright" size="xs" onClose={() => setIsOpen(false)}>
         <div className="flex flex-col pt-3 pb-6">
           { tabs?.map((item, i) => {
-            return <a key={`tabs-${i}`} className="text-neutral-900 hover:text-sky-500 px-6 py-3 transition text-base font-medium outline-none" href={item.href}>{ item.label }</a>
+            return <Link key={`tabs-${i}`} className="text-neutral-900 hover:text-sky-500 px-6 py-3 transition text-base font-medium outline-none" href={item.href}>{ item.label }</Link>
           })}
           <div className="px-6 mt-4 flex justify-start">
             <Button href="/login">Sign in</Button>

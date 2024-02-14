@@ -1,13 +1,14 @@
+import Link from "next/link"
 import { forwardRef, useCallback, useEffect, useRef, useState } from "react"
 
 export const TabBarItem = ({ item, selected, onMouseEnter, className, selectedClassName }) => {
-  return <a
+  return <Link
       onMouseEnter={(e) => onMouseEnter(e.currentTarget.getBoundingClientRect())}
       className={`${className} ${selected ? (selectedClassName || "") : ""}`}
       href={item.href}
       target={item.target || "_self"}>
         { item.label }
-    </a>
+    </Link>
 }
 
 export const Ghost = ({ rect, parentRect, visible, className }) => {

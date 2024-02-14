@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import cn from "classnames"
-import Prism from 'prismjs@1.29.0'
-import copy from 'copy-to-clipboard@3.3.3'
-import { Copy } from '@components/icons/Copy'
+import Prism from 'prismjs'
+import copy from 'copy-to-clipboard'
+import { Copy } from '@/components/icons/Copy'
 
 export function Fence({ children, 'data-language': language }) {
   const [copied, setCopied] = useState(false)

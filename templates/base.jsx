@@ -5,6 +5,7 @@ import { NavigationBar } from "@/components/common/navigationbar"
 import { Section } from "@/components/ui/section"
 import { Footer } from "@/components/common/footer"
 import config from "@/project-config"
+import Link from "next/link";
 
 export const Template = ({ title, titleHref, showNavbarGuides, path, fixedHeading, noFooter, meta, files, children, searchData, idPathMetaMap }) => {
   const _title = title || meta?.template?.title
@@ -29,8 +30,8 @@ export const Template = ({ title, titleHref, showNavbarGuides, path, fixedHeadin
       { (_title) &&
         <Section Component="header" padding="sm" full>
           <div className="grid grid-cols-1 xs:grid-cols-2 gap-4 -mt-2 sm:mt-0">
-            <a className={"justify-self-start self-center plainLink font-semibold"}
-              href={_titleHref}><h1>{ _title || <>&nbsp;</>}</h1></a>
+            <Link className={"justify-self-start self-center plainLink font-semibold"}
+              href={_titleHref}><h1>{ _title || <>&nbsp;</>}</h1></Link>
           </div>
         </Section>
       }

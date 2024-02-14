@@ -6,6 +6,7 @@ import { getClassNameOrStyle } from '@/utils/toc-ui'
 import { TOCProvider, useTOC } from '@/utils/use-toc'
 import { TOCThemeProvider, useTheme } from '@/utils/use-toc-theme'
 import { removeFileExtension } from '@/utils/files'
+import Link from 'next/link'
 
 export const WithIndentation = ({
   id = undefined,
@@ -75,9 +76,9 @@ export const Item = ({
     >
       <div className="flex flex-col">
         {title && (
-          <a className={cs.className} style={cs.style} href={href}>
+          <Link className={cs.className} style={cs.style} href={href}>
             {title}
-          </a>
+          </Link>
         )}
         {isExpanded && children}
       </div>

@@ -4,6 +4,7 @@ import cn from "classnames"
 import { Search as SearchIcon } from "@/components/icons/search"
 import { Keys } from "@/components/ui/keys"
 import { removeFileExtension } from "@/utils/files"
+import Link from "next/link"
 
 export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
   return <div
@@ -11,7 +12,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
           "bg-primary-700": selected
         })}
         onMouseOver={onMouseOver}>
-      <a
+      <Link
         className="block m-3"
         href={result.path}
         onClick={onClick}>
@@ -37,7 +38,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
             </div>
           }
         </div>
-      </a>
+      </Link>
     </div>
 }
 

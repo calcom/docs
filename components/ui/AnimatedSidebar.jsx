@@ -2,6 +2,7 @@ import { useState } from "react"
 import cn from "classnames"
 import config from "@/project-config"
 import { ChevronRight } from "@/components/icons/chevronright";
+import Link from "next/link";
 
 export const Cursor = ({ element, fast, className }) => {
   return <div
@@ -29,7 +30,7 @@ export const SidebarItem = ({ page, currentPath, selectedEl, setSelectedEl, setH
         }
       }}
     >
-      <a
+      <Link
         href={pageSlug}
         style={{
           marginLeft: depth*16
@@ -58,7 +59,7 @@ export const SidebarItem = ({ page, currentPath, selectedEl, setSelectedEl, setH
             )}
           />
         )}
-      </a>
+      </Link>
     </div>
     {page?.pages?.length > 0 && (<>
       {page?.pages?.map((subPage,sp) => {

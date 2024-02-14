@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export const getBackgroundColorClass = (color) => {
   switch (color) {
     case "purple": return "bg-purple-500"
@@ -26,7 +28,7 @@ export const getThemeClass = (color) => {
 
 export const PlainCard = ({ title, cta, description, theme, background, customBackground, Icon, href }) => {
   const isWhite = background === "white"
-  return <a
+  return <Link
       href={href}
       className={`relative cursor-pointer rounded-lg flex flex-col gap-4 group p-6 h-full bg-primary-700`}>
       { Icon && <Icon className={`relative z-10 w-8 flex-none ${getThemeClass(theme)}`} />}
@@ -37,7 +39,7 @@ export const PlainCard = ({ title, cta, description, theme, background, customBa
       <div
         style={ customBackground ? { backgroundColor: customBackground } : {} }
         className={`z-0 absolute left-0 right-0 top-0 bottom-0 ${getBackgroundColorClass(background)} transition duration-200 transform rounded-lg ${isWhite ? "group-hover:bg-white border border-primary-700 group-hover:shadow-lg" : "group-hover:bg-primary-700 group-hover:scale-x-[1.03] group-hover:scale-y-[1.09] shadow-md group-hover:shadow-xl"}`} />
-    </a>
+    </Link>
 }
 
 <PlainCard title="Title" description="Description" cta="Get started"/>

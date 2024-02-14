@@ -1,4 +1,3 @@
-import nextMdx from '@next/mdx';
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -7,6 +6,8 @@ import { createLoader } from "simple-functional-loader";
 import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
+
+import { load } from "./markdoc/loader.mjs"
 
 const buildTree = (dir, parentName = "pages") => {
   const result = {};
@@ -44,8 +45,8 @@ const buildTree = (dir, parentName = "pages") => {
   return result;
 };
 
-export default {
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+const nextConfig = {
+  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx", "mdoc"],
   resolve: {
     extensions: [".mdx", ".md"],
   },
@@ -99,8 +100,28 @@ MDXContent.files=${JSON.stringify(files)}`;
           );
         }),
       ],
-    });
+    }
+    , {
+      test: { and: [/\.mdoc$/] },
+      use: [
+        options.defaultLoaders.babel,
+        createLoader(function (source) {
+            const callback = this.async();
+            try {
+              load(source, this.getResolve, this.getOptions, this.resourcePath, this.addContextDependency, files).then(res => {
+                callback(null, res);
+              })
+            } catch (error) {
+              console.error(error);
+              callback(error);
+            }
+          }),
+        ],
+      }
+    );
 
     return config;
   },
 };
+
+export default nextConfig;

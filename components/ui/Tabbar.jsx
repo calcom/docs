@@ -1,3 +1,4 @@
+import * as React from "react"
 import { useMemo, useState } from "react"
 import cn from "classnames"
 
@@ -15,7 +16,7 @@ export const Tabs = ({ children }) => {
       return element.props
     }).filter(Boolean)
   }, [children])
-  
+
   return <div className="flex flex-col">
       <div className="flex flex-row gap-4 flex-none">
         {tabTitlesAndContent?.map((c, i) =>

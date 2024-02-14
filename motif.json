@@ -1,5 +1,4 @@
 {
-  "titleTemplate": "%s - Cal.com Docs",
   "templates": {
     "**/*": "doc",
     "docs": "doc"
