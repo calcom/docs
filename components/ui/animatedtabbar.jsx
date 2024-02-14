@@ -35,6 +35,7 @@ export const AnimatedTabBar = ({ items, selectedIndex, linkClassName, linkSelect
       onMouseLeave={() => { setState(s => ({ ...s, visible: false}))}}>
       { items?.map((item, i) => {
         return <TabBarItem
+            key={`tab-bar-item-${i}`}
             onMouseEnter={(r) => { setState({ rect: r, visible: true })}}
             item={item}
             selected={selectedIndex === i}

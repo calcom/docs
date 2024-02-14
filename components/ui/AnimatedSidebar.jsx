@@ -61,8 +61,8 @@ export const SidebarItem = ({ page, currentPath, selectedEl, setSelectedEl, setH
       </a>
     </div>
     {page?.pages?.length > 0 && (<>
-      {page?.pages?.map((subPage) => {
-        return <div className={!isSelected && "hidden"}>
+      {page?.pages?.map((subPage,sp) => {
+        return <div key={`item-subpage-${sp}`} className={!isSelected && "hidden"}>
             <SidebarItem
               page={subPage}
               currentPath={currentPath}
@@ -89,12 +89,13 @@ export const AnimatedSidebar = ({
     className="relative flex flex-col gap-8 mt-6 md:mt-0"
     onMouseLeave={() => setHoveredEl(undefined) }>
     {sidebarConfig.map((section, si) => {
-      return <div className="flex flex-col gap-0">
+      return <div key={`sidebar-section-${si}`} className="flex flex-col gap-0">
           <p className="text-base uppercase font-semibold text-primary-500 py-1.5">
             {section.title}
           </p>
           { (section.pages || []).map((page, ei) => {
             return <SidebarItem
+                key={`sidebar-item-${ei}`}
                 page={page}
                 currentPath={currentPath}
                 selectedEl={selectedEl}

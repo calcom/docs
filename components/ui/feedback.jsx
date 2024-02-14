@@ -91,7 +91,7 @@ export const TooltipWrapper = ({ children, path, yes, visible, onClickOutside, o
         />}
       delay={[0, 0]}
       duration={[300, 0]}
-      trigger="click"
+      // trigger="click"
       interactive
       className="w-[300px]"
     >

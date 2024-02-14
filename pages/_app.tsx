@@ -24,7 +24,7 @@ const components: any = {
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const meta = (Component as any).meta || {};
-  const filename = (Component as any).filename || {};
+  const filename = (Component as any).filename || '';
   const files = (Component as any).files || {};
 
   return (<>

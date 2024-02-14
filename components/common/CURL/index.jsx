@@ -8,8 +8,8 @@ export const CurlConverter = (props) => {
         <div className="dark:bg-gray-800 bg-gray-100 text-gray-900 dark:text-white rounded p-4">
             <div className="flex justify-between items-center mb-2">
                 <label>Select Language: </label>
-                <select 
-                    value={selectedLanguage} 
+                <select
+                    value={selectedLanguage}
                     onChange={(e) => setSelectedLanguage(e.target.value)}
                 >
                     {Object.keys(props.curlCommands).map(lang => (
@@ -21,9 +21,9 @@ export const CurlConverter = (props) => {
             <h4>Snippet for {selectedLanguage.charAt(0).toUpperCase() + selectedLanguage.slice(1)}:</h4>
             <div className="text-sm bg-gray-100 p-3 rounded">
                     <span className="text-sm uppercase tracking-wide">{props.method}</span>
-            <textarea 
-                class="text-black"
-                value={props.curlCommands[selectedLanguage]} 
+            <textarea
+                className="text-black"
+                value={props.curlCommands[selectedLanguage]}
                 readOnly
                 rows={5}
                 style={{width: '100%'}}

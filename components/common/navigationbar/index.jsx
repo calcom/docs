@@ -78,8 +78,8 @@ export const NavigationBar = ({ showGuides, path, tabs, searchData, idPathMetaMa
       {/*<HorizontalGuide className="absolute left-0 right-0 bottom-0" />*/}
       <Dialog isOpen={isOpen} position="topright" size="xs" onClose={() => setIsOpen(false)}>
         <div className="flex flex-col pt-3 pb-6">
-          { tabs?.map(item => {
-            return <a className="text-neutral-900 hover:text-sky-500 px-6 py-3 transition text-base font-medium outline-none" href={item.href}>{ item.label }</a>
+          { tabs?.map((item, i) => {
+            return <a key={`tabs-${i}`} className="text-neutral-900 hover:text-sky-500 px-6 py-3 transition text-base font-medium outline-none" href={item.href}>{ item.label }</a>
           })}
           <div className="px-6 mt-4 flex justify-start">
             <Button href="/login">Sign in</Button>

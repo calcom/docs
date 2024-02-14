@@ -45,7 +45,6 @@ export const Template = ({ filename, files, path, meta, children }) => {
   const { prev, next } = getPrevNext(config.sidebar, pathMetaMap, path)
 
   const searchData = useMemo(() => {
-    console.log("files", JSON.stringify(files, null, 2));
       return filesToSearchData(files, undefined, "Home")
   }, [files])
 
@@ -78,11 +77,11 @@ export const Template = ({ filename, files, path, meta, children }) => {
           <Search data={searchData} idPathMetaMap={idPathMetaMap} />
         </div>
         <div className="overflow-y-auto hiddenScrollbar h-full pb-10">
-          <div class="sticky z-10 top-0 pointer-events-none ml-[1px]">
-            <div class="h-10 bg-primary-50" />
-            <div class="bg-primary-50 relative pointer-events-auto pr-4 pb-2 h-10">
+          <div className="sticky z-10 top-0 pointer-events-none ml-[1px]">
+            <div className="h-10 bg-primary-50" />
+            <div className="bg-primary-50 relative pointer-events-auto pr-4 pb-2 h-10">
             </div>
-            <div class="h-10 bg-gradient-to-b from-primary-50" />
+            <div className="h-10 bg-gradient-to-b from-primary-50" />
           </div>
           <div className="relative pr-4">
             <AnimatedSidebar

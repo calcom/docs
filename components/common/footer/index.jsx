@@ -12,7 +12,7 @@ export const Footer = ({ sidebar, hideGuides, skipLogoColumn, background, compac
             "grid-cols-1 sm:grid-cols-1": sidebar,
             "grid-cols-1 sm:grid-cols-1 md:grid-cols-1": !sidebar,
           })}>
-          <div class={skipLogoColumn ? "hidden" : "block"}>
+          <div className={skipLogoColumn ? "hidden" : "block"}>
                 <Logo className="h-6" />
           </div>
 
@@ -23,10 +23,10 @@ export const Footer = ({ sidebar, hideGuides, skipLogoColumn, background, compac
                 "sm:hidden": sidebar,
               }
             )} />
-          <ul class="flex justify-between space-x-2">
-            <li>Need help? <a class="text-black underline underline-offset-4" href={config?.links?.slack}>Join our Slack</a>.</li>
-            <li>Star us on <a class="text-black underline underline-offset-4" href={config?.links?.github}>GitHub</a>.</li>
-            <li>Follow Cal.com on <a class="text-black underline underline-offset-4" href={config?.links?.twitter}>Twitter</a>.</li>
+          <ul className="flex justify-between space-x-2">
+            <li>Need help? <a className="text-black underline underline-offset-4" href={config?.links?.slack}>Join our Slack</a>.</li>
+            <li>Star us on <a className="text-black underline underline-offset-4" href={config?.links?.github}>GitHub</a>.</li>
+            <li>Follow Cal.com on <a className="text-black underline underline-offset-4" href={config?.links?.twitter}>Twitter</a>.</li>
 
           </ul>
         </div>
