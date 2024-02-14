@@ -46,7 +46,6 @@ const buildTree = (dir, parentName = "pages") => {
 };
 
 const nextConfig = {
-  basePath: '/docs',
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx", "mdoc"],
   resolve: {
     extensions: [".mdx", ".md"],
