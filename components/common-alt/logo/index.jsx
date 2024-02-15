@@ -3,7 +3,7 @@ import Link from "next/link"
 export const Logo = ({ className }) => {
 
   return <Link
-      href="/docs"
+      href="/"
       aria-label="Cal.com home"
       className="flex flex-row gap-2 items-center group">
       <svg width="168" height="23" className={className} viewBox="0 0 168 23" fill="none" xmlns="http://www.w3.org/2000/svg">

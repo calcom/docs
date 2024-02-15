@@ -11,7 +11,7 @@ export default function Document() {
         <link as='font' crossOrigin='anonymous' href='https://cal.com/fonts/matter/Matter-SemiBold.woff' rel='preload' type='font/woff' />
         <link as='font' crossOrigin='anonymous' href='https://cal.com/fonts/matter/Matter-Regular.woff' rel='preload' type='font/woff' />
         <link as='font' crossOrigin='anonymous' href='https://cal.com/fonts/cal-sans/CalSans-SemiBold.woff2' rel='preload' type='font/woff' />
-        <link rel='shortcut icon' href='/images/Cal.com_pfasr5.svg' />
+        <link rel='shortcut icon' href='/docs/images/Cal.com_pfasr5.svg' />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
         <meta name='apple-mobile-web-app-capable' content='yes' />

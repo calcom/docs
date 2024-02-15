@@ -130,7 +130,7 @@ export const Template = ({ filename, files, path, meta, children }) => {
               {prev &&
                 <NextPrevLink
                   title={prev.title}
-                  slug={prev.href}
+                  slug={`/docs/${prev.href}`}
                   isPrev />
               }
             </div>
@@ -138,7 +138,7 @@ export const Template = ({ filename, files, path, meta, children }) => {
               {next &&
                 <NextPrevLink
                   title={next.title}
-                  slug={next.href} />
+                  slug={`/docs/${next.href}`} />
               }
             </div>
           </div>
