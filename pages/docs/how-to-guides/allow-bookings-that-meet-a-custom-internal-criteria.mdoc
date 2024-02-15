@@ -6,25 +6,25 @@ This guide will walk you through a process of creating a robust system for manag
 
 Let's say, you are managing bookings for an Executive Book Club working with an internal credit based system. The idea is to only allow or confirm bookings when the booker has enough credit to his name in the internal system.
 
-**Step 1: Define Your Booking and Criteria Models** 
+**Step 1: Define Your Booking and Criteria Models**
 
 Create a cal.com event type with the following customizations:
 
 {% img
-src="https://res.cloudinary.com/djp21wtxm/image/upload/v1685709264/i1600x900-4QPYQbLxNfhM_h61gn0.png"
+src="/images/i1600x900-4QPYQbLxNfhM_h61gn0.png"
 legend="An event type that requires confirmation"
  /%}
 
  This would ensure that any booking made using this event-type would first need to be confirmed by the host, which in this case is the internal automated system.
 
-**Step 2: Setting Up a Webhook for Booking Creation Events** 
+**Step 2: Setting Up a Webhook for Booking Creation Events**
 
 Next, you need to setup a webhook so that when an event or a meeting is booked, it will send the payload (including the information of the booker) to a desired subscriber URL, which is where you would handle the internal criterion to decide whether to **confirm** the booking or **reject** it.
 
-{% img src="https://res.cloudinary.com/djp21wtxm/image/upload/v1685709524/i1600x899-ft-Tc1-rtnzD_nijrmb.png" /%}
+{% img src="/images/i1600x899-ft-Tc1-rtnzD_nijrmb.png" /%}
 
 {% note %}
-Please ensure that you have enabled this webhook and the subscriber URL here. Also, please make sure it is the location/URL where you handle the payload and further processing. 
+Please ensure that you have enabled this webhook and the subscriber URL here. Also, please make sure it is the location/URL where you handle the payload and further processing.
 {% /note %}
 
 The default payload is generally of the following format:
@@ -127,7 +127,7 @@ The default payload is generally of the following format:
 ```
 **Step 3: Create a webhook handler**
 
-Your subscriber URL that receives the webhook payload needs to handle it. 
+Your subscriber URL that receives the webhook payload needs to handle it.
 
 When a request comes in, the handler retrieves the booking details from the request body. It then fetches the user details based on the "responses" field in the booking and checks if the user meets the internal criteria. If they do, the handler makes a **PATCH** request to the /bookings API to update the status of the booking to **ACCEPTED**. If not, the booking status is updated to **REJECTED**. We can explore this in the next step.
 
@@ -140,7 +140,7 @@ Finally, you can update the booking status from step 3 by sending API calls to:
 
 {% note %}
 Please make sure to replace {{URL}} with your own custom base URL if you are self-hosting the API, or by https://api.cal.com/ if you are on cal.com cloud. Also, replace {id} with the bookingId you receive in the webhook payload.
-{% /note %} 
+{% /note %}
 
 Let's say the booker fulfils the criteria required for a successful booking, you can send the following API call with the status as "ACCEPTED":
 
@@ -162,7 +162,7 @@ That's it.
 
 **Step 4**: Use the extracted user identifier to fetch detailed information about the user from your internal database or system.
 
-**Step 5**: Once user details are fetched, verify the user against your defined internal criteria. 
+**Step 5**: Once user details are fetched, verify the user against your defined internal criteria.
 
 **Step 6**: If the user meets the internal criteria:
 

@@ -10,7 +10,7 @@
     "<link as='font' crossorigin='anonymous' href='https://cal.com/fonts/matter/Matter-SemiBold.woff' rel='preload' type='font/woff'>",
     "<link as='font' crossorigin='anonymous' href='https://cal.com/fonts/matter/Matter-Regular.woff' rel='preload' type='font/woff'>",
     "<link as='font' crossorigin='anonymous' href='https://cal.com/fonts/cal-sans/CalSans-SemiBold.woff2' rel='preload' type='font/woff'>",
-    "<link rel='shortcut icon' href='https://res.cloudinary.com/djp21wtxm/image/upload/v1663338696/Cal.com_pfasr5.svg' />",
+    "<link rel='shortcut icon' href='/images/Cal.com_pfasr5.svg' />",
     "<link rel='preconnect' href='https://fonts.googleapis.com' />",
     "<link rel='preconnect' href='https://fonts.gstatic.com' />",
     "<meta name='viewport' content='width=device-width, initial-scale=1.0' />",

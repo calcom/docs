@@ -3,10 +3,10 @@ title: Pre-fill fields/questions
 ---
 {% label /%}
 
-You can pre-fill all the fields/questions on the booking form by using their corresponding **identifiers** that you can see under Advanced -> Booking Questions. 
+You can pre-fill all the fields/questions on the booking form by using their corresponding **identifiers** that you can see under Advanced -> Booking Questions.
 
 e.g. for the following field(shown in screenshot), the field would show up as *Agree with your rules* and its identifier is *agreed*. So, we would use *agreed* as query param name to prefill the field.
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531290/i1600x899-lK5qA-PWor5w_nda2mw.png)
+![](/images/i1600x899-lK5qA-PWor5w_nda2mw.png)
 
 This can include the user’s name and email, notes, guests, event location, Reason for reschedule. You can prefill any field added by you as well.
 
@@ -23,11 +23,11 @@ You can integrate the prefill-fields with your booking page URL in a similar way
 ## Pre-filling all fields
 
 **A sample booking form with various fields prefilled.**
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531340/i1600x899--qO8QnRKDrjU_kyp2hw.png)
+![](/images/i1600x899--qO8QnRKDrjU_kyp2hw.png)
 
 
 **Here is how the fields are setup**
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531528/i1600x899-0PXSUpvs2z-W_wox48k.png)
+![](/images/i1600x899-0PXSUpvs2z-W_wox48k.png)
 
 Here is the query used to prefill that form above.
 
@@ -47,15 +47,15 @@ Different type of locations are selected using different values of location. loc
 ### Pre-filling Attendee Address
 ```
 ...other-params...&location={"value":"attendeeInPerson","optionValue":"Delhi"}
-``` 
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531573/i1600x899-Ty_oorQmXnjJ_cm5ysq.png)
+```
+![](/images/i1600x899-Ty_oorQmXnjJ_cm5ysq.png)
 
 
 ### Pre-selecting Organizer Address in Location
 ```
 ...other-params...&location={"value":"inPerson","optionValue":""}
-``` 
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531588/i1600x899-AlmOt5E4diMC_nkjeb4.png)
+```
+![](/images/i1600x899-AlmOt5E4diMC_nkjeb4.png)
 
 
 ### Pre-filling Attendee Phone
@@ -63,13 +63,13 @@ Different type of locations are selected using different values of location. loc
 ...other-params...&location={"value":"phone","optionValue":"%2B919999999999"}
 ```
 *Note: %2B is encoded form of +*
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531609/i1600x899-wVkiblWj8CDH_iwhwrd.png)
+![](/images/i1600x899-wVkiblWj8CDH_iwhwrd.png)
 
 ### Pre-selecting Link Meeting
 ```
 ...other-params...&location={"value":"link","optionValue":""}
 ```
-![](https://res.cloudinary.com/djp21wtxm/image/upload/v1682531616/i1600x899-sGCDXGlvVYT4_uwhpa8.png)
+![](/images/i1600x899-sGCDXGlvVYT4_uwhpa8.png)
 
 ### Pre-selecting a video meeting
 Specify location param like this

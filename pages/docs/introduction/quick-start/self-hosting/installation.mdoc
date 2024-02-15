@@ -23,7 +23,7 @@ To use cal.com with prisma data proxy, you can:
     ```
     PRISMA_GENERATE_DATAPROXY=true
     ```
-2. Set **DATABASE_URL** in the .env file equal to the prisma connection string 
+2. Set **DATABASE_URL** in the .env file equal to the prisma connection string
     ```
     DATABASE_URL="prisma://****:****@****"
     ```
@@ -36,17 +36,17 @@ To use cal.com with prisma data proxy, you can:
     ```
 
 {% note type="warning" %}
-If you are on windows, you would need to use the following command when cloning, with **admin privileges**: 
+If you are on windows, you would need to use the following command when cloning, with **admin privileges**:
 ```
 git clone -c core.symlinks=true https://github.com/calcom/cal.com.git
 ```
 {% /note %}
 
-2. Then, go into the directory you just cloned with 
+2. Then, go into the directory you just cloned with
     ```
     cd cal.com
     ```
-    and run 
+    and run
     ```
     yarn
     ```
@@ -61,7 +61,7 @@ For preview deployments on **Vercel**, please leave the following environment va
  - **NEXT_PUBLIC_WEBAPP_URL**
 {% /note %}
 
-4. Next, use the command 
+4. Next, use the command
     ```
     openssl rand -base64 32
     ```
@@ -88,32 +88,32 @@ echo 'E2E_TEST_MAILHOG_ENABLED=1' >> .env
 **Manual setup**
 
 1. Configure environment variables in the .env file. Replace `<user>`, `<pass>`, `<db-host>`, `<db-port>` with their applicable values
-    
+
     ```
     DATABASE_URL='postgresql://<user>:<pass>@<db-host>:<db-port>'
     ```
 
-2. Set a 24 character random string in your .env file for the `CALENDSO_ENCRYPTION_KEY` (You can use a command like 
+2. Set a 24 character random string in your .env file for the `CALENDSO_ENCRYPTION_KEY` (You can use a command like
     ```
     openssl rand -base64 24
-    ``` 
+    ```
     to generate one).
 
 3. Set up the database using the Prisma schema (found in `apps/web/prisma/schema.prisma`)
-    
+
     ```
     yarn workspace @calcom/prisma db-deploy
     ```
 
 4. Run (in development mode)
-    
+
     ```
     yarn dev
     ```
 
 {% note %}
 When you're testing out the enterprise features locally, you should see a warning shown in the image below, clarifying the need to purchase a license for such features in production.
-{% img src="https://res.cloudinary.com/djp21wtxm/image/upload/v1689169644/i1600x900-E4RcIPb1_bYp_hcpsya.png" /%}
+{% img src="/images/i1600x900-E4RcIPb1_bYp_hcpsya.png" /%}
 {% /note %}
 
 **Setting up your first user**
@@ -121,7 +121,7 @@ When you're testing out the enterprise features locally, you should see a warnin
 In case you didn't use quick start with `yarn dx`, you can set up your first user as follows:
 
 1. Open [Prisma Studio](https://www.prisma.io/studio) to look at or modify the database content:
-    
+
     ```
     yarn db-studio
     ```
@@ -147,10 +147,10 @@ yarn start
 ## **Development quick start with** **`yarn dx`**
 
 > * **Requires Docker and Docker Compose to be installed**
->     
-> 
+>
+>
 > * Will start a local Postgres instance with a few test users - the credentials will be logged in the console
->     
+>
 
 ```
 yarn dx
@@ -158,7 +158,7 @@ yarn dx
 
 ## **Cron Jobs**
 
-There are a few features which require cron job setup. When self-hosting, you would probably need to set up cron jobs according to the hosting platform you are using. 
+There are a few features which require cron job setup. When self-hosting, you would probably need to set up cron jobs according to the hosting platform you are using.
 For instance, if you are hosting on Vercel, you would need to set up cron jobs by following [this document](https://vercel.com/guides/how-to-setup-cron-jobs-on-vercel).
 
 At cal.com, the cron jobs are found in the following directory:
