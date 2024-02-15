@@ -2,7 +2,7 @@ work in progress
 
 get a free marktprompt key at https://markprompt.com/
 
-make .env
+cp .env.example .env
 
 NEXT_PUBLIC_MARKPROMPT_PROJECT_KEY=
 
