@@ -1,5 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
+const https = require('https');
 
 // Define the pattern to search for
 const pattern = /https:\/\/res\.cloudinary\.com\/\S+/g;
@@ -22,25 +23,10 @@ export const uniqNoDeps = (arr) => {
 };
 
 async function downloadFile(fileUrl) {
-  const parsedUrl = new URL(fileUrl);
-  const fileName = path.basename(parsedUrl.pathname);
-  const filePath = path.join("public/images", fileName);
-
-  return new Promise((resolve, reject) => {
-      const file = fs.createWriteStream(filePath);
-      https.get(fileUrl, response => {
-          response.pipe(file);
-          file.on('finish', () => {
-              file.close();
-              console.log(`Downloaded: ${fileName}`);
-              resolve();
-          });
-      }).on('error', err => {
-          fs.unlink(filePath); // Delete the file async. (Ignore errors)
-          console.error(`Error downloading ${fileUrl}: ${err.message}`);
-          reject(err);
-      });
-  });
+  const fileName = fileUrl.split("/").slice(-1)[0]
+  const result = await fetch(fileUrl);
+  const path = "public/images/" + fileName;
+  await Bun.write(path, result);
 }
 
 // Async function to search for the pattern in a file
@@ -93,7 +79,6 @@ const run = async () =>{
   for (const path of allPaths) {
     await downloadFile(path)
   }
-  console.log("All paths", JSON.stringify(allPaths, null, 2))
 }
 
 run()
