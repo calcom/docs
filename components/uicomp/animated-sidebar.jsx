@@ -63,7 +63,7 @@ export const SidebarItem = ({ page, currentPath, selectedEl, setSelectedEl, setH
     </div>
     {page?.pages?.length > 0 && (<>
       {page?.pages?.map((subPage,sp) => {
-        return <div key={`item-subpage-${sp}`} className={!isSelected && "hidden"}>
+        return <div key={`item-subpage-${sp}`} className={!isSelected ? "hidden" : ""}>
             <SidebarItem
               page={subPage}
               currentPath={currentPath}
@@ -107,6 +107,6 @@ export const AnimatedSidebar = ({
           })}
         </div>
       })}
-      <Cursor element={hoveredEl} className={ghostCursorClassName} fast />
+      <Cursor element={hoveredEl} className={`${ghostCursorClassName}`} fast />
     </div>
 }

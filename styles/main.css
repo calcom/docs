@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'markprompt.css';
+
 @font-face {
   font-family: "Cal Sans";
   src: url("https://cal.com/fonts/cal-sans/CalSans-SemiBold.woff2")
@@ -340,4 +342,61 @@ pre {
   100% {
     opacity: 0.2;
   }
+}
+
+.MarkpromptOverlay {
+  z-index: 90;
+}
+
+.MarkpromptContentDialog {
+  z-index: 100;
+}
+
+.MarkpromptPromptWrapper {
+  @apply py-2 pl-4 pr-0 rounded-full border-2;
+
+}
+
+.MarkpromptPromptSubmitButton {
+  @apply rounded-full bg-black text-white py-2 pl-4 pr-2 disabled:bg-neutral-200 text-base !important;
+}
+
+.MarkpromptClose {
+  @apply p-1 text-xs bg-white;
+}
+
+.MarkpromptPromptSubmitButton {
+  @apply px-2 py-1;
+}
+
+.MarkpromptMessageAnswer {
+  @apply pt-4 pb-8;
+}
+
+.MarkpromptGhostThumbButton {
+  @apply p-1;
+}
+
+.MarkpromptReferences ul {
+  @apply pl-16 pt-2;
+}
+
+.MarkpromptMessagePromptText {
+  @apply py-4 mb-0 m-0 !important;
+}
+
+.MarkpromptReference {
+  @apply text-black;
+}
+
+.MarkpromptSelectToggle {
+  @apply p-2;
+}
+
+.MarkpromptFooter {
+  @apply -mt-2 pt-0 !important;
+}
+
+.MarkpromptFooter a {
+  @apply text-black !important;
 }

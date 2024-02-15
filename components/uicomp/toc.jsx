@@ -87,7 +87,7 @@ export const Item = ({
 }
 
 export const TreeItem = ({
-  key = undefined,
+  // key = undefined,
   item = undefined,
   depth = undefined,
 }) => {
@@ -95,10 +95,10 @@ export const TreeItem = ({
   if (item.items?.length > 0) {
     return (
       <Item id={item.id} title={title} href={item.href} depth={depth || 0}>
-        {item.items.map((childItem) => {
+        {item.items.map((childItem, i) => {
           return (
             <TreeItem
-              key={`${key}-${childItem.id}`}
+              key={`tree-item-${i}`}
               item={childItem}
               depth={(depth || 0) + 1}
             />
@@ -124,8 +124,8 @@ export const Tree = ({
       <TOCThemeProvider theme={theme} isAllExpanded={expandAll}>
         <TOCProvider entries={entries} activeId={activeId}>
           <div className="flex flex-col gap-1">
-            {entries?.map((entry) => {
-              return <TreeItem key={entry.id} item={entry} />
+            {entries?.map((entry, i) => {
+              return <TreeItem key={`toc-entry-${i}`} item={entry} />
             })}
           </div>
         </TOCProvider>

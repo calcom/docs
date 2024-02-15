@@ -1,6 +1,9 @@
 import * as React from "react";
 
+import { Markprompt } from '@markprompt/react';
+
 import cn from "classnames"
+import { Sparkles } from "@components/icons-alt/sparkles"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { removeFileExtension, toPathMetaMap, toIdPathMetaMap } from "@utils/files"
 import { Template as BaseTemplate } from "@templates/base"
@@ -163,7 +166,12 @@ export const Template = ({ filename, files, path, meta, children }) => {
           </div>
         </div>
       </Section>
-        {/* <Prompt files={files} /> */}
+      <Markprompt projectKey={process.env.NEXT_PUBLIC_MARKPROMPT_PROJECT_KEY} chat={{history: false}}>
+        <button className="fixed bottom-8 right-8 border rounded-full z-40 bg-black py-3 pl-5 pr-6 hover:bg-neutral-800 transition cusor-pointer outline-none flex flex-row items-center gap-2 text-white uppercase">
+          <Sparkles className="w-5 h-5 text-white" />
+          Ask AI
+        </button>
+      </Markprompt>
     </BaseTemplate>
   )
 }
