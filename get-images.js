@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const https = require('https');
+import { readdir } from "node:fs/promises";
 
 // Define the pattern to search for
 const pattern = /https:\/\/res\.cloudinary\.com\/\S+/g;
@@ -74,11 +75,9 @@ async function traverseDirectory(dirPath) {
   return allPaths
 }
 
-const run = async () =>{
+const findAndDownloadCloudinaryUrls = async () =>{
   const allPaths = await traverseDirectory(".")
   for (const path of allPaths) {
     await downloadFile(path)
   }
 }
-
-run()
