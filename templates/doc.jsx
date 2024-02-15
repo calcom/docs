@@ -98,7 +98,7 @@ export const Template = ({ filename, files, path, meta, children }) => {
       </div>
       <Section>
         <div className="hidden md:block"/>
-        <div className={cn("prose prose-neutral prose-md sm:prose-lg z-10 max-w-none ", {
+        <div id="content" className={cn("prose prose-neutral prose-md sm:prose-lg z-10 max-w-none ", {
           "sm:col-span-2": !meta?.fullWidth,
           "sm:col-span-3": meta?.fullWidth,
         })}>

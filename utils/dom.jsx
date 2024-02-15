@@ -55,6 +55,7 @@ export const useHeadingsData = (contentId, headingIndices) => {
   const [nestedHeadings, setNestedHeadings] = useState([]);
 
   useEffect(() => {
+    const contentId = "content"
     const updateHeadings = () => {
       const headingElements = Array.from(
         document.querySelectorAll(
