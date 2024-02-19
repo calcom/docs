@@ -123,6 +123,16 @@ MDXContent.files=${JSON.stringify(files)}`;
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/docs',
+        permanent: true,
+        basePath: false,
+      },
+    ]
+  },
 };
 
 export default nextConfig;
