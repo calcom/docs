@@ -138,7 +138,7 @@ export const initialState = {
   limit: 0,
 }
 
-export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'description'], idPathMetaMap }) => {
+export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'description'], idPathMetaMap, basePath = "/docs" }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const fuseRef = useRef()
   const searchInputRef = useRef()
@@ -187,7 +187,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
       case "Escape": dispatch({ type: 'SET_RESULTS', results: [] }); break;
       case "Enter": {
         dispatch({ type: 'SET_RESULTS', results: [] })
-        window.open(state.results[state.selectedIndex]?.path, "_self");
+        window.open(basePath+state.results[state.selectedIndex]?.path, "_self");
         break;
       }
       default: break
