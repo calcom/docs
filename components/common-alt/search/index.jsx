@@ -187,7 +187,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
       case "Escape": dispatch({ type: 'SET_RESULTS', results: [] }); break;
       case "Enter": {
         dispatch({ type: 'SET_RESULTS', results: [] })
-        window.open(basePath+state.results[state.selectedIndex]?.path, "_self");
+        window.open(basePath + state.results[state.selectedIndex]?.path, "_self");
         break;
       }
       default: break
