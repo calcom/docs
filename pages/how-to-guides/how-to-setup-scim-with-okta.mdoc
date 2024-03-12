@@ -38,4 +38,20 @@ title: "Setting up SCIM with Okta"
     - "Create User"
     - "Update User Attributes"
     - "Deactivate User"
-12. Under "{Your application name} Attribute Mapping" 
+12. Under "{Your application name} Attribute Mapping", remove all fields except for:
+    - "username"
+    - "givenName"
+    - "familyName"
+    - "email"
+    - "displayName"
+13. Set each of these of these properties to "Map from Okta Profile" and the related field. Under "Apply On" select "Create and Update"
+    {%img src="/docs/images/scim/okta-property-settings.png" /%}
+14. You can now assign users and groups to the app.
+
+## Mapping Okta Groups to Cal.com Teams
+When provisioning groups to your organization, Okta groups can be mapped to teams within your organization and users will be auto assigned to these teams.
+
+On `{BASE_URL}/settings/organization/dsync` there is a table with the teams under your organization. Click on "Add group name" to map the Okta group to the team. **Note:
+The group name must be spelt exactly as it is shown on Okta.**. When you push the group to your organization then those users will automatically be added to the team.
+
+{%img src="/docs/images/scim/group-team-mapping.png" /%}
