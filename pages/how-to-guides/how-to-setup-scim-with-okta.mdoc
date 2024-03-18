@@ -14,15 +14,15 @@ title: "Setting up SCIM with Okta"
     {%img src="/docs/images/i1600x900-IfRWYg8XuCMI_tkwyft.png" /%}
 6. Once the application is created, under General -> App Settings, click "Edit" and click the checkbox "Enable SCIM provisioning
 "
-    {%img src="/docs/images/scim/app-settings-enable-scim.png" /%}
+    {%img src="/docs/images/scim/app-settings-enable-scim.webp" /%}
 7. Next go to your instance of Cal.com and navigate to `{BASE_URL}/settings/organization/dsync` and click configure.
-    {%img src="/docs/images/scim/dsync-configure.png" /%}
+    {%img src="/docs/images/scim/dsync-configure.webp" /%}
 8. In the "Configure Directory Sync" from choose a directory sync name and choose "Okta SCIM v2.0" as the "Directory Provider"
-    {%img src="/docs/images/scim/dsync-configure-provider.png" /%}
+    {%img src="/docs/images/scim/dsync-configure-provider.webp" /%}
 9. Take note of the "SCIM Base URL" and "SCIM Bearer Token"
-    {%img src="/docs/images/scim/dsync-configure-info.png" /%}
+    {%img src="/docs/images/scim/dsync-configure-info.webp" /%}
 10. Okta go to your application. Navigate to the "Provisioning" tab and click "Integration" under "Settings".
-    {%img src="/docs/images/scim/okta-dsync-options.png" /%}
+    {%img src="/docs/images/scim/okta-dsync-options.webp" /%}
     - Under "SCIM connector base URL" enter the "SCIM Base URL" from Cal.com
     - Under "Unique identifier field for users" enter "email"
     - Under "Supported provisioning actions" enable: 
@@ -45,7 +45,7 @@ title: "Setting up SCIM with Okta"
     - "email"
     - "displayName"
 13. Set each of these of these properties to "Map from Okta Profile" and the related field. Under "Apply On" select "Create and Update"
-    {%img src="/docs/images/scim/okta-property-settings.png" /%}
+    {%img src="/docs/images/scim/okta-property-settings.webp" /%}
 14. You can now assign users and groups to the app.
 
 ## Mapping Okta Groups to Cal.com Teams
@@ -54,4 +54,4 @@ When provisioning groups to your organization, Okta groups can be mapped to team
 On `{BASE_URL}/settings/organization/dsync` there is a table with the teams under your organization. Click on "Add group name" to map the Okta group to the team. **Note:
 The group name must be spelt exactly as it is shown on Okta.**. When you push the group to your organization then those users will automatically be added to the team.
 
-{%img src="/docs/images/scim/group-team-mapping.png" /%}
+{%img src="/docs/images/scim/group-team-mapping.webp" /%}
