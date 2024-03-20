@@ -590,6 +590,10 @@ export default {
           href: "/how-to-guides/how-to-setup-oidc-with-okta",
         },
         {
+          title: "How to set up SCIM with Okta",
+          href: "/how-to-guides/how-to-setup-scim-with-okta",
+        },
+        {
           title:
             "How to split fullname into firstname and lastname in the public booking page",
           href: "/how-to-guides/how-to-split-firstname-lastname-booking",
