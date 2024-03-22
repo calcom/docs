@@ -437,6 +437,10 @@ export default {
                   href: "/enterprise-features/api/api-reference/event-types",
                 },
                 {
+                  title: "Me",
+                  href: "/enterprise-features/api/api-reference/me",
+                },
+                {
                   title: "Memberships",
                   href: "/enterprise-features/api/api-reference/memberships",
                 },
@@ -451,6 +455,10 @@ export default {
                 {
                   title: "Selected calendars",
                   href: "/enterprise-features/api/api-reference/selected-calendars",
+                },
+                {
+                  title: "Slots",
+                  href: "/enterprise-features/api/api-reference/slots",
                 },
                 {
                   title: "Teams",
