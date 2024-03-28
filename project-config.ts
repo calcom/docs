@@ -540,6 +540,10 @@ export default {
           href: "/how-to-guides/allow-bookings-that-meet-a-custom-internal-criteria",
         },
         {
+          title: "How to show and assign people from a CRM",
+          href: "/how-to-guides/how-to-show-assigned-people-from-a-crm",
+        },
+        {
           title: "Can Cal.com sponsor my open source project?",
           href: "/how-to-guides/can-calcom-sponsor-my-open-source-project",
         },
