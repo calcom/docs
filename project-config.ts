@@ -500,6 +500,16 @@ export default {
       ],
     },
     {
+      title: "Platform",
+      kind: "group",
+      pages: [
+        {
+          title: "Quickstart",
+          href: "/platform/quick-start"
+        }
+      ]
+    },
+    {
       title: "Knowledgebase",
       kind: "group",
       pages: [
