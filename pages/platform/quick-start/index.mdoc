@@ -2,13 +2,15 @@
 title: Platform Quickstart
 description: Find out how to use Cal "atoms" to integrate scheduling into your product.
 ---
+## 1. Unlocking access to atoms
+1. It is required to finish payment using Stripe link we send you.
+2. We will setup your Cal platform account and send you e-mail and password to login and proceed to the next steps of setting up atoms.
 
-
-## 1. Setting up an OAuth client
+## 2. Setting up an OAuth client
 
 The first step is to create an OAuth client, which will allow to connect your users to Cal, so that atoms can handle their scheduling.
 
-1. Open OAuth clients settings page [https://app.cal.com/settings/organizations/platform/oauth-clients](https://app.cal.com/settings/organizations/platform/oauth-clients)
+1. After logging in using credentials we provided you, open OAuth clients settings page [https://app.cal.com/settings/organizations/platform/oauth-clients](https://app.cal.com/settings/organizations/platform/oauth-clients)
 2. Add an OAuth client.
     1. Name: anything is fine, you can call it, for example, same as your company.
     2. Redirect URIs: Used to validate internal requests made by the atoms. You can example any URI of your company’s domain e.g. in our case cal.com.
@@ -18,7 +20,7 @@ The first step is to create an OAuth client, which will allow to connect your us
         3. Schedule: used to represent when a user is available, From what to what time and when can an event type be booked. For example, Alice only can be booked for the Italian lessons on Mondays and Tuesdays from 9AM to 16PM.
         4. Profile: When you proceed to the chapter 2, you will create your users on our end, so that we can manage their scheduling. Profile permissions allow to either read or update user you create on our end.
 
-## 2. Creating managed users connected to the OAuth client
+## 3. Creating managed users connected to the OAuth client
 
 In order for atoms to handle scheduling on behalf of your users, you have to create what we call a “managed user” for each of your users. “Managed user” is a representation of your user within our database containing basic information like e-mail and is used to manage the setup of Google Calendar. After creating a “managed user” you will receive an access and a refresh tokens that are used by atoms to handle scheduling and can be used to modify “managed user” information, so make sure to store the tokens and the [cal.com](http://cal.com) userId in your database. Also, you will have to connect each user on your end with the access and refresh tokens, for example, by adding new properties on your User model in database that store the tokens.
 
@@ -74,7 +76,7 @@ Make sure to store access and refresh tokens in your database and connect them t
 
 You will need access token to setup atoms so that they can handle scheduling on behalf of the user associated with the token and refresh token to implement endpoint on your end that is used to refresh user tokens.
 
-## 3. Backend: setting up refresh token endpoint
+## 4. Backend: setting up refresh token endpoint
 
 You have to setup an endpoint on your server to which atoms can send an expired access token and receive new one in return. This exchange will be automatically handled by atoms when you provide this endpoint URL when setting up frontend in the next step.
 
@@ -99,11 +101,11 @@ Shortly:
 
 The atoms now will use the new access token to handle scheduling on behalf of your user.
 
-## 4. Frontend: setting up atoms
+## 5. Frontend: setting up atoms
 
 Atoms are customizable UI components handling scheduling on behalf of your users.
 
-### 4.1 Install the atoms package
+### 5.1 Install the atoms package
 
 npm:
 
@@ -123,7 +125,7 @@ pnpm:
 pnpm add @calcom/atoms
 ```
 
-### 4.2 Setup environment variables
+### 5.2 Setup environment variables
 
 CAL_OAUTH_CLIENT_ID: OAuth client ID
 
@@ -131,7 +133,7 @@ CAL_API_URL: [http://api.cal.com/api/v2](http://localhost:5555/api/v2/oauth-clie
 
 REFRESH_URL:  URL of the endpoint you implemented in step 3, for example, your.api.com/api/refresh
 
-### 4.3 Setup root of your app
+### 5.3 Setup root of your app
 
 Next.js: open _app.js or or _app.tsx.
 
@@ -208,7 +210,7 @@ function MyApp({ Component, pageProps }) {
 export default MyApp;
 ```
 
-## 5. Frontend: using atoms
+## 6. Frontend: using atoms
 
 It’s very easy, just import the atom and drop it in code! For example, for users to connect their Google Calendar drop in GcalConnect - it will handle everything.
 
