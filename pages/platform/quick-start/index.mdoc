@@ -28,7 +28,7 @@ We now need OAuth client’s “client ID” and “client secret” that you ca
 
 ### Request
 
-You have to make a POST request to [https://api-v2.cal.com/oauth-clients/YOUR_CLIENT_ID/users](https://api-v2.cal.com/oauth-clients/:clientId/users):
+You have to make a POST request to [https://api.cal.com/v2/oauth-clients/YOUR_CLIENT_ID/users](https://api.cal.com/v2/oauth-clients/:clientId/users):
 
 1. Replace “YOUR_CLIENT_ID” in the URL with your “client ID”.
 2. Add "x-cal-secret-key” header with the value of your “client secret”.
@@ -41,7 +41,7 @@ You have to make a POST request to [https://api-v2.cal.com/oauth-clients/YOUR_CL
     
 #### Example request
 
-URL: http://api.cal.com/api/v2/oauth-clients/7Dcxu2fclb10001kha9x1dreyl4/users
+URL: https://api.cal.com/v2/oauth-clients/7Dcxu2fclb10001kha9x1dreyl4/users
 
 Headers: { "x-cal-secret-key”: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX}
 
@@ -89,7 +89,7 @@ You can check an example refresh token endpoint in our atoms examples app: [http
 Shortly:
 
 1. Setup environment variables or pass values directly. Here are ones from examples app above:
-    1. NEXT_PUBLIC_CALCOM_API_URL: [http://api.cal.com/api/v2](http://localhost:5555/api/v2/oauth-clients/%7B%7BCLIENT_ID%7D)
+    1. NEXT_PUBLIC_CALCOM_API_URL: [https://api.cal.com/v2](https://api.cal.com/v2)
     2. NEXT_PUBLIC_X_CAL_ID: your OAuth client ID
     3. X_CAL_SECRET_KEY - your OAuth client secret
 2. Your endpoint will receive a request from atoms.
@@ -129,7 +129,7 @@ pnpm add @calcom/atoms
 
 CAL_OAUTH_CLIENT_ID: OAuth client ID
 
-CAL_API_URL: [http://api.cal.com/api/v2](http://localhost:5555/api/v2/oauth-clients/%7B%7BCLIENT_ID%7D)
+CAL_API_URL: [https://api.cal.com/v2](https://api.cal.com/v2)
 
 REFRESH_URL:  URL of the endpoint you implemented in step 3, for example, your.api.com/api/refresh
 
