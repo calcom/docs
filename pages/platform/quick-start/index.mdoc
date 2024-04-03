@@ -22,11 +22,18 @@ The first step is to create an OAuth client, which will allow to connect your us
 
 ## 3. Creating managed users connected to the OAuth client
 
-In order for atoms to handle scheduling on behalf of your users, you have to create what we call a “managed user” for each of your users. “Managed user” is a representation of your user within our database containing basic information like e-mail and is used to manage the setup of Google Calendar. After creating a “managed user” you will receive an access and a refresh tokens that are used by atoms to handle scheduling and can be used to modify “managed user” information, so make sure to store the tokens and the [cal.com](http://cal.com) userId in your database. Also, you will have to connect each user on your end with the access and refresh tokens, for example, by adding new properties on your User model in database that store the tokens.
+In order for atoms to handle scheduling on behalf of your users, you have to create what we call a “managed user” for each of your users.
+
+#### What is a “Managed user”?
+A representation of your user within our database containing basic information like e-mail and is used to manage the setup of Google Calendar.
+After creating a “managed user” you will receive an access and a refresh tokens that are used by atoms to handle scheduling and can be used to modify “managed user” information, so make sure to store the tokens and the [cal.com](http://cal.com) userId in your database. Also, you will have to connect each user on your end with the access and refresh tokens, for example, by adding new properties on your User model in database that store the tokens.
+
+#### What is it not?
+It's important to clarify that a "managed user" is completely independent of user accounts on cal.com and you don't need to register users on the cal.com web application.
+
+### Create managed users via our API
 
 We now need OAuth client’s “client ID” and “client secret” that you can find in [https://app.cal.com/settings/organizations/platform/oauth-clients](https://app.cal.com/settings/organizations/platform/oauth-clients).
-
-### Request
 
 You have to make a POST request to [https://api.cal.com/v2/oauth-clients/YOUR_CLIENT_ID/users](https://api.cal.com/v2/oauth-clients/:clientId/users):
 
