@@ -682,5 +682,15 @@ export default {
         },
       ],
     },
+    {
+      title: "Troubleshooting Guides",
+      kind: "group",
+      pages: [
+        {
+          title: "Event Type slot display issues",
+          href: "/troubleshooting-guides/booking-page/event-type-slot-availability-issues",
+        },
+      ],
+    },
   ],
 };
