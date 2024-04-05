@@ -687,8 +687,14 @@ export default {
       kind: "group",
       pages: [
         {
-          title: "Event Type slot display issues",
-          href: "/troubleshooting-guides/booking-page/event-type-slot-availability-issues",
+          title: "Problems related to the booking page",
+          href: "/troubleshooting-guides/booking-page",
+          pages: [
+            {
+              title: "Event Type slot display issues",
+              href: "/troubleshooting-guides/booking-page/event-type-slot-availability-issues",
+            }
+          ]
         },
       ],
     },
