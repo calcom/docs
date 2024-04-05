@@ -659,6 +659,10 @@ export default {
           href: "/how-to-guides/setting-up-mailtrap-for-email-testing",
         },
         {
+          title: "Setting up location of team events",
+          href: "/how-to-guides/setting-up-location-of-team-events",
+        },
+        {
           title: "Setting up your availability",
           href: "/how-to-guides/setting-up-your-availability",
           pages: [
