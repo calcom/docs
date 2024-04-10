@@ -10,15 +10,16 @@ description: Find out how to use Cal "atoms" to integrate scheduling into your p
 
 The first step is to create an OAuth client, which will allow to connect your users to Cal, so that atoms can handle their scheduling.
 
-1. After logging in using credentials we provided you, open OAuth clients settings page [https://app.cal.com/settings/organizations/platform/oauth-clients](https://app.cal.com/settings/organizations/platform/oauth-clients)
+1. After logging in using provided credentials, open OAuth clients settings page [https://app.cal.com/settings/organizations/platform/oauth-clients](https://app.cal.com/settings/organizations/platform/oauth-clients)
 2. Add an OAuth client.
-    1. Name: anything is fine, you can call it, for example, same as your company.
-    2. Redirect URIs: Used to validate internal requests made by the atoms. You can example any URI of your company’s domain e.g. in our case cal.com.
+    1. Name: anything is fine, you can call it, for example, same as your company or your website.
+    2. Redirect URIs: Used to validate internal requests origin and allow redirections on your platform when needed. You can example any URI of your company’s domain e.g. in our case cal.com.
     3. Permissions - most likely you need all enabled:
         1. Event type: event type is a user event that others can book. For example, Alice is a language teacher and she has an event type “30 minutes Italian lesson” that others can then book.
         2. Booking: When Bob books the Italian lesson, a booking is created showing up on the calendar that Alice connected to using atoms.
         3. Schedule: used to represent when a user is available, From what to what time and when can an event type be booked. For example, Alice only can be booked for the Italian lessons on Mondays and Tuesdays from 9AM to 16PM.
         4. Profile: When you proceed to the chapter 2, you will create your users on our end, so that we can manage their scheduling. Profile permissions allow to either read or update user you create on our end.
+        5. Apps: used to connect Google Calendar, Zoom, Microsoft Teams, etc. to atoms.
 
 ## 3. Creating managed users connected to the OAuth client
 
@@ -26,10 +27,10 @@ In order for atoms to handle scheduling on behalf of your users, you have to cre
 
 #### What is a “Managed user”?
 A representation of your user within our database containing basic information like e-mail and is used to manage the setup of Google Calendar.
-After creating a “managed user” you will receive an access and a refresh tokens that are used by atoms to handle scheduling and can be used to modify “managed user” information, so make sure to store the tokens and the [cal.com](http://cal.com) userId in your database. Also, you will have to connect each user on your end with the access and refresh tokens, for example, by adding new properties on your User model in database that store the tokens.
+After creating a “managed user” you will receive user id, an access and a refresh tokens that are used by atoms to handle scheduling and can be used to modify “managed user” information, so make sure to store the tokens and the [cal.com](http://cal.com) userId in your database. Also, you will have to connect each user on your end with the access and refresh tokens, for example, by adding new properties on your User model in database that store the tokens.
 
 #### What is it not?
-It's important to clarify that a "managed user" is completely independent of user accounts on cal.com and you don't need to register users on the cal.com web application.
+It's important to clarify that a "managed user" is completely independent of a regular user account on cal.com, meaning you don't need your users to register on cal.com web application.
 
 ### Create managed users via our API
 
@@ -54,7 +55,7 @@ Headers: { "x-cal-secret-key”: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX}
 
 Body:
 
-```jsx
+```js
 {
     "email": "bob@example.com",
     "timeZone": "America/New_York"
@@ -64,7 +65,7 @@ Body:
 
 #### Example response
 
-```jsx
+```js
 {
   "status": "success",
   "data": {
@@ -79,9 +80,9 @@ Body:
 }
 ```
 
-Make sure to store access and refresh tokens in your database and connect them to each user. For example, you can add “calAtomsAccessToken” and “calAtomsRefreshToken” properties to your user database model.
+Make sure to store the user id, access and refresh tokens in your database and connect them to each user. For example, you can add “calAtomsAccessToken” and “calAtomsRefreshToken” properties to your user database model.
 
-You will need access token to setup atoms so that they can handle scheduling on behalf of the user associated with the token and refresh token to implement endpoint on your end that is used to refresh user tokens.
+You will be able to provide an access token to our atoms so that they can handle scheduling on behalf of the user associated with the token. access tokens expires, so you will have to refresh them using the refresh token.
 
 ## 4. Backend: setting up refresh token endpoint
 
@@ -102,11 +103,14 @@ Shortly:
 2. Your endpoint will receive a request from atoms.
 3. Make it a GET endpoint to which “Authorization: Bearer accessToken” header can be sent to. 
 4. Assuming you have stored access and refresh tokens in your database and connected them to a specific user, fetch the user based on the received access token.
-5. Using providing it client ID, client secret and refresh token make a request to our “oauth/:clientId/refresh” endpoint.
+5. Provide client ID, client secret and refresh token make a request to our “oauth/:clientId/refresh” endpoint.
 6. Store access and refresh tokens returned by the SDK in your database.
-7. Return access token to the request.
+7. Return access token to the request. it should be in the format of:
+  ```js
+  { accessToken: "fresh access token" }
+  ```
 
-The atoms now will use the new access token to handle scheduling on behalf of your user.
+The atoms will now use the new access token to handle scheduling on behalf of your user.
 
 ## 5. Frontend: setting up atoms
 
@@ -148,7 +152,7 @@ React: open App.js or App.ts.
 
 First, import global css styles used by atoms.
 
-```jsx
+```js
 import "@calcom/atoms/globals.min.css";
 
 function MyApp({ Component, pageProps }) {
@@ -162,7 +166,7 @@ export default MyApp;
 
 Second, import CalProvider that provides necessary information to atoms and wrap your components with it.
 
-```jsx
+```js
 import "@calcom/atoms/globals.min.css";
 import { CalProvider } from '@calcom/atoms';
 
@@ -185,7 +189,7 @@ export default MyApp;
 
 Third, CalProvider needs to get access token of the user for which atoms will handle scheduling, so you need to fetch user and provide its access token to the CalProvider.
 
-```jsx
+```js
 import "@calcom/atoms/globals.min.css";
 import { CalProvider } from '@calcom/atoms';
 
@@ -221,7 +225,7 @@ export default MyApp;
 
 It’s very easy, just import the atom and drop it in code! For example, for users to connect their Google Calendar drop in GcalConnect - it will handle everything.
 
-```jsx
+```js
 import { GcalConnect } from "@calcom/atoms";
 
 ...
@@ -236,13 +240,13 @@ export default function Connect() {
 
 If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop that every atom has:
 
-```jsx
+```js
 <GcalConnect className="text-white hover:bg-orange-700" />
 ```
 
 other more complex atoms will expose multiple classNames and props to react to events happening in the atoms
 
-```jsx
+```js
 <AvailabilitySettings
   customClassNames={{
     subtitlesClassName: "text-red-500",
