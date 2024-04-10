@@ -506,6 +506,10 @@ export default {
         {
           title: "Quickstart",
           href: "/platform/quick-start"
+        },
+        {
+          title: "FAQ",
+          href: "/platform/faq"
         }
       ]
     },
