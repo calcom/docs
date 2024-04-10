@@ -504,6 +504,10 @@ export default {
       kind: "group",
       pages: [
         {
+          title: "Welcome",
+          href: "/platform"
+        },
+        {
           title: "Quickstart",
           href: "/platform/quick-start"
         },
