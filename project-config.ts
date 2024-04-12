@@ -551,7 +551,7 @@ export default {
             },
             {
               title: "Build a greeter app",
-              href: "/how-to-guides/app-store-and-integrations/how-to-build-an-app/build-a-greeter-app",
+              href: "/how-to-guides/app-store-and-integrations/build-a-greeter-app",
             },
             {
               title:
@@ -565,7 +565,7 @@ export default {
             },
             {
               title: "How to show and assign people from a CRM",
-              href: "/how-to-guides/how-to-show-assigned-people-from-a-crm",
+              href: "/how-to-guides/app-store-and-integrations/how-to-show-assigned-people-from-a-crm",
             },
           ]
         },
@@ -708,7 +708,7 @@ export default {
           pages: [
             {
               title: "How to white label the self hosted instance",
-              href: "/how-to-guides/how-to-white-label-the-self-hosted-instance",
+              href: "/how-to-guides/whitelabel/how-to-white-label-the-self-hosted-instance",
             },
           ]
         },
