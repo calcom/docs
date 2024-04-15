@@ -546,143 +546,183 @@ export default {
       kind: "group",
       pages: [
         {
-          title: "Manage a license key",
-          href: "/how-to-guides/acquire-and-manage-a-license-key",
+          title: "App store and integrations",
+          href: "/how-to-guides/app-store-and-integrations",
+          pages: [
+            {
+              title: "Adding your first app",
+              href: "/how-to-guides/app-store-and-integrations/adding-your-first-app",
+            },
+            {
+              title: "How to build an app",
+              href: "/how-to-guides/app-store-and-integrations/how-to-build-an-app",
+            },
+            {
+              title: "Build a greeter app",
+              href: "/how-to-guides/app-store-and-integrations/build-a-greeter-app",
+            },
+            {
+              title:
+                "How to sync third party apps with a self-hosted Cal.com instance",
+              href: "/how-to-guides/app-store-and-integrations/syncing-third-party-apps-with-self-hosted-cal-com",
+            },
+            {
+              title:
+                "How to use open-source scheduling infrastructure with HubSpot",
+              href: "/how-to-guides/app-store-and-integrations/how-to-use-open-source-scheduling-infrastructure-with-hubspot",
+            },
+            {
+              title: "How to show and assign people from a CRM",
+              href: "/how-to-guides/app-store-and-integrations/how-to-show-assigned-people-from-a-crm",
+            },
+          ]
         },
         {
-          title: "Adding your first app",
-          href: "/how-to-guides/adding-your-first-app",
+          title: "Auth and provision",
+          href: "/how-to-guides/auth-and-provision",
+          pages: [
+            {
+              title: "How to set up OIDC with Okta",
+              href: "/how-to-guides/auth-and-provision/how-to-setup-oidc-with-okta",
+            },
+            {
+              title: "How to set up SCIM with Okta",
+              href: "/how-to-guides/auth-and-provision/how-to-setup-scim-with-okta",
+            },
+          ]
         },
         {
-          title: "Allowing Bookings That Meet a Custom Internal Criteria",
-          href: "/how-to-guides/allow-bookings-that-meet-a-custom-internal-criteria",
+          title: "Availability",
+          href: "/how-to-guides/availability",
+          pages: [
+            {
+              title: "Adding date override",
+              href: "/how-to-guides/availability/adding-date-override",
+            },
+            {
+              title: "Setting up your availability",
+              href: "/how-to-guides/availability/setting-up-your-availability"
+            },
+          ]
         },
         {
-          title: "How to show and assign people from a CRM",
-          href: "/how-to-guides/how-to-show-assigned-people-from-a-crm",
+          title: "Bookings",
+          href: "/how-to-guides/bookings",
+          pages: [
+            {
+              title: "Allowing Bookings That Meet a Custom Internal Criteria",
+              href: "/how-to-guides/bookings/allow-bookings-that-meet-a-custom-internal-criteria",
+            },
+            {
+              title: "How to get notified on slack whenever you're booked",
+              href: "/how-to-guides/bookings/how-to-get-slack-notification-on-booking",
+            },
+            {
+              title: "How to hide and prefill booking questions in embeds",
+              href: "/how-to-guides/bookings/how-to-hide-and-prefill-booking-question-in-embeds",
+            },
+            {
+              title:
+                "How to split fullname into firstname and lastname in the public booking page",
+              href: "/how-to-guides/bookings/how-to-split-firstname-lastname-booking",
+            },
+          ]
+        },
+        {
+          title: "Calendar",
+          href: "/how-to-guides/calendar",
+          pages: [
+            {
+              title: "Connect apple calendar with calcom",
+              href: "/how-to-guides/calendar/how-to-connect-apple-calendar-with-calcom",
+            },
+            {
+              title: "Providing necessary google calendar integration permissions",
+              href: "/how-to-guides/calendar/providing-necessary-permission-to-google-calendar",
+            },
+          ]
+        },
+        {
+          title: "Event types",
+          href: "/how-to-guides/event-types",
+          pages: [
+            {
+              title: "Creating a recurring event",
+              href: "/how-to-guides/event-types/creating-a-recurring-event",
+            },
+            {
+              title: "Creating a secret event type",
+              href: "/how-to-guides/event-types/creating-a-secret-event-type",
+            },
+            {
+              title: "Creating your first event type",
+              href: "/how-to-guides/event-types/creating-your-first-event-type",
+            },
+            {
+              title: "How to add a location to your event type",
+              href: "/how-to-guides/event-types/how-to-add-a-location-to-your-event-type",
+            },
+            {
+              title: "Adding Zoom as the Meeting Location for Your Event Types",
+              href: "/how-to-guides/event-types/how-to-add-zoom-as-meeting-location",
+            },
+            {
+              title: "How to set buffer time",
+              href: "/how-to-guides/event-types/how-to-set-buffer-time",
+            },
+            {
+              title: "How to set up requires confirmation",
+              href: "/how-to-guides/event-types/how-to-set-up-requires-confirmation",
+            },
+            {
+              title: "How to set time-slot intervals",
+              href: "/how-to-guides/event-types/how-to-set-time-slot-intervals",
+            },
+            {
+              title: "How to set up an event type to receive payments",
+              href: "/how-to-guides/event-types/how-to-create-paid-events",
+            },
+            {
+              title: "Setting up location of team events",
+              href: "/how-to-guides/event-types/setting-up-location-of-team-events",
+            }
+          ]
+        },
+        {
+          title: "Self Hosting",
+          href: "/how-to-guides/self-hosting",
+          pages: [
+            {
+              title: "Manage a license key",
+              href: "/how-to-guides/self-hosting/acquire-and-manage-a-license-key",
+            },
+            {
+              title: "How to add custom CSS",
+              href: "/how-to-guides/self-hosting/how-to-add-custom-css",
+            },
+            {
+              title: "How to test API in a local instance",
+              href: "/how-to-guides/self-hosting/how-to-test-api-in-a-local-instance",
+            },
+            {
+              title: "Setting up mailtrap for email testing",
+              href: "/how-to-guides/self-hosting/setting-up-mailtrap-for-email-testing",
+            }
+          ]
+        },
+        {
+          title: "White Labeling",
+          href: "/how-to-guides/whitelabel",
+          pages: [
+            {
+              title: "How to white label the self hosted instance",
+              href: "/how-to-guides/whitelabel/how-to-white-label-the-self-hosted-instance",
+            },
+          ]
         },
         {
           title: "Can Cal.com sponsor my open source project?",
           href: "/how-to-guides/can-calcom-sponsor-my-open-source-project",
-        },
-        {
-          title: "Creating a recurring event",
-          href: "/how-to-guides/creating-a-recurring-event",
-        },
-        {
-          title: "Creating a secret event type",
-          href: "/how-to-guides/creating-a-secret-event-type",
-        },
-        {
-          title: "Creating your first event type",
-          href: "/how-to-guides/creating-your-first-event-type",
-        },
-        {
-          title: "How to add a location to your event type",
-          href: "/how-to-guides/how-to-add-a-location-to-your-event-type",
-        },
-        {
-          title: "How to add custom CSS",
-          href: "/how-to-guides/how-to-add-custom-css",
-        },
-        {
-          title: "Adding Zoom as the Meeting Location for Your Event Types",
-          href: "/how-to-guides/how-to-add-zoom-as-meeting-location",
-        },
-        {
-          title: "How to build an app",
-          href: "/how-to-guides/how-to-build-an-app",
-          pages: [
-            {
-              title: "Build a greeter app",
-              href: "/how-to-guides/how-to-build-an-app/build-a-greeter-app",
-            },
-          ],
-        },
-        {
-          title: "Connect apple calendar with calcom",
-          href: "/how-to-guides/how-to-connect-apple-calendar-with-calcom",
-        },
-        {
-          title: "How to get notified on slack whenever you're booked",
-          href: "/how-to-guides/how-to-get-slack-notification-on-booking",
-        },
-        {
-          title: "How to set buffer time",
-          href: "/how-to-guides/how-to-set-buffer-time",
-        },
-        {
-          title: "How to set up requires confirmation",
-          href: "/how-to-guides/how-to-set-up-requires-confirmation",
-        },
-        {
-          title: "How to set up OIDC with Okta",
-          href: "/how-to-guides/how-to-setup-oidc-with-okta",
-        },
-        {
-          title: "How to set up SCIM with Okta",
-          href: "/how-to-guides/how-to-setup-scim-with-okta",
-        },
-        {
-          title:
-            "How to split fullname into firstname and lastname in the public booking page",
-          href: "/how-to-guides/how-to-split-firstname-lastname-booking",
-        },
-        {
-          title: "How to hide and prefill booking questions in embeds",
-          href: "/how-to-guides/how-to-hide-and-prefill-booking-question-in-embeds",
-        },
-        {
-          title: "How to set time-slot intervals",
-          href: "/how-to-guides/how-to-set-time-slot-intervals",
-        },
-        {
-          title: "How to set up an event type to receive payments",
-          href: "/how-to-guides/how-to-set-up-an-event-type-to-receive-payments",
-        },
-        {
-          title: "How to test API in a local instance",
-          href: "/how-to-guides/how-to-test-api-in-a-local-instance",
-        },
-        {
-          title: "How to troubleshoot symbolic link issues on Windows",
-          href: "/how-to-guides/how-to-troubleshoot-symbolic-link-issues-on-windows",
-        },
-        {
-          title:
-            "How to use open-source scheduling infrastructure with HubSpot",
-          href: "/how-to-guides/how-to-use-open-source-scheduling-infrastructure-with-hubspot",
-        },
-        {
-          title:
-            "How to sync third party apps with a self-hosted Cal.com instance",
-          href: "/how-to-guides/syncing-third-party-apps-with-self-hosted-cal-com",
-        },
-        {
-          title: "How to white label the self hosted instance",
-          href: "/how-to-guides/how-to-white-label-the-self-hosted-instance",
-        },
-        {
-          title: "Setting up mailtrap for email testing",
-          href: "/how-to-guides/setting-up-mailtrap-for-email-testing",
-        },
-        {
-          title: "Setting up location of team events",
-          href: "/how-to-guides/setting-up-location-of-team-events",
-        },
-        {
-          title: "Setting up your availability",
-          href: "/how-to-guides/setting-up-your-availability",
-          pages: [
-            {
-              title: "Adding date override",
-              href: "/how-to-guides/setting-up-your-availability/adding-date-override",
-            },
-          ],
-        },
-        {
-          title: "Providing necessary google calendar integration permissions",
-          href: "/how-to-guides/providing-necessary-permission-to-google-calendar",
         },
         {
           title: "Quick actions using command bar",
@@ -704,6 +744,16 @@ export default {
             }
           ]
         },
+        {
+          title: "Problems related to self hosting",
+          href: "/troubleshooting-guides/self-hosting",
+          pages: [
+            {
+              title: "How to troubleshoot symbolic link issues on Windows",
+              href: "/how-to-guides/symbolic-link-issues-on-windows",
+            },
+          ]
+        }
       ],
     },
   ],
