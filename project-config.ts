@@ -716,7 +716,7 @@ export default {
           pages: [
             {
               title: "How to white label the self hosted instance",
-              href: "/how-to-guides/whitelabel/how-to-white-label-the-self-hosted-instance",
+              href: "/how-to-guides/whitelabel/self-hosted-instance",
             },
           ]
         },
