@@ -702,7 +702,7 @@ export default {
             },
             {
               title: "How to test API in a local instance",
-              href: "/how-to-guides/self-hosting/how-to-test-api-in-a-local-instance",
+              href: "/how-to-guides/self-hosting/how-to-set-up-api-in-a-local-instance",
             },
             {
               title: "Setting up mailtrap for email testing",
