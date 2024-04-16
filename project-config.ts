@@ -750,7 +750,7 @@ export default {
           pages: [
             {
               title: "How to troubleshoot symbolic link issues on Windows",
-              href: "/how-to-guides/self-hosting/symbolic-link-issues-on-windows",
+              href: "/troubleshooting-guides/self-hosting/symbolic-link-issues-on-windows",
             },
           ]
         }
