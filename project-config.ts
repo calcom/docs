@@ -512,6 +512,10 @@ export default {
           href: "/platform/quick-start"
         },
         {
+          title: "Booking redirects",
+          href: "/platform/booking-redirects"
+        },
+        {
           title: "FAQ",
           href: "/platform/faq"
         }
