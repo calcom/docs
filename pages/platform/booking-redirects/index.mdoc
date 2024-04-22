@@ -23,10 +23,9 @@ Page in the booking URL will take URL parameter provided by us and then hook to 
 3. When a booking occurs, booker will be re-directed to the redirectURI with booking UID as the bookingUid parameter aka my-app.com/bookings/[bookingUid].
 4. In the my-app.com/bookings/[bookingUid] route create a page that imports `useGetBooking` hook, then extract bookingUid from URL parameter, and uses the hook to display booking information:
 
-```
+```js
 import { useGetBooking } from "@calcom/atoms";
 
-...
 export default function Bookings(props: { calUsername: string; calEmail: string }) {
     const router = useRouter();
   
@@ -45,7 +44,7 @@ An example implementation can be found [here](https://github.com/calcom/cal.com/
 2. When “Reschedule” is clicked, user will be re-directed to the redirectURI with rescheduled and eventTypeSlug query parameters `my-app.com/reschedule?rescheduleUid=buiaE8jHmNAxLrqitahCeL&eventTypeSlug=thirty-minutes`
 3. In the my-app.com/reschedule route create a page that extracts `rescheduleUid` and `eventTypeSlug` from the query parameters and passes the to the `Booker` atom:
 
-```
+```js 
 const rescheduleUid = (router.query.rescheduleUid as string) ?? "";
 const eventTypeSlugQueryParam = (router.query.eventTypeSlug as string) ?? "";
 
@@ -67,7 +66,7 @@ An example implementation can be found [here](https://github.com/calcom/cal.com/
 3. In the page of my-app.com/cancel/[bookingUid] import useCancelBooking from atoms and get access to the cancel mutation
 import { useCancelBooking } from "@calcom/atoms";
 
-```
+```js
 const { mutate: cancelBooking } = useCancelBooking({
     onSuccess: () => {
       refetch();
@@ -77,7 +76,7 @@ const { mutate: cancelBooking } = useCancelBooking({
 
 4. Create a cancel button that invokes mutation returned by the “useCancelBooking” using the booking uid from the URL parameter. Provide a suitable “cancellationReason”.
 
-```
+```js 
 <button
     className="underline"
     onClick={() => {
