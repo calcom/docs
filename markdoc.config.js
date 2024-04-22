@@ -288,6 +288,14 @@ const config = {
       render: 'YouTube',
       attributes: { src: { type: String } },
     },
+    table: {
+      render: 'Table',
+      attributes: { atom: { type: String } },
+    },
+    classnamesTable : {
+      render: 'ClassnamesTable',
+      attributes: { atom: { type: String } },
+    }
   },
   nodes: {
     fence: {
