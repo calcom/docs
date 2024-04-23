@@ -4,6 +4,12 @@ type AtomsProp = {
     description: string
 }
 
+export enum Atoms {
+    Gcal = "google calendar",
+    Availability = "availability settings",
+    Booker = "booker"
+}
+
 export const googleCalendarAtomPropsData: AtomsProp[] = [
     {name: 'className', required: false, description: 'To pass in custom classnames from outside for styling the atom'},
     {name: 'label', required: false, description: 'The label for the connect button'}, 

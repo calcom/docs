@@ -1,4 +1,5 @@
 import { bookerAtomPropsData, availabilitySettingsAtomPropsData, googleCalendarAtomPropsData } from "@utils/atomsPropTableData";
+import { Atoms } from "@utils/atomsPropTableData";
 
 export default ({
     atom
@@ -7,15 +8,15 @@ export default ({
   }) => {
   let tableData = [{name: '', required: false, description: ''}];
 
-  if (atom === "google calendar") { 
+  if (atom === Atoms.Gcal) { 
     tableData = googleCalendarAtomPropsData
   }
 
-  if (atom === "availability settings") {
+  if (atom === Atoms.Availability) {
     tableData = availabilitySettingsAtomPropsData
   }
 
-  if (atom === 'booker') {
+  if (atom === Atoms.Booker) {
     tableData = bookerAtomPropsData
   }
 
