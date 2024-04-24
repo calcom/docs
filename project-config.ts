@@ -516,6 +516,10 @@ export default {
           href: "/platform/booking-redirects"
         },
         {
+          title: "Atoms reference",
+          href: "/platform/atoms-reference"
+        },
+        {
           title: "FAQ",
           href: "/platform/faq"
         }
