@@ -196,7 +196,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
 
   const search = useCallback((value) => {
     const fuseResult = fuseRef.current.search(value)
-    dispatch({ type: 'SET_RESULTS', results: fuseResult.map(r => r.item) })
+    dispatch({ type: 'SET_RESULTS', results: fuseResult.map(r => r.item).filter(item => !item.omitFromSearch) })
   }, [])
 
   const onFocus = useCallback(() => {
@@ -246,6 +246,12 @@ export const getDescription = (file) => {
     || file.meta?.meta?.["og:description"]
 }
 
+export const getOmitFromSearch = (file) => {
+  return file.meta?.omitFromSearch
+    || file.meta?.meta?.omitFromSearch
+    || file.meta?.meta?.["og:omitFromSearch"]
+}
+
 export const getTitle = (file) => {
   return file.meta?.title
     || file.meta?.meta?.title
@@ -262,6 +268,7 @@ export const filesToSearchData = (folder, parentFolderNames, rootName = "Home") 
       path: f.path,
       title: getTitle(f),
       description: getDescription(f),
+      omitFromSearch: getOmitFromSearch(f),
       folders: folders
     })) || []
   for (const f of (folder.folders || [])) {
