@@ -7,6 +7,8 @@ import { removeFileExtension } from "@utils/files"
 import Link from "next/link"
 
 export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
+  const url = result.path.replace("\\index","");
+
   return <div
         className={cn("rounded cursor-pointer", {
           "bg-primary-700": selected
@@ -14,7 +16,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
         onMouseOver={onMouseOver}>
       <Link
         className="block m-3"
-        href={result.path}
+        href={url}
         onClick={onClick}>
         <div className="flex flex-col gap-0.5">
           <div className={cn("text-lg font-semibold break-words md:truncate", {
@@ -43,6 +45,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
 }
 
 export const SearchResults = ({ results, limit, selectedIndex, setSelectedIndex, onSubmit }) => {
+
   return <div className="flex flex-col p-3 bg-white rounded-md border border-neutral-200 antialiased z-50">
       { results.slice(0, limit || 5).map((result, i) => {
         return <SearchResult
@@ -196,7 +199,7 @@ export const Search = ({ data, limit = 5, placeholder, indexKeys = ['title', 'de
 
   const search = useCallback((value) => {
     const fuseResult = fuseRef.current.search(value)
-    dispatch({ type: 'SET_RESULTS', results: fuseResult.map(r => r.item) })
+    dispatch({ type: 'SET_RESULTS', results: fuseResult.map(r => r.item).filter(item => !item.omitFromSearch) })
   }, [])
 
   const onFocus = useCallback(() => {
@@ -246,6 +249,12 @@ export const getDescription = (file) => {
     || file.meta?.meta?.["og:description"]
 }
 
+export const getOmitFromSearch = (file) => {
+  return file.meta?.omitFromSearch
+    || file.meta?.meta?.omitFromSearch
+    || file.meta?.meta?.["og:omitFromSearch"]
+}
+
 export const getTitle = (file) => {
   return file.meta?.title
     || file.meta?.meta?.title
@@ -262,8 +271,10 @@ export const filesToSearchData = (folder, parentFolderNames, rootName = "Home") 
       path: f.path,
       title: getTitle(f),
       description: getDescription(f),
+      omitFromSearch: getOmitFromSearch(f),
       folders: folders
     })) || []
+
   for (const f of (folder.folders || [])) {
     data = data.concat(filesToSearchData(f, folders, rootName))
   }
