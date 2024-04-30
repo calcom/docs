@@ -7,6 +7,8 @@ import { removeFileExtension } from "@utils/files"
 import Link from "next/link"
 
 export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
+  const url = result.path.replace("\\index","");
+
   return <div
         className={cn("rounded cursor-pointer", {
           "bg-primary-700": selected
@@ -14,7 +16,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
         onMouseOver={onMouseOver}>
       <Link
         className="block m-3"
-        href={result.path}
+        href={url}
         onClick={onClick}>
         <div className="flex flex-col gap-0.5">
           <div className={cn("text-lg font-semibold break-words md:truncate", {
@@ -43,6 +45,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
 }
 
 export const SearchResults = ({ results, limit, selectedIndex, setSelectedIndex, onSubmit }) => {
+  console.log({results})
   return <div className="flex flex-col p-3 bg-white rounded-md border border-neutral-200 antialiased z-50">
       { results.slice(0, limit || 5).map((result, i) => {
         return <SearchResult
@@ -271,6 +274,7 @@ export const filesToSearchData = (folder, parentFolderNames, rootName = "Home") 
       omitFromSearch: getOmitFromSearch(f),
       folders: folders
     })) || []
+
   for (const f of (folder.folders || [])) {
     data = data.concat(filesToSearchData(f, folders, rootName))
   }
