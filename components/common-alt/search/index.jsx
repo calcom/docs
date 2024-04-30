@@ -45,7 +45,7 @@ export const SearchResult = ({ result, selected, onMouseOver, onClick }) => {
 }
 
 export const SearchResults = ({ results, limit, selectedIndex, setSelectedIndex, onSubmit }) => {
-  console.log({results})
+
   return <div className="flex flex-col p-3 bg-white rounded-md border border-neutral-200 antialiased z-50">
       { results.slice(0, limit || 5).map((result, i) => {
         return <SearchResult
