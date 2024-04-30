@@ -570,6 +570,10 @@ export default {
               href: "/how-to-guides/app-store-and-integrations/build-a-greeter-app",
             },
             {
+              title: "How to use OAuth to authorize apps with cal.com accounts",
+              href: "/how-to-guides/app-store-and-integrations/oauth",
+            },
+            {
               title:
                 "How to sync third party apps with a self-hosted Cal.com instance",
               href: "/how-to-guides/app-store-and-integrations/syncing-third-party-apps-with-self-hosted-cal-com",
