@@ -1,5 +1,4 @@
 ---
-title: "Hosted API through Cal.com"
 omitFromSearch: true
 ---
 
@@ -8,8 +7,8 @@ import { useEffect } from "react"
 export const Redirect = () => {
   useEffect(() => {
     {/* Only perform the redirect on the published site (no need in the preview) */}
-    if (window.location.pathname?.startsWith('/docs/pages/enterprise-features/api/quick-start/hosted-api-through-cal-com')) {
-      window.location.href = "https://cal.com/docs/pages/enterprise-features/api";
+    if (window.location.pathname?.startsWith('/docs/enterprise-features/api/quick-start/hosted-api-through-cal-com')) {
+      window.location.href = "https://cal.com/docs/enterprise-features/api/quick-start";
     }
   }, [])
   
