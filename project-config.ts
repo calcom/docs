@@ -378,10 +378,6 @@ export default {
                   title: "Testing API locally",
                   href: "/enterprise-features/api/quick-start/testing-api-locally",
                 },
-                {
-                  title: "Hosted API through Cal.com",
-                  href: "/enterprise-features/api/quick-start/hosted-api-through-cal-com",
-                },
               ],
             },
             {
