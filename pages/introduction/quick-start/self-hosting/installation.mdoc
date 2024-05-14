@@ -175,6 +175,44 @@ At cal.com, the cron jobs are found in the following directory:
 We recommend using the admin UI/wizard instead of the seeder to enable app store apps
 {% /note %}
 
+
+## API
+
+#### Step 1
+
+Copy the .env files from their respective example files:
+
+```
+cp apps/api/.env.example apps/api/.env
+cp .env.example .env
+```
+
+#### Step 2
+
+Install packages with yarn:
+
+```
+yarn
+```
+
+### Running API server
+
+Run the API with yarn:
+
+```
+yarn workspace @calcom/api dev
+```
+
+{% note type="info" %}
+On windows, you would need to update the script to explicitly set port to 3002 and run yarn dev under `apps/api/package.json` So, it should look something like this after the changes:
+
+`"dev": "set PORT=3002 && next dev"` Now, running `yarn workspace @calcom/api dev` should start the server.
+{% /note %}
+
+Open [http://localhost:3002](http://localhost:3002/) with your browser to see the result.
+
+If you wish to test how API works locally, please [check out our guide here](/docs/how-to-guides/how-to-test-api-in-a-local-instance).
+
 ## Vercel
 
 As Cal.com is written in Next.js, Vercel is the perfect platform to host this on (Vercel built Next.js). You can simply follow the [instructions provided by Vercel to get started](https://vercel.com/docs/concepts/get-started). All you do is fork your own version of the repository, click new on Vercel and select the repository. It'll pretty much do the rest for you. The one thing you will need to do is set the environment variables (the .env file). As you can't create a .env file on Vercel, you can go into the settings and manually add each variable. Use the .env.example file for reference as to what you should add. You can learn more about [setting environment variables on Vercel here](https://vercel.com/docs/concepts/projects/environment-variables).
