@@ -68,20 +68,6 @@ export default {
                       title: "Enterprise",
                       href: "/introduction/quick-start/self-hosting/installation/enterprise",
                     },
-                    {
-                      title: "Platform",
-                      href: "/introduction/quick-start/self-hosting/installation/platform",
-                      pages: [
-                        {
-                          title: "Get access to the API",
-                          href: "/introduction/quick-start/self-hosting/installation/platform/get-access-to-the-api",
-                        },
-                        {
-                          title: "API submodule",
-                          href: "/introduction/quick-start/self-hosting/installation/platform/api-submodule",
-                        },
-                      ],
-                    },
                   ],
                 },
                 {
@@ -501,7 +487,7 @@ export default {
       pages: [
         {
           title: "Welcome",
-          href: "/platform"
+          href: "/platform/welcome"
         },
         {
           title: "Quickstart",
