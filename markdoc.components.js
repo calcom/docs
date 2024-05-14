@@ -28,7 +28,7 @@ import { Video } from '@components/uicomp/video'
 import { WrappedImage } from '@components/uicomp/wrappedimage'
 import YouTube from '@components/components/youtube'
 import Loom from '@components/components/loom'
-import Table from '@components/components/table'
+import AtomTable from '@components/components/atomTable'
 import ClassnamesTable from '@components/components/classnamesTable'
 
 export default {
@@ -61,6 +61,6 @@ export default {
   Video,
   WrappedImage,
   YouTube,
-  Table,
+  AtomTable,
   ClassnamesTable
 }

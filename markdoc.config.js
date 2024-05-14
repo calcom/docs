@@ -288,8 +288,8 @@ const config = {
       render: 'YouTube',
       attributes: { src: { type: String } },
     },
-    table: {
-      render: 'Table',
+    atomTable: {
+      render: 'AtomTable',
       attributes: { atom: { type: String } },
     },
     classnamesTable : {
