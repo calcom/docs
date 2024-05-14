@@ -501,7 +501,7 @@ export default {
       pages: [
         {
           title: "Welcome",
-          href: "/platform"
+          href: "/platform/welcome"
         },
         {
           title: "Quickstart",
