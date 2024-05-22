@@ -1226,6 +1226,22 @@ export const openApiSpec = {
             },
             {
               "in": "query",
+              "name": "take",
+              "required": false,
+              "schema": {
+                "type": "number",
+              }
+            },
+            {
+              "in": "query",
+              "name": "page",
+              "required": false,
+              "schema": {
+                "type": "number",
+              }
+            },            
+            {
+              "in": "query",
               "name": "attendeeEmail",
               "required": false,
               "schema": {
