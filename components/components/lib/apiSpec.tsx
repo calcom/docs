@@ -1,12 +1,6 @@
 export const openApiSpec = {
     "openapi": "3.0.3",
     "servers": [
-    //   {
-    //     "url": "http://localhost:3002/v1"
-    //   },
-    //   {
-    //     "url": "https://api.cal.dev/v1"
-    //   },
       {
         "url": "https://api.cal.com/v1"
       }
