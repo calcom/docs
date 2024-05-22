@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { HTTPAPIDoc } from "@components/uicomp/httpapidoc"
-import { openApiSpec } from "@components/components/lib/apispec"
+import { openApiSpec } from "@components/components/lib/apiSpec"
 
 export const OpenAPIDoc = ({ url, path, method, isOpen }) => {
   const [spec, setSpec] = useState(undefined)
