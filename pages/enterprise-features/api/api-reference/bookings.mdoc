@@ -2,7 +2,32 @@
 title: "Bookings"
 ---
 
-These routes allow you to CRUD bookings within Cal.com.
+These routes allow you to CRUD bookings within Cal.com
+
+## Admin access
+
+This endpoint supports System Wide Admin access, as well as Organization Wide Admin access. 
+
+> As an Organization Admin, you can now query bookings for your Organization members, be it GET, POST, PATCH, or DELETE
+
+
+## Pagination
+
+We have added pagination to this endpoint to handle large responses. You can now use the `take` and `page` query parameters to get the specific batch of bookings you need. 
+
+- `take`: The maximum number of bookings you want in a batch.
+- `page`: The page number to retrieve the bookings from, based on the total number of bookings divided by `take`.
+
+### Example:
+If there are 100 total bookings and you set `take` to 25, there will be 4 pages of bookings. To get bookings 26-50, set `page` to 2.
+
+### Usage:
+- `take`: Maximum number of bookings per batch (e.g., 25)
+- `page`: Page number to retrieve (e.g., 2)
+
+This way, you can easily navigate through large sets of bookings by specifying how many bookings you want per batch and which batch to retrieve.
+
+> **Note: The default number of `take` is 10.**
 
 ## Find all bookings
 
