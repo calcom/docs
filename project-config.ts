@@ -608,17 +608,21 @@ export default {
               href: "/how-to-guides/bookings/allow-bookings-that-meet-a-custom-internal-criteria",
             },
             {
-              title: "How to get notified on slack whenever you're booked",
+              title: "Get notified on slack whenever you're booked",
               href: "/how-to-guides/bookings/how-to-get-slack-notification-on-booking",
             },
             {
-              title: "How to hide and prefill booking questions in embeds",
+              title: "Hide and prefill booking questions in embeds",
               href: "/how-to-guides/bookings/how-to-hide-and-prefill-booking-question-in-embeds",
             },
             {
               title:
-                "How to split fullname into firstname and lastname in the public booking page",
+                "Split fullname into firstname and lastname in the public booking page",
               href: "/how-to-guides/bookings/how-to-split-firstname-lastname-booking",
+            },
+            {
+              title: "Disable confirmation email for attendees",
+              href: "/how-to-guides/bookings/how-to-disable-confirmation-email-for-attendees"
             },
           ]
         },
