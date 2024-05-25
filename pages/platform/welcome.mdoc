@@ -25,11 +25,31 @@ Here's some examples around how you can use atoms in your project.
 
 The below code snippet renders the Gooogle calendar connect button which syncs a user's google calendar.  
 
-{% img src="/docs/images/gcal_connect_atom.png" /%}
+```js
+import { GcalConnect } from "@calcom/atoms";
+
+export default function Connect() {
+  return (
+    <main>
+      <GcalConnect/>
+    </main>
+  )
+}
+```
 
 If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop 
 
-{% img src="/docs/images/gcal_connect_atom_classname.png" /%}
+```js
+import { GcalConnect } from "@calcom/atoms";
+
+export default function Connect() {
+  return (
+    <main>
+      <GcalConnect className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
+    </main>
+  )
+}
+```
 
 This is how the google calendar connect button actually looks like
 
@@ -39,7 +59,24 @@ This is how the google calendar connect button actually looks like
 
 The below code snippet renders the availability settings atom through which a user can set their available time slots.
 
-{% img src="/docs/images/availability_settings_atom.png" /%}
+```js
+import { AvailabilitySettings } from "@calcom/atoms";
+
+export default function Availability() {
+  return (
+    <>
+       <AvailabilitySettings
+          onUpdateSuccess={() => {
+            console.log("Updated schedule successfully");
+          }}
+          onDeleteSuccess={() => {
+            console.log("Deleted schedule successfully");
+          }}
+       />
+    <>
+  )
+}
+```
 
 This is how the availability settings atom actually looks like
 
@@ -49,7 +86,23 @@ This is how the availability settings atom actually looks like
 
 The below code snippet renders the booker atom through which a user can be booked for any event that they have set.
 
-{% img src="/docs/images/booker_atom.png" /%}
+```js
+import { Booker } from "@calcom/atoms";
+
+export default function Booker( props : BookerProps ) {
+  return (
+    <>
+      <Booker
+        eventSlug={props.eventTypeSlug}
+        username={props.calUsername}
+        onCreateBookingSuccess={() => {
+          console.log("booking created successfully");
+         }}
+      />
+    <>
+  )
+}
+```
 
 This is how the booker atom actually looks like
 
@@ -67,20 +120,145 @@ Once you set up an OAuth client and create a managed user for that particular OA
 
 The `/me` endpoint returns a response containing all the info about a managed user. It includes properties such as the name, email, id, timeZone of that particular user and much more. The below code snippet shows a custom hook that uses the `/me` endpoint to return all the data of a managed user.
 
-{% img src="/docs/images/useMe.png" /%}
+```js
+// custom hook that returns info managed user
+export const useMe = async () => {
+  const response = await fetch("https://api.cal.com/v2/ee/me", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // replace accessToken value with value of your access token
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const data = await response.json();
+
+  return data;
+};
+```
 
 The below code snippet shows how the returned response looks like.
 
-{% img src="/docs/images/me_data.png" /%}
+```js
+{
+  "status": "success",
+  "data": {
+      "id": 48,
+      "email": "skybezagxi@example.com",
+      "timeFormat": 12,
+      "defaultScheduleId": 107,
+      "weekStart": "Sunday",
+      "timeZone": "Asia/Calcutta",
+      "username": "skybezagxi",
+      "name": "John Jones"
+  }
+}
+```
 
 ### 2. schedules
 
 The `/schedules` endpoint returns a given schedule for a managed user based on the id of that particular schedule. The below code snippet shows a custom hook that uses the `/schedules` endpoint to return the default schedule of a managed user.
 
-{% img src="/docs/images/get_schedule.png" /%}
+```js
+// custom hook that returns the schedule of a managed user
+export const useGetUserSchedule = async () => {
+  // replace scheduleId with id of your schedule
+  const response = await fetch(`https://api.cal.com/v2/schedules/${scheduleId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // replace accessToken value with value of your access token
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const data = await response.json();
+
+  return data;
+}; 
+```
 
 The below code snippet shows how the returned response looks like.
 
-{% img src="/docs/images/availabilities.png" /%}
+```js
+{
+  "status": "success",
+  "data": {
+    "id": 107,
+    "name": "Default Schedule",
+    "isManaged": false,
+    "workingHours": [
+        {
+            "days": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
+            "startTime": 540,
+            "endTime": 1020,
+            "userId": 48
+        }
+    ],
+    "schedule": [
+         {
+             "id": 106,
+             "userId": 48,
+             "eventTypeId": null,
+             "days": [
+                 1,
+                 2,
+                 3,
+                 4,
+                 5
+             ],
+             "startTime": "1970-01-01T09:00:00.000Z",
+             "endTime": "1970-01-01T17:00:00.000Z",
+             "date": null,
+             "scheduleId": 107
+         }
+    ],
+    "availability": [
+        [],
+        [
+            {
+                "start": "2024-04-07T09:00:00.000Z",
+                "end": "2024-04-07T17:00:00.000Z"
+            }
+        ],
+        [
+            {
+                "start": "2024-04-07T09:00:00.000Z",
+                "end": "2024-04-07T17:00:00.000Z"  
+            }
+        ],
+        [
+            {
+                "start": "2024-04-07T09:00:00.000Z",
+                "end": "2024-04-07T17:00:00.000Z"
+            }
+        ],       
+        [
+            {
+                "start": "2024-04-07T09:00:00.000Z",
+                "end": "2024-04-07T17:00:00.000Z"
+            }
+        ],
+        [
+            {
+                "start": "2024-04-07T09:00:00.000Z",
+                "end": "2024-04-07T17:00:00.000Z"
+            }
+        ],                 
+        []
+    ],
+    "timeZone": "Asia/Calcutta",
+    "dateOverrides": [],
+    "isDefault": true,
+    "isLastSchedule": true,
+    "readOnly": false
+  }
+} 
+```
 
 To check all the available endpoints click [here](https://api.cal.com/v2/docs#/)
