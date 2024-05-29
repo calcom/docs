@@ -1464,10 +1464,10 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "New Booking example": {
-                    "value": {
                       "eventTypeId": 2323232,
                       "start": "2023-05-24T13:00:00.000Z",
                       "end": "2023-05-24T13:30:00.000Z",
+                      "metadata": {},
                       "responses": {
                         "name": "Hello Hello",
                         "email": "hello@gmail.com",
@@ -1480,7 +1480,6 @@ export const openApiSpec = {
                       "description": null,
                       "status": "PENDING",
                       "smsReminderNumber": null
-                    }
                   }
                 }
               }
