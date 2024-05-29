@@ -1464,23 +1464,25 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "New Booking example": {
-                      "eventTypeId": 2323232,
-                      "start": "2023-05-24T13:00:00.000Z",
-                      "end": "2023-05-24T13:30:00.000Z",
-                      "metadata": {},
-                      "responses": {
-                        "name": "Hello Hello",
-                        "email": "hello@gmail.com",
+                        "eventTypeId": 12345,
+                        "start": "2024-05-30T12:00:00.000Z",
+                        "responses": {
+                            "name": "John Doe",
+                            "email": "johndoe@example.com",
+                            "guests": [],
+                            "location": {
+                                "value": "inPerson",
+                                "optionValue": ""
+                            }
+                        },
                         "metadata": {},
-                        "location": "Calcom HQ"
-                      },
-                      "timeZone": "Europe/London",
-                      "language": "en",
-                      "title": "Debugging between Syed Ali Shahbaz and Hello Hello",
-                      "description": null,
-                      "status": "PENDING",
-                      "smsReminderNumber": null
-                  }
+                        "timeZone": "Europe/London",
+                        "language": "en",
+                        "title": "Debugging between Syed Ali Shahbaz and Hello Hello",
+                        "description": null,
+                        "status": "PENDING",
+                        "smsReminderNumber": null
+                    }
                 }
               }
             }
