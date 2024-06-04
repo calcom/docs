@@ -233,6 +233,10 @@ export default {
           href: "/core-features/bookings",
           pages: [
             {
+              title: "Mark guests as no-show",
+              href: "/core-features/bookings/no-show",
+            },
+            {
               title: "Paid bookings",
               href: "/core-features/bookings/paid-bookings",
             },
