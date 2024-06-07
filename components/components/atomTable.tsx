@@ -1,4 +1,4 @@
-import { bookerAtomPropsData, availabilitySettingsAtomPropsData, googleCalendarAtomPropsData } from "@utils/atomsPropTableData";
+import { bookerAtomPropsData, availabilitySettingsAtomPropsData, googleCalendarAtomPropsData, outlookCalendarAtomPropsData } from "@utils/atomsPropTableData";
 import { Atoms } from "@utils/atomsPropTableData";
 
 export default ({
@@ -10,6 +10,10 @@ export default ({
 
   if (atom === Atoms.Gcal) { 
     tableData = googleCalendarAtomPropsData
+  }
+
+  if (atom === Atoms.OutlookCalendar) {
+    tableData = outlookCalendarAtomPropsData
   }
 
   if (atom === Atoms.Availability) {

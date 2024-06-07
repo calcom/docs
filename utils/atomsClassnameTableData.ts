@@ -7,6 +7,10 @@ export const googleCalendarAtomClassnamesPropData: AtomsClassnamesProp[] = [
     {name: 'className', description: 'Pass in custom classnames from outside for styling the button'},
 ]
 
+export const outlookCalendarAtomClassnamesPropData: AtomsClassnamesProp[] = [
+    {name: 'className', description: 'Pass in custom classnames from outside for styling the button'},
+]
+
 export const availabilitySettingsAtomClassnamesPropData: AtomsClassnamesProp[] = [
     {name: 'containerClassName', description: 'Adds styling to the whole availability settings component'},
     {name: 'ctaClassName', description: 'Adds stylings only to certain call to action buttons'}, 

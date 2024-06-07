@@ -6,6 +6,7 @@ type AtomsProp = {
 
 export enum Atoms {
     Gcal = "google calendar",
+    OutlookCalendar = "outlook calendar",
     Availability = "availability settings",
     Booker = "booker"
 }
@@ -15,6 +16,14 @@ export const googleCalendarAtomPropsData: AtomsProp[] = [
     {name: 'label', required: false, description: 'The label for the connect button'}, 
     {name: 'alreadyConnectedLabel', required: false, description: 'The label for the already connected button'}, 
     {name: 'onCheckError', required: false, description: 'A callback function to handle errors when checking the connection status'}
+]
+
+export const outlookCalendarAtomPropsData: AtomsProp[] = [
+    {name: 'className', required: false, description: 'To pass in custom classnames from outside for styling the atom'},
+    {name: 'label', required: false, description: 'The label for the connect button'}, 
+    {name: 'alreadyConnectedLabel', required: false, description: 'The label for the already connected button'}, 
+    {name: 'onCheckError', required: false, description: 'A callback function to handle errors when checking the connection status'},
+    {name: 'redir', required: false, description: 'A custom redirect url link where the user gets redirected to after successful authentication'}
 ]
 
 export const availabilitySettingsAtomPropsData: AtomsProp[] = [
