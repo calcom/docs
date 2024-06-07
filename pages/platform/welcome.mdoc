@@ -23,7 +23,7 @@ Here's some examples around how you can use atoms in your project.
 
 ### 1. Google Calendar connect atom
 
-The below code snippet renders the Gooogle calendar connect button which syncs a user's google calendar.  
+The below code snippet renders the Google calendar connect button which syncs a user's google calendar.  
 
 ```js
 import { GcalConnect } from "@calcom/atoms";
@@ -31,13 +31,13 @@ import { GcalConnect } from "@calcom/atoms";
 export default function Connect() {
   return (
     <main>
-      <GcalConnect/>
+      <GcalConnect />
     </main>
   )
 }
 ```
 
-If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop 
+If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop.
 
 ```js
 import { GcalConnect } from "@calcom/atoms";
@@ -55,7 +55,41 @@ This is how the google calendar connect button actually looks like
 
 {% img src="/docs/images/gcal_atom.png" /%}
 
-### 2. Availability settings atom
+### 2. Outlook Calendar connect atom
+
+The below code snippet renders the Outlook calendar connect button which syncs a user's outlook calendar.  
+
+```js
+import { Connect } from "@calcom/atoms";
+
+export default function ConnectCalendar() {
+  return (
+    <main>
+      <Connect.OutlookCalendar />
+    </main>
+  )
+}
+```
+
+If you need to customize the appearance of the atom, you can pass in custom css styles via the className prop. Additionally, if you want to pass in a custom redirect url that can be done via the redir prop.
+
+```js
+import { Connect } from "@calcom/atoms";
+
+export default function ConnectCalendar() {
+  return (
+    <main>
+      <Connect.OutlookCalendar className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" redir="http://localhost:4321/calendars" />
+    </main>
+  )
+}
+```
+
+This is how the outlook calendar connect button actually looks like
+
+{% img src="/docs/images/outlook_calendar.png" /%}
+
+### 3. Availability settings atom
 
 The below code snippet renders the availability settings atom through which a user can set their available time slots.
 
@@ -82,7 +116,7 @@ This is how the availability settings atom actually looks like
 
 {% img src="/docs/images/availability_settings.png" /%}
 
-### 3. Booker atom
+### 4. Booker atom
 
 The below code snippet renders the booker atom through which a user can be booked for any event that they have set.
 
