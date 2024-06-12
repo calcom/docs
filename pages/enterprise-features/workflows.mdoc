@@ -14,7 +14,7 @@ Each Workflow is made up of a single trigger and one or more actions. Triggers i
 ### Triggers
 
 * Minutes/Hours/Days before an event starts
-* When an event is cancelled
+* When an event is canceled
 * When a new event is booked
 * Minutes/Hours/Days after an event ends
 * When event is rescheduled
@@ -24,7 +24,8 @@ Each Workflow is made up of a single trigger and one or more actions. Triggers i
 ### Actions
 
 * Send an email to the host
-* Send an email to the attendee
+* Send an email to the attendees
+* Send an email to a specific email address
 * Send an SMS to the attendee
 * Send an SMS to a specific number
 * Send Whatsapp message to the attendee
@@ -46,7 +47,7 @@ The Workflow system also lets you choose between using Cal.com’s default messa
 #### Dynamic text variables
 
 {% note type="info" %}
-If the location is a video conferencing app then the {LOCATION} would be ‘Zoom’ or ‘Google Meet’ and {MEETING_URL} would be the actual link to the meeting. If the location is not a video conferring app then {MEETING_URL} is empty.
+If the location is a video conferencing app then the {LOCATION} would be ‘Zoom’ or ‘Google Meet’ and {MEETING_URL} would be the actual link to the meeting. If the location is not a video conferencing app then {MEETING_URL} is empty.
 {% /note %}
 
 {% table %}
@@ -65,11 +66,17 @@ If the location is a video conferencing app then the {LOCATION} would be ‘Zoom
 * {LOCATION}
 * The event location
 ---
-* {ORGANIZER}
+* {ORGANIZER_NAME}
 * Organizer’s name
 ---
 * {ATTENDEE}
 * The attendee's name
+---
+* {ATTENDEE_FIRST_NAME}
+* The attendee's first name
+---
+* {ATTENDEE_LAST_NAME}
+* The attendee's last name
 ---
 * {ATTENDEE_EMAIL}
 * The attendee's email
@@ -91,6 +98,12 @@ If the location is a video conferencing app then the {LOCATION} would be ‘Zoom
 ---
 * {RESCHEDULE_URL}
 * The URL to reschedule the booking
+---
+* {NO_SHOW_URL}
+* The URL for a rating feedback form
+---
+* {RATING_URL} 
+* The URL for no show feedback
 {% /table %}
 
 Workflow is one of many tools that Cal.com users can take advantage of in order to simplify scheduling, save time, and focus on what really matters.
