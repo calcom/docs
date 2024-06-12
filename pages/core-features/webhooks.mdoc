@@ -19,7 +19,7 @@ To create a new webhook subscription, visit `/settings/developer/webhooks` and p
 
 1. Subscriber URL: The listener URL where the payload will be sent to, when an event trigger is triggered.
 
-2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Payment Initiated`, `Booking Paid`, `Meeting Started`, `Recording Ready`, `Form Submitted` and `Meeting Ended`.
+2. Event triggers: You can decide which triggers specifically to listen to. Currently, we offer listening to `Booking Cancelled`, `Booking Created`, `Booking Rescheduled`, `Booking Rejected`, `Booking Requested`, `Booking Payment Initiated`, `Booking Paid`, `Meeting Started`, `Recording Ready`, `Form Submitted`, `Meeting Ended` and `Instant Meeting Created`.
 
 3. Secret: You can provide a secret key with this webhook and then [verify it](/docs/core-features/webhooks#verifying-the-authenticity-of-the-received-payload) on the subscriber URL when receiving a payload to confirm if the payload is authentic or adulterated. You can leave it blank, if you don't wish to secure the webhook with a secret key.
 
