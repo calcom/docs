@@ -33,7 +33,8 @@ export const availabilitySettingsAtomPropsData: AtomsProp[] = [
     {name: 'onUpdateSuccess', required: false, description: 'A callback function to handle updating user availability successfully'},
     {name: 'onUpdateError', required: false, description: 'A callback function that gets triggered when the user availability fails to update'}, 
     {name: 'onDeleteSuccess', required: false, description: 'A callback function that gets triggered when the user availability is deleted successfully'},
-    {name: 'onDeleteError', required: false, description: 'A callback function that gets triggered when the user availability is not deleted successfully'}, 
+    {name: 'onDeleteError', required: false, description: 'A callback function that gets triggered when the user availability is not deleted successfully'},
+    {name: 'enableOverrides', required: false, description: 'Allows user to enable or disable showing date overrides in the atom. By default date overrides are disabled.'}, 
 ]
 
 export const bookerAtomPropsData: AtomsProp[] = [
