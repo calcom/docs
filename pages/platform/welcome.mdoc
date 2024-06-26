@@ -89,7 +89,47 @@ This is how the outlook calendar connect button actually looks like
 
 {% img src="/docs/images/outlook_calendar.png" /%}
 
-### 3. Availability settings atom
+### 3. Apple Calendar connect atom
+
+The below code snippet renders the Apple calendar connect button which syncs a user's apple calendar.  
+
+```js
+import { Connect } from "@calcom/atoms";
+
+export default function ConnectCalendar() {
+  return (
+    <main>
+      <Connect.AppleCalendar />
+    </main>
+  )
+}
+```
+
+If you need to customize the appearance of the atom, you can pass in custom css styles via the className prop. 
+
+```js
+import { Connect } from "@calcom/atoms";
+
+export default function ConnectCalendar() {
+  return (
+    <main>
+      <Connect.AppleCalendar className="h-[40px] bg-gradient-to-r from-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
+    </main>
+  )
+}
+```
+
+This is how the apple calendar connect button actually looks like.
+
+{% img src="/docs/images/apple_calendar_atom.png" /%}
+
+The apple calendar atom works a bit differently than outlook and google calendar. We don't get redirected to an OAuth consent page, instead a modal appears which prompts us to create an app specific password to use with Cal.com; this is how the modal looks like
+
+{% img src="/docs/images/apple_calendar_modal.png" /%}
+
+{% note type="info" %}If you try to put your Apple Id password in the above password field, it will throw an error. It only accepts an app specific password generated from https://appleid.apple.com/account/manage.{% /note %}
+
+### 4. Availability settings atom
 
 The below code snippet renders the availability settings atom through which a user can set their available time slots.
 
@@ -116,7 +156,7 @@ This is how the availability settings atom actually looks like
 
 {% img src="/docs/images/availability_settings.png" /%}
 
-### 4. Booker atom
+### 5. Booker atom
 
 The below code snippet renders the booker atom through which a user can be booked for any event that they have set.
 
