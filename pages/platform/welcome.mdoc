@@ -156,6 +156,42 @@ This is how the availability settings atom actually looks like
 
 {% img src="/docs/images/availability_settings.png" /%}
 
+If a user wishes to add further adjustments to their availability for special occasions or events, they can use the date overrides feature. Date overrides enables users to pick any date that they're currently available and set specific hours for availability on that day or mark themselves entirely unavailable. Once that day is passed, the date override is automatically deleted.
+
+The below code snippet renders date overrides into the availability settings atom
+
+```js
+import { AvailabilitySettings } from "@calcom/atoms";
+
+export default function Availability() {
+  return (
+    <>
+       <AvailabilitySettings
+          enableOverrides={true}
+          onUpdateSuccess={() => {
+            console.log("Updated schedule successfully");
+          }}
+          onDeleteSuccess={() => {
+            console.log("Deleted schedule successfully");
+          }}
+       />
+    <>
+  )
+}
+```
+
+This is how the availability settings atom actually looks like with date overrides
+
+{% img src="/docs/images/date_overrides.png" /%}
+
+When a user tries to add date overrides for their availability, a modal appears which prompts the user to select the date and availability they want to override.
+
+{% img src="/docs/images/date_overrides_modal.png" /%}
+
+After successfully adding a date override, this is how the availability settings atom looks like
+
+{% img src="/docs/images/date_overrides_added.png" /%}
+
 ### 5. Booker atom
 
 The below code snippet renders the booker atom through which a user can be booked for any event that they have set.
