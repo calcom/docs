@@ -375,10 +375,6 @@ export default {
               href: "/enterprise-features/api/authentication",
             },
             {
-              title: "Errors",
-              href: "/enterprise-features/api/errors",
-            },
-            {
               title: "Rate limits",
               href: "/enterprise-features/api/rate-limits",
             },
@@ -387,77 +383,84 @@ export default {
               href: "/enterprise-features/api/versioning",
             },
             {
-              title: "Types",
-              href: "/enterprise-features/api/types",
-            },
-            {
               title: "API reference",
               href: "/enterprise-features/api/api-reference",
               pages: [
                 {
-                  title: "Attendees",
-                  href: "/enterprise-features/api/api-reference/attendees",
+                  title: "V1",
+                  href: "/enterprise-features/api/api-reference/v1",
+                  pages: [
+                    {
+                      title: "Attendees",
+                      href: "/enterprise-features/api/api-reference/attendees",
+                    },
+                    {
+                      title: "Availabilities",
+                      href: "/enterprise-features/api/api-reference/availabilities",
+                    },
+                    {
+                      title: "Availability",
+                      href: "/enterprise-features/api/api-reference/availability",
+                    },
+                    {
+                      title: "Booking References",
+                      href: "/enterprise-features/api/api-reference/booking-references",
+                    },
+                    {
+                      title: "Bookings",
+                      href: "/enterprise-features/api/api-reference/bookings",
+                    },
+                    {
+                      title: "Destination calendars",
+                      href: "/enterprise-features/api/api-reference/destination-calendars",
+                    },
+                    {
+                      title: "Event types",
+                      href: "/enterprise-features/api/api-reference/event-types",
+                    },
+                    {
+                      title: "Me",
+                      href: "/enterprise-features/api/api-reference/me",
+                    },
+                    {
+                      title: "Memberships",
+                      href: "/enterprise-features/api/api-reference/memberships",
+                    },
+                    {
+                      title: "Payments",
+                      href: "/enterprise-features/api/api-reference/payments",
+                    },
+                    {
+                      title: "Schedules",
+                      href: "/enterprise-features/api/api-reference/schedules",
+                    },
+                    {
+                      title: "Selected calendars",
+                      href: "/enterprise-features/api/api-reference/selected-calendars",
+                    },
+                    {
+                      title: "Slots",
+                      href: "/enterprise-features/api/api-reference/slots",
+                    },
+                    {
+                      title: "Teams",
+                      href: "/enterprise-features/api/api-reference/teams",
+                    },
+                    {
+                      title: "Users",
+                      href: "/enterprise-features/api/api-reference/users",
+                    },
+                    {
+                      title: "Webhooks",
+                      href: "/enterprise-features/api/api-reference/webhooks",
+                    }
+                  ],
                 },
-                {
-                  title: "Availabilities",
-                  href: "/enterprise-features/api/api-reference/availabilities",
-                },
-                {
-                  title: "Availability",
-                  href: "/enterprise-features/api/api-reference/availability",
-                },
-                {
-                  title: "Booking References",
-                  href: "/enterprise-features/api/api-reference/booking-references",
-                },
-                {
-                  title: "Bookings",
-                  href: "/enterprise-features/api/api-reference/bookings",
-                },
-                {
-                  title: "Destination calendars",
-                  href: "/enterprise-features/api/api-reference/destination-calendars",
-                },
-                {
-                  title: "Event types",
-                  href: "/enterprise-features/api/api-reference/event-types",
-                },
-                {
-                  title: "Me",
-                  href: "/enterprise-features/api/api-reference/me",
-                },
-                {
-                  title: "Memberships",
-                  href: "/enterprise-features/api/api-reference/memberships",
-                },
-                {
-                  title: "Payments",
-                  href: "/enterprise-features/api/api-reference/payments",
-                },
-                {
-                  title: "Schedules",
-                  href: "/enterprise-features/api/api-reference/schedules",
-                },
-                {
-                  title: "Selected calendars",
-                  href: "/enterprise-features/api/api-reference/selected-calendars",
-                },
-                {
-                  title: "Slots",
-                  href: "/enterprise-features/api/api-reference/slots",
-                },
-                {
-                  title: "Teams",
-                  href: "/enterprise-features/api/api-reference/teams",
-                },
-                {
-                  title: "Users",
-                  href: "/enterprise-features/api/api-reference/users",
-                },
-                {
-                  title: "Webhooks",
-                  href: "/enterprise-features/api/api-reference/webhooks",
-                },
+                // {
+                //   title: "V2",
+                //   href: "/enterprise-features/api/api-reference/v2",
+                //   pages: [],
+                // }
               ],
             },
           ],

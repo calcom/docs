@@ -2,29 +2,47 @@ import { useEffect, useState } from "react"
 import { HTTPAPIDoc } from "@components/uicomp/httpapidoc"
 import { openApiSpec } from "@components/components/lib/apiSpec"
 
-export const OpenAPIDoc = ({ url, path, method, isOpen }) => {
+export const OpenAPIDoc = ({ version = "v1", url, path, method, isOpen }) => {
   const [spec, setSpec] = useState(undefined)
 
 
-  const fetchMock = () => {
+  const fetchMock = (url, version) => {
     return new Promise((resolve, reject) => {
-      // Mimicking a successful response
-      const response = {
-        ok: true,
-        status: 200,
-        json: () => Promise.resolve(openApiSpec),
-      };
-
-      resolve(response);
+      if (version === "v1") {
+        // Mimicking a successful response for version "v1"
+        const response = {
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve(openApiSpec),
+        };
+        resolve(response);
+      } else {
+        // Fetching from the actual URL for version "v2"
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              reject(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json().then(data => {
+              resolve({
+                ok: true,
+                status: 200,
+                json: () => Promise.resolve(data),
+              });
+            });
+          })
+          .catch(error => reject(error));
+      }
     });
   };
+  
 
   useEffect(() => {
     if (!url || !path) {
       return
     }
     const run = async () => {
-      const response = await fetchMock(url)
+      const response = await fetchMock(url, version)
       const result = await response.json()
       if (!result) {
         return

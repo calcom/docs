@@ -2,64 +2,27 @@
 title: "API reference"
 ---
 
-Dive into the specifics of each API endpoint by checking out our complete documentation. Unlike many other platforms, our API gives you access to every single data model within the application, meaning that you can replicate the entire functionality of Cal.com in your own app using the API.
+## API Versions
 
-Hence, this page shows you which API routes are most useful in order to prevent you from being overwhelmed with every single route available to you.
+We offer two versions of our API: the legacy version (V1) and the latest V2 version. While both versions are currently available, we highly recommend using the V2 API in all your integrations and applications.
 
-## The basics
+### Why Use V2?
 
-You'll need only a few of the routes to be able to cover the basic functionality.
+The V2 API includes numerous enhancements and new features that are not available in V1. It has been designed to be more efficient, secure, and easier to use. V2 reflects our commitment to providing the best possible developer experience and ensuring that your applications can take advantage of the latest advancements in our platform.
 
-{% pageLink href="/enterprise-features/api/api-reference/bookings "%}Bookings{% /pageLink %}
+### Deprecation Notice for V1
 
-{% pageLink href="/enterprise-features/api/api-reference/event-types "%}Event types{% /pageLink %}
+{% note type="warning" %}
+Please note that the V1 API will be officially deprecated starting January 2025. This means that after this date, we will no longer provide updates, fixes, or support for the V1 API. We encourage all developers and users to migrate their applications to the V2 API well before this date to avoid any disruptions.
+{% /note %}
 
-## Managing users
+### Key Differences
 
-The user endpoints can only be used on self-hosted enterprise instances and not on our hosted platform.
+- **Performance Improvements**: V2 has been optimized for better performance and scalability.
+- **User friendly response objects**: In V2 we have focused heavily on improving the response object for a better User Experience.
+- **Enhanced Security**: V2 includes improved security measures to protect your data.
+- **New Features**: V2 introduces new functionalities that are not present in V1, allowing you more flexibility with Cal.com application and usage.
 
-{% pageLink href="/enterprise-features/api/api-reference/users "%}Users{% /pageLink %}
+We are committed to supporting our community during this transition. If you have any questions or need assistance with migrating to the V2 API, please refer to our [migration guide](#) or contact our support team.
 
-## Managing teams
-
-The teams endpoints allow you to programmatically CRUD team data.
-
-{% pageLink href="/enterprise-features/api/api-reference/teams "%}Teams{% /pageLink %}
-
-## The other stuff
-
-Attendees allows you to CRUD the data related to who is attending a particular booking. Useful if you want to create events where many people are invited.
-
-{% pageLink href="/enterprise-features/api/api-reference/attendees "%}Attendees{% /pageLink %}
-
-Schedules allows you to set out time blocks when you want to show availability.
-
-{% pageLink href="/enterprise-features/api/api-reference/schedules "%}Schedules{% /pageLink %}
-
-Availabilities allows you to map schedules to an event type.
-
-{% pageLink href="/enterprise-features/api/api-reference/availabilities "%}Availabilities{% /pageLink %}
-
-Booking references map meeting details to bookings.
-
-{% pageLink href="/enterprise-features/api/api-reference/booking-references "%}Booking References{% /pageLink %}
-
-Custom inputs allow you to control which custom inputs are required for your event types.
-
-{% pageLink href="/enterprise-features/api/api-reference/custom-inputs "%}Custom inputs{% /pageLink %}
-
-Destination calendars map bookings for event types to particular calendars.
-
-{% pageLink href="/enterprise-features/api/api-reference/destination-calendars "%}Destination calendars{% /pageLink %}
-
-Memberships control mappings of users to particular roles within teams.
-
-{% pageLink href="/enterprise-features/api/api-reference/memberships "%}Memberships{% /pageLink %}
-
-Payments track the charges that are required to book certain events.
-
-{% pageLink href="/enterprise-features/api/api-reference/payments "%}Payments{% /pageLink %}
-
-Selected calendars keeps track of which calendars should be checked for conflicts.
-
-{% pageLink href="/enterprise-features/api/api-reference/selected-calendars "%}Selected calendars{% /pageLink %}
+Thank you for your understanding and cooperation.

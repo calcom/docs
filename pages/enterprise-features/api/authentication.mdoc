@@ -12,6 +12,15 @@ Test mode secret keys have the prefix `cal_` and live mode secret keys have the 
 
 Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.
 
-Authentication to the API is performed via URL Query Params. Provide your API key as a query param like: `https://api.cal.com/v1/?apiKey=cal_live_xxxxxx`
+For API V1, you need to send the API KEY via URL Query Params. Provide your API key as a query param like: 
+```
+https://api.cal.com/v1/?apiKey=cal_live_xxxxxx
+```
+
+For API V2, you need to send the API key in the Authorization header using the Bearer scheme. For example, the request would go something like: 
+```
+'Authorization': 'Bearer YOUR_API_KEY'
+```
+in your request header.
 
 All API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.
