@@ -30,6 +30,7 @@ import YouTube from '@components/components/youtube'
 import Loom from '@components/components/loom'
 import AtomTable from '@components/components/atomTable'
 import ClassnamesTable from '@components/components/classnamesTable'
+import { JSONSchemaRenderer } from '@components/components/schemaTable'
 
 export default {
   BorderedPanel,
@@ -62,5 +63,6 @@ export default {
   WrappedImage,
   YouTube,
   AtomTable,
-  ClassnamesTable
+  ClassnamesTable,
+  JSONSchemaRenderer
 }

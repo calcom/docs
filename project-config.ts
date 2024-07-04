@@ -392,67 +392,67 @@ export default {
                   pages: [
                     {
                       title: "Attendees",
-                      href: "/enterprise-features/api/api-reference/attendees",
+                      href: "/enterprise-features/api/api-reference/v1/attendees",
                     },
                     {
                       title: "Availabilities",
-                      href: "/enterprise-features/api/api-reference/availabilities",
+                      href: "/enterprise-features/api/api-reference/v1/availabilities",
                     },
                     {
                       title: "Availability",
-                      href: "/enterprise-features/api/api-reference/availability",
+                      href: "/enterprise-features/api/api-reference/v1/availability",
                     },
                     {
                       title: "Booking References",
-                      href: "/enterprise-features/api/api-reference/booking-references",
+                      href: "/enterprise-features/api/api-reference/v1/booking-references",
                     },
                     {
                       title: "Bookings",
-                      href: "/enterprise-features/api/api-reference/bookings",
+                      href: "/enterprise-features/api/api-reference/v1/bookings",
                     },
                     {
                       title: "Destination calendars",
-                      href: "/enterprise-features/api/api-reference/destination-calendars",
+                      href: "/enterprise-features/api/api-reference/v1/destination-calendars",
                     },
                     {
                       title: "Event types",
-                      href: "/enterprise-features/api/api-reference/event-types",
+                      href: "/enterprise-features/api/api-reference/v1/event-types",
                     },
                     {
                       title: "Me",
-                      href: "/enterprise-features/api/api-reference/me",
+                      href: "/enterprise-features/api/api-reference/v1/me",
                     },
                     {
                       title: "Memberships",
-                      href: "/enterprise-features/api/api-reference/memberships",
+                      href: "/enterprise-features/api/api-reference/v1/memberships",
                     },
                     {
                       title: "Payments",
-                      href: "/enterprise-features/api/api-reference/payments",
+                      href: "/enterprise-features/api/api-reference/v1/payments",
                     },
                     {
                       title: "Schedules",
-                      href: "/enterprise-features/api/api-reference/schedules",
+                      href: "/enterprise-features/api/api-reference/v1/schedules",
                     },
                     {
                       title: "Selected calendars",
-                      href: "/enterprise-features/api/api-reference/selected-calendars",
+                      href: "/enterprise-features/api/api-reference/v1/selected-calendars",
                     },
                     {
                       title: "Slots",
-                      href: "/enterprise-features/api/api-reference/slots",
+                      href: "/enterprise-features/api/api-reference/v1/slots",
                     },
                     {
                       title: "Teams",
-                      href: "/enterprise-features/api/api-reference/teams",
+                      href: "/enterprise-features/api/api-reference/v1/teams",
                     },
                     {
                       title: "Users",
-                      href: "/enterprise-features/api/api-reference/users",
+                      href: "/enterprise-features/api/api-reference/v1/users",
                     },
                     {
                       title: "Webhooks",
-                      href: "/enterprise-features/api/api-reference/webhooks",
+                      href: "/enterprise-features/api/api-reference/v1/webhooks",
                     }
                   ],
                 },

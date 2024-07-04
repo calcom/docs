@@ -21,8 +21,26 @@ Please note that the V1 API will be officially deprecated starting January 2025.
 - **Performance Improvements**: V2 has been optimized for better performance and scalability.
 - **User friendly response objects**: In V2 we have focused heavily on improving the response object for a better User Experience.
 - **Enhanced Security**: V2 includes improved security measures to protect your data.
-- **New Features**: V2 introduces new functionalities that are not present in V1, allowing you more flexibility with Cal.com application and usage.
+
+### Admin access
+
+With V2 we're supporting System Wide Admin access and Organization Admin access. 
+
+#### Key points
+
+- The system wide admin has access to all resources via regular endpoints.
+- The organization admin has dedicated endpoints allowing them organization wide resource access. These endpoints follow the general path of `/organizations/:orgId/<resource>`.
+- The API Key can be created (here)[https://app.cal.com/settings/developer/api-keys] and depending on the role of the user, their API access will be settled. That is, 
+    - for a non-admin user, the API key created here will give them access to their own resources. 
+    - for a system wide admin, the API key created here will give them access to all resources, system-wide.
+    - for an organization owner or admin, the API key created here will give them access to all resources, organization-wide.
 
 We are committed to supporting our community during this transition. If you have any questions or need assistance with migrating to the V2 API, please refer to our [migration guide](#) or contact our support team.
 
 Thank you for your understanding and cooperation.
+
+{% pageLink
+    href="/enterprise-features/api/api-reference/v1"
+    heading="Proceed to V1 Endpoints Spec" %}
+    V1 Endpoints
+  {% /pageLink %}

@@ -295,7 +295,14 @@ const config = {
     classnamesTable : {
       render: 'ClassnamesTable',
       attributes: { atom: { type: String } },
-    }
+    },
+    jsonSchemaRenderer: {
+      render: 'JSONSchemaRenderer',
+      description: 'JSON schema renderer',
+      attributes: {
+        schema: { type: Object },
+      },
+    },
   },
   nodes: {
     fence: {

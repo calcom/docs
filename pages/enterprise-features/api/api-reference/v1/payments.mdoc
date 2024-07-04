@@ -2,6 +2,43 @@
 title: Payments
 ---
 
+## Payment Object
+
+{% jsonSchemaRenderer schema={
+    properties: {
+        available: {
+            type: "array",
+            description: "Available funds that you can transfer or pay out automatically by Stripe or explicitly through the Transfers API or Payouts API. You can find the available balance for each currency and payment type in the source_types property.",
+            items: {
+                type: "object",
+                properties: {
+                    amount: { type: "integer", description: "Balance amount." },
+                    currency: { type: "string", description: "Three-letter ISO currency code, in lowercase. Must be a supported currency."}
+                }
+            }
+        },
+        pending: {
+            type: "array",
+            description: "Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the source_types property.",
+            items: {
+              type: "object",
+              properties: {
+                amount: { type: "integer", description: "Balance amount." },
+                currency: { type: "string", description: "Three-letter ISO currency code, in lowercase. Must be a supported currency." },
+                source_types: {
+                  type: "object",
+                  properties: {
+                    bank_account: { type: "integer", description: "Amount for bank account." },
+                    card: { type: "integer", description: "Amount for card." },
+                    fpx: { type: "integer", description: "Amount for FPX." }
+                  }
+                }
+              }
+            }
+          }
+    }
+} /%}
+
 You can use the payments endpoint in Cal.com's API suite track the charges that are required to book certain events.
 
 ## Find all payments
