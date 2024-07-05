@@ -5,7 +5,12 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => setIsExpanded(!isExpanded);
-
+  
+  const parseLinks = (text: string) => {
+    const linkPattern = /\[(.*?)\]\((.*?)\)/g;
+    return text.replace(linkPattern, '<a href="$2" class="underline">$1</a>');
+  };
+  
   const getType = (property: any) => {
     if (property.type === 'array' && property.items) {
       return `array of ${property.items.type}s`;
@@ -14,11 +19,13 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
   };
 
   const renderProperty = () => {
+    const descriptionHtml = property.description ? parseLinks(property.description) : '';
+
     if (property.type === 'object' && property.properties) {
       return (
         <div className="ml-4">
           <p><DatatypeTag label={getType(property)} /></p>
-          <p>{property.description}</p>
+          <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           <button
             className="border border-slate-600 rounded-md px-3 py-2 text-xs"
             onClick={toggleExpand}
@@ -34,7 +41,7 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
       return (
         <div className="ml-4">
           <p><DatatypeTag label={getType(property)} /></p>
-          <p>{property.description}</p>
+          <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           <button
             className="border border-slate-600 rounded-md px-3 py-2 text-xs"
             onClick={toggleExpand}
@@ -52,7 +59,7 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
       return (
         <div className="ml-4">
             <p><DatatypeTag label={getType(property)} /></p>
-            <p>{property.description || ''}</p>
+            <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
         </div>
       );
     }
@@ -93,3 +100,41 @@ export const JSONSchemaRenderer = ({ schema }: {schema: any}) => {
     </div>
   );
 };
+
+/** 
+ 
+ schema={
+    properties: {
+        available: {
+            type: "array",
+            description: "Available funds that you can transfer or pay out automatically by Stripe or explicitly through the Transfers API or Payouts API. You can find the available balance for each currency and payment type in the source_types property.",
+            items: {
+                type: "object",
+                properties: {
+                    amount: { type: "integer", description: "Balance amount." },
+                    currency: { type: "string", description: "Three-letter ISO currency code, in lowercase. Must be a supported currency."}
+                }
+            }
+        },
+        pending: {
+            type: "array",
+            description: "Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the source_types property.",
+            items: {
+              type: "object",
+              properties: {
+                amount: { type: "integer", description: "Balance amount." },
+                currency: { type: "string", description: "Three-letter ISO currency code, in lowercase. Must be a supported currency." },
+                source_types: {
+                  type: "object",
+                  properties: {
+                    bank_account: { type: "integer", description: "Amount for bank account." },
+                    card: { type: "integer", description: "Amount for card." },
+                    fpx: { type: "integer", description: "Amount for FPX." }
+                  }
+                }
+              }
+            }
+          }
+    }
+}
+*/
