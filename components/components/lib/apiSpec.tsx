@@ -206,9 +206,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
               "description": "Your API key"
             }
           ],
@@ -265,9 +263,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
               "description": "Your API key"
             }
           ],
@@ -286,17 +282,21 @@ export const openApiSpec = {
                   ],
                   "properties": {
                     "bookingId": {
-                      "type": "number"
+                      "type": "number",
+                      "description": "ID of the booking where you wish to add this attendee",
                     },
                     "email": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "Email of the attendee",
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Name of the attendee",
                     },
                     "timeZone": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "TimeZone of the attendee",
                     }
                   }
                 }
@@ -352,17 +352,13 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the attendee to delete"
             }
@@ -390,17 +386,13 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the attendee to get"
             }
@@ -453,13 +445,16 @@ export const openApiSpec = {
                   "properties": {
                     "email": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "Email of the attendee",
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Name of the attendee",
                     },
                     "timeZone": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Timezone of the attendee when booking",
                     }
                   }
                 }
@@ -480,7 +475,7 @@ export const openApiSpec = {
               "in": "path",
               "name": "id",
               "schema": {
-                "type": "integer"
+                "type": "integer",
               },
               "required": true,
               "description": "ID of the attendee to get"

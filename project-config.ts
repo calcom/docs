@@ -361,28 +361,6 @@ export default {
           href: "/enterprise-features/api",
           pages: [
             {
-              title: "Quick start",
-              href: "/enterprise-features/api/quick-start",
-              pages: [
-                {
-                  title: "Testing API locally",
-                  href: "/enterprise-features/api/quick-start/testing-api-locally",
-                },
-              ],
-            },
-            {
-              title: "Authentication",
-              href: "/enterprise-features/api/authentication",
-            },
-            {
-              title: "Rate limits",
-              href: "/enterprise-features/api/rate-limits",
-            },
-            {
-              title: "Versioning",
-              href: "/enterprise-features/api/versioning",
-            },
-            {
               title: "API reference",
               href: "/enterprise-features/api/api-reference",
               pages: [
@@ -462,6 +440,28 @@ export default {
                 //   pages: [],
                 // }
               ],
+            },
+            {
+              title: "Quick start",
+              href: "/enterprise-features/api/quick-start",
+              pages: [
+                {
+                  title: "Testing API locally",
+                  href: "/enterprise-features/api/quick-start/testing-api-locally",
+                },
+              ],
+            },
+            {
+              title: "Authentication",
+              href: "/enterprise-features/api/authentication",
+            },
+            {
+              title: "Rate limits",
+              href: "/enterprise-features/api/rate-limits",
+            },
+            {
+              title: "Versioning",
+              href: "/enterprise-features/api/versioning",
             },
           ],
         },
