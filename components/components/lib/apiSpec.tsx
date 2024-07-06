@@ -526,9 +526,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
               "description": "Your API key"
             }
           ],
@@ -547,7 +545,7 @@ export const openApiSpec = {
                   "properties": {
                     "days": {
                       "type": "array",
-                      "description": "Array of integers depicting weekdays",
+                      "description": "Array of integers depicting days of the week",
                       "items": {
                         "type": "integer",
                         "enum": [
@@ -556,7 +554,8 @@ export const openApiSpec = {
                           2,
                           3,
                           4,
-                          5
+                          5,
+                          6
                         ]
                       }
                     },
@@ -565,29 +564,21 @@ export const openApiSpec = {
                       "description": "ID of schedule this availability is associated with"
                     },
                     "startTime": {
-                      "type": "string",
+                      "type": "DateTime",
                       "description": "Start time of the availability"
                     },
                     "endTime": {
-                      "type": "string",
+                      "type": "DateTime",
                       "description": "End time of the availability"
                     }
                   }
                 },
                 "examples": {
                   "availability": {
-                    "summary": "An example of availability",
-                    "value": {
-                      "scheduleId": 123,
-                      "days": [
-                        1,
-                        2,
-                        3,
-                        5
-                      ],
-                      "startTime": "1970-01-01T17:00:00.000Z",
-                      "endTime": "1970-01-01T17:00:00.000Z"
-                    }
+                    "startTime": "1970-01-01T09:00:00.000Z",
+                    "endTime": "1970-01-01T17:00:00.000Z",
+                    "scheduleId": 272,
+                    "days": [2,3,4] 
                   }
                 }
               }
@@ -600,8 +591,37 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    2,
+                                    3,
+                                    4
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            },
+                            "message": "Availability created successfully"            
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability body is invalid."
@@ -620,9 +640,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the availability to delete"
             },
@@ -630,9 +648,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "description": "Your API key"
             }
           ],
@@ -643,8 +659,22 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability removed successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                          "message": "Availability with id: {id} deleted successfully"
+                        }          
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability id is invalid."
@@ -661,9 +691,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the availability to get"
             },
@@ -671,9 +699,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "description": "Your API key"
             }
           ],
@@ -685,7 +711,35 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    2,
+                                    3,
+                                    4
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            }, 
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid"
@@ -704,17 +758,13 @@ export const openApiSpec = {
               "name": "apiKey",
               "required": true,
               "description": "Your API key",
-              "schema": {
-                "type": "integer"
-              }
+              "type": "integer"
             },
             {
               "in": "path",
               "name": "id",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "description": "ID of the availability to edit"
             }
           ],
@@ -757,18 +807,11 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "availability": {
-                    "summary": "An example of availability",
-                    "value": {
-                      "scheduleId": 123,
                       "days": [
                         1,
-                        2,
                         3,
                         5
                       ],
-                      "startTime": "1970-01-01T17:00:00.000Z",
-                      "endTime": "1970-01-01T17:00:00.000Z"
-                    }
                   }
                 }
               }
@@ -781,8 +824,36 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    1,
+                                    3,
+                                    5
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            }, 
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability body is invalid."

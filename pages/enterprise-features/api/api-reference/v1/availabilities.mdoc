@@ -98,16 +98,21 @@ The availabilities endpoint in Cal.com's API suite allows you to map schedules t
 
 ## Create a new availability
 
+Use this endpoint to create a new availability and link to an existing schedule.
+
 {% openapidoc method="POST" url="https://api.cal.com/docs" path="/availabilities" /%}
 
 ## Find an availability
 
+This endpoint can be used to fetch an existing availability by the availability `id`.
 {% openapidoc method="GET" url="https://api.cal.com/docs" path="/availabilities/{id}" /%}
 
 ## Edit an existing availability
 
+This endpoint can be used to modify an existing availability such as linking to a different schedule, or changing the days and times of the availability.
 {% openapidoc method="PATCH" url="https://api.cal.com/docs" path="/availabilities/{id}" /%}
 
 ## Remove an existing availability
 
+This endpoint is used to delete an existing availability that is no longer needed. **Once deleted, this cannot be undone**.
 {% openapidoc method="DELETE" url="https://api.cal.com/docs" path="/availabilities/{id}" /%}
