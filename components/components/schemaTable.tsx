@@ -13,8 +13,9 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
   
   const getType = (property: any) => {
     if (property.type === 'array' && property.items) {
-      return `array of ${property.items.type}s`;
-    }
+        const enumValues = property.items.enum ? ` [${property.items.enum.join(', ')}]` : '';
+        return `array of ${property.items.type}s with enum: ${enumValues}`;
+      }
     return property.type;
   };
 
