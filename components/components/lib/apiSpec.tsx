@@ -28,6 +28,31 @@ export const openApiSpec = {
             "$ref": "#/components/schemas/Booking"
           }
         },
+        "Attendee": {
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "bookingId": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "timeZone": {
+              "type": "string"
+            }
+          }
+        },
+        "ArrayOfAttendees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Attendee"
+          }
+        },
         "Booking": {
           "properties": {
             "id": {
@@ -192,7 +217,37 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfAttendees"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": 
+                        {
+                          "attendees": [
+                            {
+                              "id": 251,
+                              "bookingId": 313,
+                              "name": "John Doe",
+                              "email": "john.doe@example.com",
+                              "timeZone": "Asia/Jerusalem"
+                            },
+                            {
+                              "id": 252,
+                              "bookingId": 314,
+                              "name": "Jane Doe",
+                              "email": "jane.doe@example.com",
+                              "timeZone": "Asia/Dubai"
+                            },
+                          ]  
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -253,14 +308,38 @@ export const openApiSpec = {
           ],
           "responses": {
             "201": {
-              "description": "OK, attendee created"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 255,
+                            "bookingId": 313,
+                            "name": "Justin Doe",
+                            "email": "justin.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          },
+                          "message": "Attendee created successfully"
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Attendee body is invalid."
             },
             "401": {
               "description": "Authorization information is missing or invalid."
-            }
+            },
+            "403": {
+              "description": "Forbidden"
+            }            
           }
         }
       },
@@ -292,14 +371,14 @@ export const openApiSpec = {
             "attendees"
           ],
           "responses": {
-            "201": {
-              "description": "OK, attendee removed successfully"
-            },
-            "400": {
-              "description": "Bad request. Attendee id is invalid."
+            "200": {
+              "description": "Attendee with id: {id} deleted successfully",
             },
             "401": {
               "description": "Authorization information is missing or invalid."
+            },
+            "403": {
+              "description": "Forbidden"
             }
           }
         },
@@ -331,13 +410,33 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 251,
+                            "bookingId": 313,
+                            "name": "John Doe",
+                            "email": "john.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          }
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
             },
-            "404": {
-              "description": "Attendee was not found"
+            "403": {
+              "description": "Forbidden"
             }
           }
         },
@@ -391,14 +490,34 @@ export const openApiSpec = {
             "attendees"
           ],
           "responses": {
-            "201": {
-              "description": "OK, attendee edited successfully"
-            },
-            "400": {
-              "description": "Bad request. Attendee body is invalid."
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 251,
+                            "bookingId": 313,
+                            "name": "John Doe",
+                            "email": "john.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          }
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
+            },
+            "403": {
+              "description": "Forbidden"
             }
           }
         }
