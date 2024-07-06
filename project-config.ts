@@ -377,10 +377,6 @@ export default {
                       href: "/enterprise-features/api/api-reference/v1/availabilities",
                     },
                     {
-                      title: "Availability",
-                      href: "/enterprise-features/api/api-reference/v1/availability",
-                    },
-                    {
                       title: "Booking References",
                       href: "/enterprise-features/api/api-reference/v1/booking-references",
                     },
