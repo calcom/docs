@@ -59,6 +59,7 @@ export const bookerAtomPropsData: AtomsProp[] = [
     {name: 'isInstantMeeting', required: false, description: `Boolean to indicate if the booking is an instant meeting or not`},
     {name: 'rescheduleUid', required: true, description: 'A unique id that is generated at the time of rescheduling a booking'}, 
     {name: 'bookingUid', required: true, description: 'A unique id that is generated at the time of creating a booking'},
+    {name: 'locationUrl', required: false, description: 'If you want to pass in a custom meeting link URL instead of a calcom link'},
     {name: 'firstName', required: false, description: `First name of the attendee`},
     {name: 'lastName', required: false, description: 'Last name of the attendee'},
     {name: 'guests', required: false, description: 'Invite a guest to join a meeting'}, 
