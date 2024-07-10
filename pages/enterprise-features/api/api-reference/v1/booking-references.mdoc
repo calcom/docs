@@ -2,7 +2,61 @@
 title: "Booking References"
 ---
 
-The booking-references endpoint maps meeting details to bookings.
+The booking-references endpoint maps meeting details to bookings. For example, if you're using `Cal Video` as the video conferencing meeting location, this BookingReferences Object will contain all the meeting details such as meeting URL, meeting ID, any password associated with it, etc.
+
+
+{% jsonSchemaRenderer schema={
+    properties: {
+        id: {
+            type: "integer",
+            description: "The `id` of the booking reference, generated automatically",
+        },
+        type: {
+            type: "string",
+            description: "The type of the booking reference. Eg. `daily_video` for Cal Video"
+        },
+        uid: {
+            type: "string",
+            description: "The meeting uid",
+        },
+        meetingId: {
+            type: "string",
+            description: "The meeting Id",
+        },
+        thirdPartyRecurringEventId: {
+            type: "string",
+            description: "In case of a recurring event, this will hold the third-party recurring event Id",
+        },
+        meetingPassword: {
+            type: "string",
+            description: "The meeting room password"
+        },
+        meetingUrl: {
+            type: "URL",
+            description: "The meeting room URL"
+        },
+        booking: {
+            type: "Booking Object",
+            description: "The booking object linked to this booking reference via the `bookingId`. Please check the [Bookings](https://cal.com/docs/enterprise-features/api/api-reference/v1/bookings) endpoint for details on the Booking Object"
+        },
+        bookingId: {
+            type: "integer",
+            description: "The `id` of the booking linked to this booking reference"
+        },
+        externalCalendarId: {
+            type: "string",
+            description: "The external Calendar Id of the linked booking"
+        },
+        deleted: {
+            type: "boolean",
+            description: "If the booking reference is deleted"
+        },
+        credentialId: {
+            type: "integer",
+            description: "The credential Id"
+        },
+    }
+} /%}
 
 ## Find all booking references
 

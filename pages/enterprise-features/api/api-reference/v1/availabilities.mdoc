@@ -7,8 +7,8 @@ The availabilities object is associated with the general availability of the use
 A general flow of setting up an availability via API V1 would require the user to:
 
 1. Create an availability using the POST request to this endpoint.
-2. Take note of the id from the response of the POST request.
-3. Create a schedule (or use an existing schedule) in the Schedules endpoint making sure to use the id received in 2.
+2. Take note of the `id` from the response of the POST request.
+3. Create a schedule (or use an existing schedule) in the Schedules endpoint making sure to use the `id` received in step 2.
 
 {% note %}
 The freebusy data is superimposed on their availability by their calendar integrations and are handled within their integrated calendars, thus they cannot be managed in this endpoint.
