@@ -4,6 +4,54 @@ import { Tabs, Tab } from "@components/uicomp/tabbar"
 import { ChevronRight } from "@components/icons-alt/chevron-right"
 import cn from "classnames"
 
+const resolveRef = (ref, schemas, visited = new Set()) => {
+  if (typeof ref !== "string") return ref;
+
+  if (!ref.startsWith('#/components/schemas/')) {
+    throw new Error(`Unsupported $ref format: ${ref}`);
+  }
+
+  const refPath = ref.replace(/^#\/components\/schemas\//, "");
+  if (visited.has(refPath)) {
+    throw new Error(`Circular reference detected: ${refPath}`);
+  }
+
+  const schema = schemas[refPath];
+  if (!schema) {
+    throw new Error(`Schema not found for $ref: ${ref}`);
+  }
+
+  visited.add(refPath);
+
+  if (schema.$ref) {
+    return resolveRef(schema.$ref, schemas, visited);
+  }
+
+  if (schema.type === 'object' && schema.properties) {
+    Object.keys(schema.properties).forEach((key) => {
+      const prop = schema.properties[key];
+      if (prop.$ref) {
+        schema.properties[key] = resolveRef(prop.$ref, schemas, visited);
+      } else if (prop.type === 'object' && prop.properties) {
+        schema.properties[key] = resolveRef(prop, schemas, visited);
+      } else if (prop.type === 'array' && prop.items.$ref) {
+        schema.properties[key].items = resolveRef(prop.items.$ref, schemas, visited);
+      }
+    });
+  }
+
+  if (schema.type === 'array' && schema.items && schema.items.$ref) {
+    schema.items = resolveRef(schema.items.$ref, schemas, visited);
+  }
+
+  visited.delete(refPath);
+  return schema;
+};
+
+
+
+
+
 export const getColorClassName = (method) => {
   switch (method) {
     case "GET": return "bg-green-100 text-green-600"
@@ -28,10 +76,20 @@ export const getResponseColorClassName = (code) => {
   }
 }
 
+export const getResponseBGColorClassName = (code) => {
+  if (code < 300) {
+    return "bg-green-50"
+  } else if (code < 400) {
+    return "bg-orange-50"
+  } else {
+    return "bg-rose-50"
+  }
+}
+
 export const ResponseTag = ({ code }) => {
-  return <div className="not-prose flex flex-row gap-2 items-center whitespace-nowrap">
+  return <div className={`${getResponseBGColorClassName(code)} p-2 w-min rounded-md not-prose flex flex-row gap-2 items-center whitespace-nowrap`}>
       <div className={`${getResponseColorClassName(code)} rounded-full w-2 h-2 flex-none`}/>
-      <p className="font-medium">{code}: {HTTPResponseCodes[code]}</p>
+      <p className="text-xs font-bold">{code}: {HTTPResponseCodes[code]}</p>
     </div>
 }
 
@@ -39,130 +97,187 @@ export const Badge = ({ method }) => {
   return <span className={`${getColorClassName(method)} font-medium rounded-full px-2 py-1 text-xs w-min select-none`}>{ method }</span>
 }
 
-export const ObjectTypeFormatter = ({ typeinfo }) => {
-  return <div className="mt-4 overflow-x-auto flex flex-col gap-2 divide-y divide-neutral-100">
-    {typeinfo && Object.keys(typeinfo).map(k => {
-      let example
-      if (typeof typeinfo[k]?.example === "object") {
-        example = <div>
-            <p className="mb-2">Example:</p>
-            <div className="bg-neutral-50 p-2 rounded-md font-mono text-xs whitespace-pre-wrap">
-              {JSON.stringify(typeinfo[k]?.example, null, 2)}</div>
-          </div>
-      } else {
-        example = <p className="mb-2">
-            Example:
-            <span className="font-mono ml-1 text-xs">{typeinfo[k]?.example}</span>
-          </p>
-      }
-      return <div>
-          <div className="py-2">
-            <span className="font-mono text-xs">{ k }</span>
-            <span className="ml-1 font-semibold">{ typeinfo[k]?.type }</span>
-          </div>
-          {typeinfo[k]?.example && <div>
-              {example}
-              </div>
-          }
-        </div>
-    })}
-  </div>
-}
+const isObject = (obj) => obj && typeof obj === 'object' && !Array.isArray(obj);
 
-export const TypeFormatter = ({ type, typeinfo }) => {
-  const [isOpen, setOpen] = useState(false)
+const renderExample = (example) => {
 
-  if (type === "array") {
-    let description
-    if (typeinfo?.type === "object") {
-      description = <>
-          <div className="-mb-2">
-            Each item is an <span className="font-semibold">object</span> with fields:
-          </div>
-          <ObjectTypeFormatter typeinfo={typeinfo.properties} />
-        </>
-    } else if (typeinfo) {
-      description = <>
-          <div>
-            Each item is of type{' '}
-            <span className="font-semibold">{typeinfo.type}</span>.
-          </div>
-          {
-            typeinfo.enum && <p className="block">
-                Accepted values:{' '}
-                <span className="font-mono text-xs block whitespace-normal">{JSON.stringify(typeinfo.enum.join(", "))}</span>
-              </p>
-          }
-        </>
-    }
-    return <div>
-        <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(o => !o)}>
-          <p className="font-semibold">array</p>
-          { description &&
-            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 ml-2 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
-              { isOpen ? "Hide items" : "Show items"}
-            </div>
-          }
-        </div>
-        { isOpen && <div>
-          <div className="mt-4">
-            { description }
-          </div>
-        </div>}
-      </div>
-  } else if (type === "object") {
-    return <div>
-        <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(o => !o)}>
-          <p className="font-semibold">object</p>
-          { typeinfo &&
-            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 ml-2 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
-              { isOpen ? "Hide fields" : "Show fields"}
-            </div>
-          }
-        </div>
-        { isOpen && <ObjectTypeFormatter typeinfo={typeinfo} />}
-      </div>
+  if (typeof example === 'object') {
+    return <pre>{JSON.stringify(example, null, 2)}</pre>;
   }
-  return <p className="font-semibold">{ type }</p>
-}
+  return <span className="font-mono text-xs">{example}</span>;
+};
+
+
+const ObjectTypeFormatter = ({ typeinfo }) => {
+
+  return (
+    <div className="mt-4 overflow-x-auto flex flex-col gap-2 divide-y divide-neutral-100">
+      {typeinfo && Object.keys(typeinfo).map(k => (
+        <div key={k} className="py-2">
+          <div>
+            <span className="text-xs">{k}</span>
+            <span className="ml-4 font-semibold">{typeinfo[k].type}</span>
+          </div>
+          {typeinfo[k].example && (
+            <div>
+              <p className="mb-2 text-neutral-400">Example:</p>
+              <div className="bg-slate-50 text-slate-500 p-2 rounded-md font-mono text-xs whitespace-pre-wrap">
+                {renderExample(typeinfo[k].example)}
+              </div>
+            </div>
+          )}
+          {typeinfo[k].properties && (
+            <ObjectTypeFormatter typeinfo={typeinfo[k].properties} />
+          )}
+          {typeinfo[k].items && (
+            <TypeFormatter type={typeinfo[k].type} typeinfo={typeinfo[k].items} />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const TypeFormatter = ({ type, typeinfo }) => {
+  const [isOpen, setOpen] = useState(false);
+
+  if (type === 'array') {
+    return (
+      <div>
+        <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
+          {typeinfo && (
+            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
+              {isOpen ? 'Hide items' : 'Show items'}
+            </div>
+          )}
+        </div>
+        {isOpen && (
+          <div className="mt-2 pb-2 px-2 border border-neutral-100 rounded-md">
+            {typeinfo?.type === 'object' && (
+              <>
+                <p className="font-semibold">object</p>
+                <div className="mt-2 pb-2 px-2 border border-neutral-100 rounded-md">
+                  <ObjectTypeFormatter typeinfo={typeinfo.properties} />
+                </div>
+              </>
+            )}
+            {typeinfo?.type === 'array' && <TypeFormatter type="array" typeinfo={typeinfo.items} />}
+          </div>
+        )}
+      </div>
+    );
+  } else if (type === 'object') {
+    return (
+      <div>
+        <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
+          <p className="font-semibold">object</p>
+          {typeinfo && (
+            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 ml-2 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
+              {isOpen ? 'Hide fields' : 'Show fields'}
+            </div>
+          )}
+        </div>
+        {isOpen && <ObjectTypeFormatter typeinfo={typeinfo} />}
+      </div>
+    );
+  }
+
+  return <p className="font-semibold">{type}</p>;
+};
 
 export const ParamsTable = ({ params }) => {
 
-  return <table className="w-full text-sm table-auto prose border-collapse min-w-full m-0">
-      <tbody>
-        { params.map(p => {
-          return <tr className="border-b border-neutral-100">
-              <td className="w-48 py-2 font-mono align-top text-sm">
-                {p.name}{p.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
-              </td>
-              {p.type &&
-                <td className="w-48 py-2 align-top max-w-[200px] overflow-x-auto">
-                  <TypeFormatter type={p.type} typeinfo={p.typeinfo} />
-                </td>
-              }
-              {p.description &&
-                <td className="py-2 align-top">
-                  {p.description}
-                </td>
-              }
+  const renderParams = (params) => {
+    return Object.keys(params).map((key) => {
+      const p = params[key];
+
+      const typeinfo = p.type === "array" ? p.items : p.typeinfo;
+      return (
+        <tr className="" key={key}>
+          <td className="w-48 py-2 align-top text-sm">
+            {key}
+            {p.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
+          </td>
+          {p.type && (
+            <td className="w-48 py-2 align-top max-w-[200px] overflow-x-auto">
+              {p.type === "array" && (
+                  <p className="font-semibold">array</p>
+              )}
+              <TypeFormatter type={p.type} typeinfo={typeinfo} />
+            </td>
+          )}
+          {p.example && (
+            <td className="py-2 align-top">
+              {p.example}
+            </td>
+          )}
+          {p.description && !p.example && (
+            <td className="py-2 align-top">
+              {p.description}
+            </td>
+          )}
+        </tr>
+      );
+    });
+  };
+
+  return (
+    <div className="relative overflow-auto border rounded-md p-2">
+      <div className="overflow-hidden my-2">
+        <table className="border-collapse table-auto w-full text-sm">
+          <thead className="text-bold">
+            <tr>
+              <th className="w-48 border-b border-slate-200 pl-0 p-4 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left py-2 align-top text-xs uppercase font-semibold">Property</th>
+              <th className="w-48 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Type</th>
+              <th className="w-48 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Example</th>
             </tr>
-        })}
-      </tbody>
-    </table>
-}
+          </thead>
+          <tbody>
+            {isObject(params) ? (
+              renderParams(params)
+            ) : (
+              Array.isArray(params) && params.map((param) => {
+                if (param.type === 'object' && param.properties) {
+                  return (
+                    <tr className="" key={param.name}>
+                      <td className="w-48 py-2 font-mono align-top text-sm">
+                        {param.name}
+                        {param.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
+                      </td>
+                      <td className="w-48 py-2 align-top max-w-[200px] overflow-x-auto">
+                        <div className="pl-4">
+                          <TypeFormatter type="object" typeinfo={param.properties} />
+                        </div>
+                      </td>
+                      {param.description && (
+                        <td className="py-2 align-top">
+                          {param.description}
+                        </td>
+                      )}
+                    </tr>
+                  );
+                } else {
+                  return renderParams({ [param.name]: param });
+                }
+              })
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
 export const getRequestBodyExample = (props) => {
   const example = Object.keys(props).reduce((acc, value) => {
-    return {
-      ...acc,
-      [value]: props[value]?.example
+    if (props[value]?.example !== undefined) {
+      acc[value] = props[value].example;
     }
-  }, {})
-  if (Object.values(example).filter(Boolean).length === 0) {
-    return undefined
-  }
-  return JSON.stringify(example, null, 2)
-}
+    return acc;
+  }, {});
+  return Object.keys(example).length ? example : null;
+};
+
 
 export const getRequestBodySchema = (props) => {
   const required = props.required || []
@@ -182,27 +297,35 @@ export const getRequestBodySchema = (props) => {
         required: required.includes(value),
         type,
         typeinfo,
+        example: properties[value].example,
         description: properties[value].description?.replace("\n", "<br />")
       }]
   }, [])
 }
 
-export const RequestBody = ({ requestBody }) => {
-  const props = requestBody?.content?.["application/json"]?.schema
+export const RequestBody = ({ requestBody, schemas }) => {
+  const schemaRef = requestBody?.content?.["application/json"]?.schema
   const examples = requestBody?.content?.["application/json"]?.examples
-  if (!props) {
-    return <p className="text-neutral-500">No request body.</p>
+
+  let resolvedSchema = null;
+  if (schemaRef && schemaRef.$ref) {
+    resolvedSchema = resolveRef(schemaRef.$ref, schemas);
+  } else {
+    resolvedSchema = schemaRef;
   }
+  if (!resolvedSchema) {
+    return <p className="text-neutral-500">No request body.</p>;
+  }
+
   const exampleTabs = examples ? Object.entries(examples).map(([key, value], index) => (
     <Tab key={key} title={`Example${Object.keys(examples).length > 1 ? ` ${index + 1}` : ""}`}>
       <pre>{JSON.stringify(value, null, 2)}</pre>
     </Tab>
   )) : null;
 
-  //const example = getRequestBodyExample(props?.properties)
   return <Tabs>
       <Tab title="Schema" className="pt-4">
-        <ParamsTable params={getRequestBodySchema(props)} />
+        <ParamsTable params={getRequestBodySchema(resolvedSchema)} />
       </Tab>
       {exampleTabs}
     </Tabs>
@@ -217,47 +340,44 @@ export const RevealButton = ({ open, className, onClick }) => {
     )} /></div>
 }
 
-export const getResponseBodyExample = (responseObj, code) => {
-  // Check if the response object is provided
-  if (!responseObj) return null;
-  // Find the first response with a status code starting with '2' (success)
-  //console.log("resp", responseObj, code);
+export const getResponseBodyExample = (responseObj, code, schemas) => {
+  if (!responseObj) return { schema: null, example: null };
   const successStatusCode = code.startsWith('2');
-  // If no success status code is found, return null
-  if (!successStatusCode) return null;
-  // Extract the content object from the response
+  if (!successStatusCode) return { schema: null, example: null };
+
   const contentObj = responseObj.content;
-  // If the content object is not provided or is empty, return null
-  if (!contentObj || Object.keys(contentObj).length === 0) return null;
-  // Get the first available content type (e.g. 'application/json')
+  if (!contentObj || Object.keys(contentObj).length === 0) return { schema: null, example: null };
+
   const contentType = Object.keys(contentObj)[0];
+  const schemaObj = contentObj[contentType]?.schema || null;
 
-  // Check if examples are provided directly within the content object
+  let example = null;
   if (contentObj[contentType]?.examples) {
-    // Get the first example key (e.g. 'bookings')
     const exampleKey = Object.keys(contentObj[contentType].examples)[0];
-    // Return the value of the example
-    return contentObj[contentType].examples[exampleKey]?.value || null;
+    example = contentObj[contentType].examples[exampleKey]?.value || null;
+  } else if (schemaObj && schemaObj.example) {
+    example = schemaObj.example;
   }
-  // If no direct examples are found, check if an example is provided within a schema object
-  else if (contentObj[contentType]?.schema?.example) {
-    // Return the value of the example within the schema
-    return contentObj[contentType].schema.example;
+
+  let resolvedSchema = null;
+  if (schemaObj && schemaObj.$ref) {
+    resolvedSchema = resolveRef(schemaObj.$ref, schemas);
+  } else {
+    resolvedSchema = schemaObj;
   }
-  // If no examples are found, return null
-  else {
-    return null;
-  }
-}
+
+  return { schema: resolvedSchema, example };
+};
 
 
-export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, responses, requestBody, isOpen: _isOpen }) => {
+
+export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, responses, requestBody, isOpen: _isOpen, schemas }) => {
   const [isOpen, setOpen] = useState(_isOpen)
   const queryParams = parameters?.filter(p => p.in === "query")
   const pathParams = parameters?.filter(p => p.in === "path")
   const formDataParams = parameters?.filter(p => p.in === "formData")
   const bodyParams = parameters?.filter(p => p.in === "body")
-  // console.log("body params", bodyParams)
+
 
   return <div className="pl-12 pr-6 pt-4 pb-4 rounded-md bg-white border border-neutral-200 flex flex-col gap-2 overflow-hidden not-prose">
     <div className="relative flex flex-row gap-4 items-center m-0 not-prose">
@@ -298,43 +418,52 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
       </div>
       {requestBody && Object.keys(requestBody)?.length > 0 &&
         <>
-          <p className="font-semibold mt-10 text-sm">Body</p>
-          <RequestBody requestBody={requestBody} />
+          <p className="font-semibold mt-4 m-0 p-0">Body</p>
+          <RequestBody requestBody={requestBody} schemas={schemas} />
         </>
       }
       {responses && Object.keys(responses)?.length > 0 && (
-        <>
-          <p className="font-semibold mt-4 m-0 p-0">Responses</p>
-          <table className="w-full text-sm prose border-collapse min-w-full m-0 table-fixed">
-            <tbody>
-              {Object.keys(responses).map((code) => {
-                const responseBody = responses[code];
-                const example = getResponseBodyExample(responseBody, code);
-                return (
-                  <tr className="border-b border-neutral-100" key={code}>
-                    <td className="w-48 py-2 align-top pr-2">
-                      <ResponseTag code={code} />
-                    </td>
-                    <td className="py-2 align-top pr-2">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: responseBody.description?.replace(/\n/gi, ''),
-                        }}
-                      />
-                      {example && (
-                        <div className="mt-4 overflow-x-auto">
-                          <h4>Example</h4>
-                          <pre className="w-full overflow-x-auto">{JSON.stringify(example, null, 2)}</pre>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </>
-      )}
+          <>
+            <p className="font-semibold mt-4 m-0 p-0">Responses</p>
+            <table className="w-full text-sm prose border-collapse min-w-full m-0 table-fixed">
+              <tbody>
+                {Object.keys(responses).map((code) => {
+                  const responseBody = responses[code];
+                  const { schema, example } = getResponseBodyExample(responseBody, code, schemas);
+                  return (
+                    <tr className="" key={code}>
+                      <td className="w-48 py-2 align-top pr-2">
+                        <ResponseTag code={code} />
+                        <p
+                          className="text-slate-500 mt-2 ml-6"
+                          dangerouslySetInnerHTML={{
+                            __html: responseBody.description?.replace(/\n/gi, ''),
+                          }}
+                        />
+                        {schema && schema?.properties?.data?.properties && (
+                          <div className="mt-4 overflow-x-auto">
+                            <h4 className="mb-4">Schema</h4>
+                            <>
+                              <ParamsTable params={schema.properties.data.properties} />
+                            </>
+                          </div>
+                        )}
+                        {example && (
+                          <div className="mt-4 overflow-x-auto">
+                            <h4>Example</h4>
+                            <pre className="w-full overflow-x-auto">
+                              {JSON.stringify(example, null, 2)}
+                            </pre>
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </>
+        )}
 
       </>
     }

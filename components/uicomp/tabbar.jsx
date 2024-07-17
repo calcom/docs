@@ -18,12 +18,12 @@ export const Tabs = ({ children }) => {
   }, [children])
 
   return <div className="flex flex-col">
-      <div className="flex flex-row gap-4 flex-none">
+      <div className="flex flex-row gap-4 flex-none text-sm">
         {tabTitlesAndContent?.map((c, i) =>
           (<button
             key={`tabs-item-${i}`}
             className={cn(
-              "px-2 py-1 border-b-2 font-semibold", {
+              "pr-2 py-1 border-b-2 font-semibold", {
                 "border-neutral-900 text-neutral-900": selected === i,
                 "text-neutral-500 border-transparent": selected !== i,
               })}
