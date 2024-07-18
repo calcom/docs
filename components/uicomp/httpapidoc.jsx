@@ -18,7 +18,8 @@ const resolveRef = (ref, schemas, visited = new Set()) => {
 
   const schema = schemas[refPath];
   if (!schema) {
-    throw new Error(`Schema not found for $ref: ${ref}`);
+    console.log({schemas}, {ref});
+    return ref;
   }
 
   visited.add(refPath);
@@ -182,7 +183,7 @@ const TypeFormatter = ({ type, typeinfo }) => {
     );
   }
 
-  return <p className="font-semibold">{type}</p>;
+  return <p className="">{type}</p>;
 };
 
 export const ParamsTable = ({ params }) => {
@@ -206,16 +207,9 @@ export const ParamsTable = ({ params }) => {
               <TypeFormatter type={p.type} typeinfo={typeinfo} />
             </td>
           )}
-          {p.example && (
-            <td className="py-2 align-top">
-              {p.example}
-            </td>
-          )}
-          {p.description && !p.example && (
-            <td className="py-2 align-top">
-              {p.description}
-            </td>
-          )}
+          <td className="py-2 align-top">
+            {p.example || ""}
+          </td>
         </tr>
       );
     });
@@ -249,11 +243,6 @@ export const ParamsTable = ({ params }) => {
                           <TypeFormatter type="object" typeinfo={param.properties} />
                         </div>
                       </td>
-                      {param.description && (
-                        <td className="py-2 align-top">
-                          {param.description}
-                        </td>
-                      )}
                     </tr>
                   );
                 } else {
@@ -280,28 +269,29 @@ export const getRequestBodyExample = (props) => {
 
 
 export const getRequestBodySchema = (props) => {
-  const required = props.required || []
-  const properties = props.properties || {}
+  const required = props.required || [];
+  const properties = props.properties || {};
   return Object.keys(properties).reduce((acc, value) => {
-    const type = properties[value].type
-    let typeinfo = undefined
+    const type = properties[value].type;
+    let typeinfo = undefined;
     if (type === 'array') {
-      typeinfo = properties[value].items
+      typeinfo = properties[value].items;
     } else if (type === 'object') {
-      typeinfo = properties[value].properties
+      typeinfo = properties[value].properties;
     }
-    return [
-      ...acc,
-      {
-        name: value,
-        required: required.includes(value),
-        type,
-        typeinfo,
-        example: properties[value].example,
-        description: properties[value].description?.replace("\n", "<br />")
-      }]
-  }, [])
-}
+    acc[value] = {
+      type,
+      items: type === 'array' ? typeinfo : undefined,
+      properties: type === 'object' ? typeinfo : undefined,
+      example: properties[value].example,
+      description: properties[value].description?.replace("\n", "<br />"),
+      required: required.includes(value)
+    };
+    return acc;
+  }, {});
+};
+
+
 
 export const RequestBody = ({ requestBody, schemas }) => {
   const schemaRef = requestBody?.content?.["application/json"]?.schema
@@ -322,7 +312,7 @@ export const RequestBody = ({ requestBody, schemas }) => {
       <pre>{JSON.stringify(value, null, 2)}</pre>
     </Tab>
   )) : null;
-
+  console.log("--->", getRequestBodySchema(resolvedSchema))
   return <Tabs>
       <Tab title="Schema" className="pt-4">
         <ParamsTable params={getRequestBodySchema(resolvedSchema)} />
@@ -393,20 +383,20 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
     <p className="m-0 p-0 mt-2">{description}</p>
     { isOpen && <>
       <div>
-        <p className="font-semibold mt-4">Parameters</p>
+        <p className="font-semibold my-4">Parameters</p>
         {!(parameters?.length > 0) && <p className="text-neutral-500">No parameters</p>}
         {queryParams?.length > 0 && <>
-            <p className="font-semibold mt-10 text-sm">Query</p>
+            <p className="font-semibold text-sm my-4">Query</p>
             <ParamsTable params={queryParams} />
           </>
         }
         {pathParams?.length > 0 && <>
-            <p className="font-semibold mt-10 text-sm">Path</p>
+            <p className="font-semibold my-4 text-sm">Path</p>
             <ParamsTable params={pathParams} />
           </>
         }
         {bodyParams?.length > 0 && <>
-            <p className="font-semibold mt-10 text-sm">Body</p>
+            <p className="font-semibold mt-12 text-sm">Body</p>
             <ParamsTable params={bodyParams} />
           </>
         }
@@ -444,6 +434,7 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
                           <div className="mt-4 overflow-x-auto">
                             <h4 className="mb-4">Schema</h4>
                             <>
+                            {console.log("===>", schema.properties.data.properties)}
                               <ParamsTable params={schema.properties.data.properties} />
                             </>
                           </div>
