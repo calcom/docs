@@ -104,7 +104,7 @@ const renderExample = (example) => {
   if (typeof example === 'object') {
     return <pre>{JSON.stringify(example, null, 2)}</pre>;
   }
-  return <span className="font-mono text-xs">{example}</span>;
+  return <span className="font-mono text-xs overflow-hidden overflow-ellipsis block w-full">{example}</span>;
 };
 
 
@@ -389,7 +389,7 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
   const bodyParams = parameters?.filter(p => p.in === "body")
 
 
-  return <div className="pl-12 pr-6 pt-4 pb-4 rounded-md bg-white border border-neutral-200 flex flex-col gap-2 overflow-hidden not-prose">
+  return <div className="px-12 pt-4 pb-4 rounded-md bg-white border border-neutral-200 flex flex-col gap-2 overflow-hidden not-prose">
     <div className="relative flex flex-row gap-4 items-center m-0 not-prose">
       <RevealButton
         className="absolute left-[-38px]"
@@ -473,139 +473,3 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
     }
   </div>
 }
-
-<div className="prose p-8 max-w-full">
-<HTTPAPIDoc
-  isOpen
-  method="POST"
-  baseUrl="http://api.example.com"
-  path="/greet"
-  description="Greet the user."
-  responses={{
-    "200":{
-      "description":"Booking(s) created successfully.",
-      "content":{
-         "application/json":{
-            "examples":{
-               "bookings":{
-                  "value":{
-                     "id":11223344,
-                     "uid":"5yUjmAYTDF6MXo98re8SkX",
-                     "userId":123,
-                     "eventTypeId":2323232,
-                     "title":"Debugging between Syed Ali Shahbaz and Hello Hello",
-                     "description":null,
-                     "customInputs":{
-
-                     },
-                     "responses":null,
-                     "startTime":"2023-05-24T13:00:00.000Z",
-                     "endTime":"2023-05-24T13:30:00.000Z",
-                     "location":"Calcom HQ",
-                     "createdAt":"2023-04-19T10:17:58.580Z",
-                     "updatedAt":null,
-                     "status":"PENDING",
-                     "paid":false,
-                     "destinationCalendarId":2180,
-                     "cancellationReason":null,
-                     "rejectionReason":null,
-                     "dynamicEventSlugRef":null,
-                     "dynamicGroupSlugRef":null,
-                     "rescheduled":null,
-                     "fromReschedule":null,
-                     "recurringEventId":null,
-                     "smsReminderNumber":null,
-                     "scheduledJobs":[
-
-                     ],
-                     "metadata":{
-
-                     },
-                     "isRecorded":false,
-                     "user":{
-                        "email":"test@cal.com",
-                        "name":"Syed Ali Shahbaz",
-                        "timeZone":"Asia/Calcutta"
-                     },
-                     "attendees":[
-                        {
-                           "id":12345,
-                           "email":"hello@gmail.com",
-                           "name":"Hello Hello",
-                           "timeZone":"Europe/London",
-                           "locale":"en",
-                           "bookingId":11223344
-                        }
-                     ],
-                     "payment":[
-
-                     ],
-                     "references":[
-
-                     ]
-                  }
-               }
-            }
-         }
-      }
-   },
-    "404": { "description": "Pet not found" },
-    "405": { "description": "Bad request\n<table>\n  <tr>\n    <td>Message</td>\n    <td>Cause</td>\n  </tr>\n  <tr>\n    <td>Booking body is invalid</td>\n    <td>Missing property on booking entity.</td>\n  </tr>\n  <tr>\n    <td>Invalid eventTypeId</td>\n    <td>The provided eventTypeId does not exist.</td>\n  </tr>\n  <tr>\n    <td>Missing recurringCount</td>\n    <td>The eventType is recurring, and no recurringCount was passed.</td>\n  </tr>\n  <tr>\n    <td>Invalid recurringCount</td>\n    <td>The provided recurringCount is greater than the eventType recurring config</td>\n  </tr>\n</table>\n" }
-  }}
-  requestBody={{
-    "description": "Create a new attendee related to one of your bookings",
-    "required": true,
-    "content": {
-      "application/json": {
-        "schema": {
-          "type": "object",
-          "required": ["bookingId", "name", "email"],
-          "properties": {
-            "bookingId": { "type": "number", "example": 1, "description": "The booking id" },
-            "email": { "type": "string", "example": "email@example.com" },
-            "name": { "type": "string", "example": "John Doe" },
-            "timeZone": { "type": "string", "example": "Europe/London" },
-            "attendees": {
-              "type": "array",
-              "description": "List of attendees of the booking",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string", "format": "email" },
-                  "timeZone": { "type": "string" },
-                  "locale": { "type": "string" }
-                }
-              }
-            },
-            "days": {
-              "type": "array",
-              "description": "Array of integers depicting weekdays",
-              "items": { "type": "integer", "enum": [0, 1, 2, 3, 4, 5] }
-            },
-            "schema": {
-              "type": "object",
-              "required": ["title", "slug", "length", "metadata"],
-              "properties": {
-                "length": { "type": "number", "example": 30 },
-                "metadata": {
-                  "type": "object",
-                  "example": {
-                    "smartContractAddress": "0x1234567890123456789012345678901234567890"
-                  }
-                },
-                "title": { "type": "string", "example": "My Event" },
-                "slug": { "type": "string", "example": "my-event" }
-              }
-            }
-          }
-        },
-        "examples":{
-          "team-event-type":{"summary":"An example of a team event type POST request","value":{"title":"Tennis class","slug":"tennis-class-{{$guid}}","length":60,"hidden":false,"position":0,"teamId":3,"eventName":null,"timeZone":null,"periodType":"UNLIMITED","periodStartDate":null,"periodEndDate":null,"periodDays":null,"periodCountCalendarDays":null,"requiresConfirmation":true,"recurringEvent":{"interval":2,"count":10,"freq":2},"disableGuests":false,"hideCalendarNotes":false,"minimumBookingNotice":120,"beforeEventBuffer":0,"afterEventBuffer":0,"schedulingType":null,"price":0,"currency":"usd","slotInterval":null,"successRedirectUrl":null,"description":null,"locations":[{"address":"London","type":"inPerson"}],"metadata":{}}},
-          "event-type":{"summary":"An example of a team event type POST request","value":{"title":"Tennis class","slug":"tennis-class-{{$guid}}","length":60,"hidden":false,"position":0,"teamId":3,"eventName":null,"timeZone":null,"periodType":"UNLIMITED","periodStartDate":null,"periodEndDate":null,"periodDays":null,"periodCountCalendarDays":null,"requiresConfirmation":true,"recurringEvent":{"interval":2,"count":10,"freq":2},"disableGuests":false,"hideCalendarNotes":false,"minimumBookingNotice":120,"beforeEventBuffer":0,"afterEventBuffer":0,"schedulingType":null,"price":0,"currency":"usd","slotInterval":null,"successRedirectUrl":null,"description":null,"locations":[{"address":"London","type":"inPerson"}],"metadata":{}}}
-        }
-      }
-    }
-  }}
-/>
-</div>
