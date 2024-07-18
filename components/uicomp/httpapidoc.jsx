@@ -193,12 +193,12 @@ export const ParamsTable = ({ params }) => {
       const typeinfo = p.type === "array" ? p.items : p.typeinfo;
       return (
         <tr className="" key={key}>
-          <td className="w-32 py-2 align-top text-sm">
+          <td className="w-32 py-2 align-top text-sm border-r border-neutral-50">
             {key}
             {p.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
           </td>
           {p.type && (
-            <td className="w-64 py-2 align-top max-w-[300px] overflow-x-auto">
+            <td className="pl-3 w-64 py-2 align-top max-w-[300px] overflow-x-auto">
               {p.type === "array" && (
                   <p className="font-semibold">array</p>
               )}
@@ -217,7 +217,7 @@ export const ParamsTable = ({ params }) => {
           <thead className="text-bold">
             <tr>
               <th className="w-32 border-b border-slate-200 pl-0 p-4 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left py-2 align-top text-xs uppercase font-semibold">Property</th>
-              <th className="w-64 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Type</th>
+              <th className="w-64 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-3 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Type</th>
             </tr>
           </thead>
           <tbody>
@@ -361,7 +361,7 @@ export const getResponseBodyExample = (responseObj, code, schemas) => {
 const extractExamples = (schema) => {
   const examples = {};
   const extract = (obj, path = [], target = examples) => {
-    if (typeof obj !== 'object') return;
+    if (typeof obj !== 'object' || obj === null) return;
     if (obj.example !== undefined) {
       const lastKey = path.pop();
       const parent = path.reduce((acc, key) => acc[key] = acc[key] || {}, examples);
