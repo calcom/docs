@@ -18,7 +18,6 @@ const resolveRef = (ref, schemas, visited = new Set()) => {
 
   const schema = schemas[refPath];
   if (!schema) {
-    console.log({schemas}, {ref});
     return ref;
   }
 
@@ -191,25 +190,21 @@ export const ParamsTable = ({ params }) => {
   const renderParams = (params) => {
     return Object.keys(params).map((key) => {
       const p = params[key];
-
       const typeinfo = p.type === "array" ? p.items : p.typeinfo;
       return (
         <tr className="" key={key}>
-          <td className="w-48 py-2 align-top text-sm">
+          <td className="w-32 py-2 align-top text-sm">
             {key}
             {p.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
           </td>
           {p.type && (
-            <td className="w-48 py-2 align-top max-w-[200px] overflow-x-auto">
+            <td className="w-64 py-2 align-top max-w-[300px] overflow-x-auto">
               {p.type === "array" && (
                   <p className="font-semibold">array</p>
               )}
               <TypeFormatter type={p.type} typeinfo={typeinfo} />
             </td>
           )}
-          <td className="py-2 align-top">
-            {p.example || ""}
-          </td>
         </tr>
       );
     });
@@ -221,9 +216,8 @@ export const ParamsTable = ({ params }) => {
         <table className="border-collapse table-auto w-full text-sm">
           <thead className="text-bold">
             <tr>
-              <th className="w-48 border-b border-slate-200 pl-0 p-4 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left py-2 align-top text-xs uppercase font-semibold">Property</th>
-              <th className="w-48 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Type</th>
-              <th className="w-48 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Example</th>
+              <th className="w-32 border-b border-slate-200 pl-0 p-4 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left py-2 align-top text-xs uppercase font-semibold">Property</th>
+              <th className="w-64 py-2 align-top border-slate-200 text-xs uppercase border-b dark:border-slate-600 font-semibold p-4 pl-0 pt-0 pb-3 text-slate-700 dark:text-slate-200 text-left">Type</th>
             </tr>
           </thead>
           <tbody>
@@ -234,11 +228,11 @@ export const ParamsTable = ({ params }) => {
                 if (param.type === 'object' && param.properties) {
                   return (
                     <tr className="" key={param.name}>
-                      <td className="w-48 py-2 font-mono align-top text-sm">
+                      <td className="w-32 py-2 font-mono align-top text-sm">
                         {param.name}
                         {param.required && <span className="text-rose-500 text-xs ml-0.5 transform -translate-y-1 inline-block select-none">*</span>}
                       </td>
-                      <td className="w-48 py-2 align-top max-w-[200px] overflow-x-auto">
+                      <td className="w-64 py-2 align-top max-w-[300px] overflow-x-auto">
                         <div className="pl-4">
                           <TypeFormatter type="object" typeinfo={param.properties} />
                         </div>
@@ -284,7 +278,6 @@ export const getRequestBodySchema = (props) => {
       items: type === 'array' ? typeinfo : undefined,
       properties: type === 'object' ? typeinfo : undefined,
       example: properties[value].example,
-      description: properties[value].description?.replace("\n", "<br />"),
       required: required.includes(value)
     };
     return acc;
@@ -307,17 +300,23 @@ export const RequestBody = ({ requestBody, schemas }) => {
     return <p className="text-neutral-500">No request body.</p>;
   }
 
+  const exampleRequest = getRequestBodyExample(resolvedSchema.properties);
   const exampleTabs = examples ? Object.entries(examples).map(([key, value], index) => (
     <Tab key={key} title={`Example${Object.keys(examples).length > 1 ? ` ${index + 1}` : ""}`}>
       <pre>{JSON.stringify(value, null, 2)}</pre>
     </Tab>
   )) : null;
-  console.log("--->", getRequestBodySchema(resolvedSchema))
+
   return <Tabs>
       <Tab title="Schema" className="pt-4">
         <ParamsTable params={getRequestBodySchema(resolvedSchema)} />
       </Tab>
       {exampleTabs}
+      {exampleRequest && (
+        <Tab title="Example Values" className="pt-4">
+          <pre>{JSON.stringify(exampleRequest, null, 2)}</pre>
+        </Tab>
+      )}
     </Tabs>
 }
 
@@ -359,6 +358,27 @@ export const getResponseBodyExample = (responseObj, code, schemas) => {
   return { schema: resolvedSchema, example };
 };
 
+const extractExamples = (schema) => {
+  const examples = {};
+  const extract = (obj, path = [], target = examples) => {
+    if (typeof obj !== 'object') return;
+    if (obj.example !== undefined) {
+      const lastKey = path.pop();
+      const parent = path.reduce((acc, key) => acc[key] = acc[key] || {}, examples);
+      parent[lastKey] = obj.example;
+    }
+    if (obj.properties) {
+      Object.keys(obj.properties).forEach(key => {
+        extract(obj.properties[key], [...path, key], target);
+      });
+    }
+    if (obj.items) {
+      extract(obj.items, [...path, 'items'], target);
+    }
+  };
+  extract(schema);
+  return examples;
+};
 
 
 export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, responses, requestBody, isOpen: _isOpen, schemas }) => {
@@ -413,48 +433,41 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
         </>
       }
       {responses && Object.keys(responses)?.length > 0 && (
-          <>
-            <p className="font-semibold mt-4 m-0 p-0">Responses</p>
-            <table className="w-full text-sm prose border-collapse min-w-full m-0 table-fixed">
-              <tbody>
-                {Object.keys(responses).map((code) => {
-                  const responseBody = responses[code];
-                  const { schema, example } = getResponseBodyExample(responseBody, code, schemas);
-                  return (
-                    <tr className="" key={code}>
-                      <td className="w-48 py-2 align-top pr-2">
-                        <ResponseTag code={code} />
-                        <p
-                          className="text-slate-500 mt-2 ml-6"
-                          dangerouslySetInnerHTML={{
-                            __html: responseBody.description?.replace(/\n/gi, ''),
-                          }}
-                        />
-                        {schema && schema?.properties?.data?.properties && (
-                          <div className="mt-4 overflow-x-auto">
-                            <h4 className="mb-4">Schema</h4>
-                            <>
-                            {console.log("===>", schema.properties.data.properties)}
-                              <ParamsTable params={schema.properties.data.properties} />
-                            </>
-                          </div>
-                        )}
-                        {example && (
-                          <div className="mt-4 overflow-x-auto">
-                            <h4>Example</h4>
-                            <pre className="w-full overflow-x-auto">
-                              {JSON.stringify(example, null, 2)}
-                            </pre>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+        <>
+          <p className="font-semibold mt-4 m-0 p-0">Responses</p>
+          {Object.keys(responses).map((code) => {
+            const responseBody = responses[code];
+            const { schema, example } = getResponseBodyExample(responseBody, code, schemas);
+            const examples = extractExamples(schema);
+            const exampleTabs = examples && Object.keys(examples).length > 0 ? (
+              <Tab title="Example" className="pt-4">
+                <pre>{JSON.stringify(examples, null, 2)}</pre>
+              </Tab>
+            ) : null;
+
+              return (
+                <div key={code}>
+                  <ResponseTag code={code} />
+                  <p
+                    className="text-slate-500 mt-2 ml-6"
+                    dangerouslySetInnerHTML={{
+                      __html: responseBody.description?.replace(/\n/gi, ''),
+                    }}
+                  />
+                  {schema && schema?.properties?.data?.properties && (
+                    <Tabs>
+                      <Tab title="Schema" className="pt-4">
+                        <ParamsTable params={schema.properties.data.properties} />
+                      </Tab>
+                      {exampleTabs}
+                    </Tabs>
+                  )}
+                </div>
+              );
+            })}
           </>
         )}
+
 
       </>
     }
