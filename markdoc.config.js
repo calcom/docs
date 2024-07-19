@@ -190,6 +190,7 @@ const config = {
       render: 'OpenAPIDoc',
       description: 'An Open API Doc card',
       attributes: {
+        version: { type: String },
         url: { type: String },
         path: { type: String },
         method: {

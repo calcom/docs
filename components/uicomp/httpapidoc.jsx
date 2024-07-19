@@ -4,6 +4,36 @@ import { Tabs, Tab } from "@components/uicomp/tabbar"
 import { ChevronRight } from "@components/icons-alt/chevron-right"
 import cn from "classnames"
 
+const resolveNestedRefs = (schemaObj, schemas) => {
+  if (!schemaObj) return schemaObj;
+
+  if (schemaObj.$ref) {
+      return resolveRef(schemaObj.$ref, schemas);
+  }
+  if (schemaObj?.properties?.$ref) {
+      return resolveRef(schemaObj?.properties?.$ref, schemas);
+  }
+
+  if (schemaObj.type === 'object' && schemaObj.properties) {
+      Object.keys(schemaObj.properties).forEach((key) => {
+
+          const prop = schemaObj.properties[key];
+
+          if (prop.$ref) {
+            schemaObj.properties[key] = resolveRef(prop.$ref, schemas);
+          } else {
+            schemaObj.properties[key] = resolveNestedRefs(prop, schemas);
+          }
+      });
+  }
+
+  if (schemaObj.type === 'array' && schemaObj.items) {
+    schemaObj.items = resolveNestedRefs(schemaObj.items, schemas);
+  }
+
+  return schemaObj;
+};
+
 const resolveRef = (ref, schemas, visited = new Set()) => {
   if (typeof ref !== "string") return ref;
 
@@ -47,10 +77,6 @@ const resolveRef = (ref, schemas, visited = new Set()) => {
   visited.delete(refPath);
   return schema;
 };
-
-
-
-
 
 export const getColorClassName = (method) => {
   switch (method) {
@@ -111,16 +137,16 @@ const renderExample = (example) => {
 const ObjectTypeFormatter = ({ typeinfo }) => {
 
   return (
-    <div className="mt-4 overflow-x-auto flex flex-col gap-2 divide-y divide-neutral-100">
+    <div className="overflow-x-auto flex flex-col gap-2 divide-y divide-neutral-100">
       {typeinfo && Object.keys(typeinfo).map(k => (
         <div key={k} className="py-2">
           <div>
-            <span className="text-xs">{k}</span>
-            <span className="ml-4 font-semibold">{typeinfo[k].type}</span>
+            <span className="font-[700]">{k}</span>
+            <span className="ml-4 text-xs">{typeinfo[k].type}</span>
           </div>
           {typeinfo[k].example && (
             <div>
-              <p className="mb-2 text-neutral-400">Example:</p>
+              <p className="mb-2 text-neutral-500 text-xs">Example:</p>
               <div className="bg-slate-50 text-slate-500 p-2 rounded-md font-mono text-xs whitespace-pre-wrap">
                 {renderExample(typeinfo[k].example)}
               </div>
@@ -147,7 +173,7 @@ const TypeFormatter = ({ type, typeinfo }) => {
         <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
           {typeinfo && (
             <div className="flex flex-row items-center whitespace-nowrap mt-0.5 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
-              {isOpen ? 'Hide items' : 'Show items'}
+              {isOpen ? 'Hide child attributes' : 'Show child attributes'}
             </div>
           )}
         </div>
@@ -155,13 +181,20 @@ const TypeFormatter = ({ type, typeinfo }) => {
           <div className="mt-2 pb-2 px-2 border border-neutral-100 rounded-md">
             {typeinfo?.type === 'object' && (
               <>
-                <p className="font-semibold">object</p>
+                <span className="text-xs text-neutral-400">of</span>
+                <span className="mt-2 font-[400] ml-1">object</span>
                 <div className="mt-2 pb-2 px-2 border border-neutral-100 rounded-md">
                   <ObjectTypeFormatter typeinfo={typeinfo.properties} />
                 </div>
               </>
             )}
             {typeinfo?.type === 'array' && <TypeFormatter type="array" typeinfo={typeinfo.items} />}
+            {typeinfo?.type !== "object" && typeinfo?.type !== "array" && (
+              <>
+              <span className="text-xs text-neutral-400">of</span>
+              <span className="ml-1">{typeinfo?.type}</span>
+              </>
+            )}
           </div>
         )}
       </div>
@@ -170,10 +203,11 @@ const TypeFormatter = ({ type, typeinfo }) => {
     return (
       <div>
         <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
-          <p className="font-semibold">object</p>
+          <span className="text-xs text-neutral-400">of</span>
+          <p className="mt-2 font-[400] ml-1">object</p>
           {typeinfo && (
             <div className="flex flex-row items-center whitespace-nowrap mt-0.5 ml-2 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
-              {isOpen ? 'Hide fields' : 'Show fields'}
+              {isOpen ? 'Hide child attributes' : 'Show child attributes'}
             </div>
           )}
         </div>
@@ -200,7 +234,7 @@ export const ParamsTable = ({ params }) => {
           {p.type && (
             <td className="pl-3 w-64 py-2 align-top max-w-[300px] overflow-x-auto">
               {p.type === "array" && (
-                  <p className="font-semibold">array</p>
+                  <p className="font-[400]">array</p>
               )}
               <TypeFormatter type={p.type} typeinfo={typeinfo} />
             </td>
@@ -342,44 +376,55 @@ export const getResponseBodyExample = (responseObj, code, schemas) => {
 
   let example = null;
   if (contentObj[contentType]?.examples) {
-    const exampleKey = Object.keys(contentObj[contentType].examples)[0];
-    example = contentObj[contentType].examples[exampleKey]?.value || null;
+      const exampleKey = Object.keys(contentObj[contentType].examples)[0];
+      example = contentObj[contentType].examples[exampleKey]?.value || null;
   } else if (schemaObj && schemaObj.example) {
-    example = schemaObj.example;
+      example = schemaObj.example;
   }
 
-  let resolvedSchema = null;
-  if (schemaObj && schemaObj.$ref) {
-    resolvedSchema = resolveRef(schemaObj.$ref, schemas);
-  } else {
-    resolvedSchema = schemaObj;
+  let resolvedSchema = resolveNestedRefs(schemaObj, schemas);
+
+  if (!example && resolvedSchema) {
+      example = generateExample(resolvedSchema, schemas); // Generate example from resolved schema
   }
 
   return { schema: resolvedSchema, example };
 };
 
-const extractExamples = (schema) => {
-  const examples = {};
-  const extract = (obj, path = [], target = examples) => {
-    if (typeof obj !== 'object' || obj === null) return;
-    if (obj.example !== undefined) {
-      const lastKey = path.pop();
-      const parent = path.reduce((acc, key) => acc[key] = acc[key] || {}, examples);
-      parent[lastKey] = obj.example;
-    }
-    if (obj.properties) {
-      Object.keys(obj.properties).forEach(key => {
-        extract(obj.properties[key], [...path, key], target);
-      });
-    }
-    if (obj.items) {
-      extract(obj.items, [...path, 'items'], target);
-    }
-  };
-  extract(schema);
-  return examples;
-};
+function generateExample(schema) {
+  if (!schema) return null;
 
+  if (schema.type === 'object') {
+      let result = {};
+      if (schema.properties) {
+          for (const key in schema.properties) {
+              result[key] = generateExample(schema.properties[key]);
+          }
+      }
+      return result;
+  }
+
+  if (schema.type === 'array') {
+      return [generateExample(schema.items)];
+  }
+
+  if (schema.hasOwnProperty('example')) {
+      return schema.example;
+  }
+
+  switch (schema.type) {
+      case 'string':
+          return '';
+      case 'number':
+          return 0;
+      case 'boolean':
+          return false;
+      case 'null':
+          return null;
+      default:
+          return null;
+  }
+}
 
 export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, responses, requestBody, isOpen: _isOpen, schemas }) => {
   const [isOpen, setOpen] = useState(_isOpen)
@@ -404,7 +449,7 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
     { isOpen && <>
       <div>
         <p className="font-semibold my-4">Parameters</p>
-        {!(parameters?.length > 0) && <p className="text-neutral-500">No parameters</p>}
+        {!(parameters?.length > 0) && <p className="p-4 text-slate-500 text-sm rounded-md bg-slate-50">No parameters</p>}
         {queryParams?.length > 0 && <>
             <p className="font-semibold text-sm my-4">Query</p>
             <ParamsTable params={queryParams} />
@@ -437,19 +482,28 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
           <p className="font-semibold mt-4 m-0 p-0">Responses</p>
           {Object.keys(responses).map((code) => {
             const responseBody = responses[code];
+
             const { schema, example } = getResponseBodyExample(responseBody, code, schemas);
-            const examples = extractExamples(schema);
-            const exampleTabs = examples && Object.keys(examples).length > 0 ? (
-              <Tab title="Example" className="pt-4">
-                <pre>{JSON.stringify(examples, null, 2)}</pre>
-              </Tab>
-            ) : null;
+            const examples = generateExample(schema, schemas);
+
+            const exampleTabs = example && Object.keys(example).length > 0
+            ? (
+                <Tab title="Example" className="pt-4">
+                  <pre>{JSON.stringify(example, null, 2)}</pre>
+                </Tab>
+              )
+              : examples && Object.keys(examples).length > 0
+              ? 
+                  <Tab title="Example" className="pt-4">
+                    <pre>{JSON.stringify(examples, null, 2)}</pre>
+                  </Tab>
+              : null;
 
               return (
-                <div key={code}>
+                <div className="border-b border-neutral-100 pb-4 mb-4" key={code}>
                   <ResponseTag code={code} />
                   <p
-                    className="text-slate-500 mt-2 ml-6"
+                    className="text-slate-500 my-2 ml-6 text-sm"
                     dangerouslySetInnerHTML={{
                       __html: responseBody.description?.replace(/\n/gi, ''),
                     }}
@@ -459,6 +513,11 @@ export const HTTPAPIDoc = ({ method, baseUrl, path, description, parameters, res
                       <Tab title="Schema" className="pt-4">
                         <ParamsTable params={schema.properties.data.properties} />
                       </Tab>
+                      {exampleTabs}
+                    </Tabs>
+                  )}
+                  {schema && !schema?.properties?.data?.properties && exampleTabs && (
+                    <Tabs>
                       {exampleTabs}
                     </Tabs>
                   )}
