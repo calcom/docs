@@ -268,3 +268,54 @@ other more complex atoms will expose multiple classNames and props to react to e
   }}
 />;
 ```
+
+## 7. Frontend: passing additional props to CalProvider 
+
+The CalProvider component offers several additional props to customize its behavior and appearance:
+1. autoUpdateTimezone: By default, the atoms automatically update the user's timezone. You can disable this feature by setting autoUpdateTimezone to false.
+2. onTimezoneChange: If you want to perform specific actions whenever the user's timezone changes, you can provide a callback function to the onTimezoneChange prop.
+3. children: You can pass in custom child components to be rendered within the CalProvider.
+4. version: Specify the API version that the atoms should use by setting the version prop.
+5. language: Set the language for the atoms by providing a supported locale (es, fr, de, en, pt-BR) to the language prop.
+6. labels: Override specific labels in the atoms by passing an object of custom labels to the labels prop.
+
+```js
+import "@calcom/atoms/globals.min.css";
+import { CalProvider } from '@calcom/atoms';
+
+function MyApp({ Component, pageProps }) {
+  const [accessToken, setAccessToken] = useState("");
+
+  useEffect(() => {
+    fetch(`/api/users/${pageProps.userId}`, {
+    }).then(async (res) => {
+      const data = await res.json();
+      setAccessToken(data.accessToken);
+    });
+  }, []);
+  
+  return (
+    <CalProvider
+      accessToken={accessToken}
+      clientId={process.env.CAL_OAUTH_CLIENT_ID ?? ""}
+      options={{
+        apiUrl: process.env.CAL_API_URL ?? "",
+        refreshUrl: "/api/refresh"
+      }}
+      language="fr"
+      labels={{
+        date_overrides: "Omlette du Fromage!"
+      }}
+      autoUpdateTimezone={false}
+      onTimezoneChange={() => {
+        console.log("Timezone changed successfully")
+      }}
+      children={<>This is the child component</>}
+    >
+      <Component {...pageProps} />
+    </CalProvider>
+  );
+}
+
+export default MyApp;
+```
