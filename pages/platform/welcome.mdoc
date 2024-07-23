@@ -218,6 +218,33 @@ This is how the booker atom actually looks like
 
 {% img src="/docs/images/booker.png" /%}
 
+### 6. Booker embed atom
+
+The below code snippet renders the booker embed atom through which an existing user can embed cal.com into their own website without the need to create an OAuth client or access token. All that is required is the username and event slug of their already existing account. This is the key difference between the booker atom and the booker embed atom.
+
+```js
+import { BookerEmbed } from "@calcom/atoms";
+
+export default function BookerEmbed( props : BookerEmbedProps ) {
+  return (
+    <>
+      <BookerEmbed
+        eventSlug={props.eventTypeSlug}
+        username={props.calUsername}
+        onCreateBookingSuccess={() => {
+          console.log("booking created successfully");
+         }}
+      />
+    <>
+  )
+}
+```
+This is how the booker embed atom actually looks like
+
+{% img src="/docs/images/booker.png" /%}
+
+{% note type="info" %}For the time being, the booker embed atom does not include the following features: Calendar Overlay and Out Of Office.{% /note %}
+
 ## Platform apis
 
 We've also created a set of new and scalable apis for our platform customers called v2 which we plan to make the successor for our v1 apis. Internally all the atoms use the new platform apis to handle scheduling.
