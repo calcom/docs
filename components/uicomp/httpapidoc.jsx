@@ -135,6 +135,7 @@ const renderExample = (example) => {
 
 
 const ObjectTypeFormatter = ({ typeinfo }) => {
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <div className="overflow-x-auto flex flex-col gap-2 divide-y divide-neutral-100">
@@ -144,6 +145,9 @@ const ObjectTypeFormatter = ({ typeinfo }) => {
             <span className="font-[700]">{k}</span>
             <span className="ml-4 text-xs">{typeinfo[k].type}</span>
           </div>
+          {typeinfo[k].description && (
+            <p className="text-neutral-500 text-xs">{typeinfo[k].description}</p>
+          )}
           {typeinfo[k].example && (
             <div>
               <p className="mb-2 text-neutral-500 text-xs">Example:</p>
@@ -153,7 +157,20 @@ const ObjectTypeFormatter = ({ typeinfo }) => {
             </div>
           )}
           {typeinfo[k].properties && (
-            <ObjectTypeFormatter typeinfo={typeinfo[k].properties} />
+            <>
+              <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
+                {typeinfo && (
+                  <div className="flex flex-row items-center whitespace-nowrap mt-0.5 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
+                    {isOpen ? 'Hide child attributes' : 'Show child attributes'}
+                  </div>
+                )}
+              </div>
+              {isOpen && (
+                <div className="mt-2 pb-2 px-2 border border-neutral-100 rounded-md">
+                  <ObjectTypeFormatter typeinfo={typeinfo[k].properties} />
+                </div>
+              )}
+            </>
           )}
           {typeinfo[k].items && (
             <TypeFormatter type={typeinfo[k].type} typeinfo={typeinfo[k].items} />
@@ -166,7 +183,7 @@ const ObjectTypeFormatter = ({ typeinfo }) => {
 
 const TypeFormatter = ({ type, typeinfo }) => {
   const [isOpen, setOpen] = useState(false);
-
+  
   if (type === 'array') {
     return (
       <div>
@@ -200,13 +217,13 @@ const TypeFormatter = ({ type, typeinfo }) => {
       </div>
     );
   } else if (type === 'object') {
+
     return (
       <div>
         <div className="w-min flex flex-row items-center cursor-pointer hover:opacity-80" onClick={() => setOpen(!isOpen)}>
-          <span className="text-xs text-neutral-400">of</span>
-          <p className="mt-2 font-[400] ml-1">object</p>
+          {/* <p className="mt-2 font-[400]">object</p> */}
           {typeinfo && (
-            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 ml-2 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
+            <div className="flex flex-row items-center whitespace-nowrap mt-0.5 text-xs border rounded-full px-2 bg-neutral-50 text-neutral-500 transition">
               {isOpen ? 'Hide child attributes' : 'Show child attributes'}
             </div>
           )}
@@ -224,7 +241,8 @@ export const ParamsTable = ({ params }) => {
   const renderParams = (params) => {
     return Object.keys(params).map((key) => {
       const p = params[key];
-      const typeinfo = p.type === "array" ? p.items : p.typeinfo;
+
+      const typeinfo = p.type === "array" ? p.items : p.type === "object" ? p.properties : p.typeinfo;
       return (
         <tr className="" key={key}>
           <td className="w-32 py-2 align-top text-sm border-r border-neutral-50">
@@ -235,6 +253,9 @@ export const ParamsTable = ({ params }) => {
             <td className="pl-3 w-64 py-2 align-top max-w-[300px] overflow-x-auto">
               {p.type === "array" && (
                   <p className="font-[400]">array</p>
+              )}
+              {p.type === "object" && (
+                  <p className="font-[400]">object</p>
               )}
               <TypeFormatter type={p.type} typeinfo={typeinfo} />
             </td>

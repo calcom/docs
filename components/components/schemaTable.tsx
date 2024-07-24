@@ -75,12 +75,12 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
 };
 
 // Component to render the schema object
-const SchemaObject = ({ schema }: {schema: any}) => {
+const SchemaObject = ({ schema, type }: {schema: any, type?: string}) => {
   return (
     <table className="min-w-full border-collapse rounded-md block md:table">
       <thead className="block md:table-header-group">
         <tr className="border md:table-row">
-          <th className="block md:table-cell border px-4 py-2">Attribute</th>
+          <th className="block md:table-cell border px-4 py-2">{type && type == "schema" ? "Attribute" : type}</th>
           <th className="block md:table-cell border px-4 py-2">Description</th>
         </tr>
       </thead>
@@ -94,10 +94,10 @@ const SchemaObject = ({ schema }: {schema: any}) => {
 };
 
 // Main component to render the JSON schema
-export const JSONSchemaRenderer = ({ schema }: {schema: any}) => {
+export const JSONSchemaRenderer = ({ schema, type = "schema" }: {schema: any, type: string}) => {
   return (
     <div className="py-4">
-      <SchemaObject schema={schema.properties} />
+      <SchemaObject schema={schema.properties} type={type} />
     </div>
   );
 };

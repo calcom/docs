@@ -302,6 +302,7 @@ const config = {
       description: 'JSON schema renderer',
       attributes: {
         schema: { type: Object },
+        type: {String},
       },
     },
   },

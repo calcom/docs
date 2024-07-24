@@ -1487,66 +1487,27 @@ export const openApiSpec = {
               "in": "query",
               "name": "userId",
               "required": false,
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "example": 1
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "example": [
-                      2,
-                      3,
-                      4
-                    ]
-                  }
-                ]
-              }
+              "type": "integer or array of integers",
+              "example": 1
             },
             {
               "in": "query",
               "name": "take",
               "required": false,
-              "schema": {
-                "type": "number",
-              }
+              "type": "number",
             },
             {
               "in": "query",
               "name": "page",
               "required": false,
-              "schema": {
-                "type": "number",
-              }
+              "type": "number",
             },            
             {
               "in": "query",
               "name": "attendeeEmail",
               "required": false,
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "format": "email",
-                    "example": "john.doe@example.com"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "email"
-                    },
-                    "example": [
-                      "john.doe@example.com",
-                      "jane.doe@example.com"
-                    ]
-                  }
-                ]
-              }
+              "type": "email or array of email",
+              "example": "john.doe@example.com"
             }
           ],
           "operationId": "listBookings",
@@ -1655,12 +1616,12 @@ export const openApiSpec = {
                       "description": "ID of the event type to book"
                     },
                     "start": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "Start time of the Event"
                     },
                     "end": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "End time of the Event"
                     },
@@ -1699,7 +1660,9 @@ export const openApiSpec = {
                     },
                     "metadata": {
                       "type": "object",
-                      "properties": {},
+                      "properties": {
+
+                      },
                       "description": "Any metadata associated with the booking"
                     },
                     "timeZone": {
@@ -1723,7 +1686,7 @@ export const openApiSpec = {
                       "description": "Event description"
                     },
                     "status": {
-                      "type": "string",
+                      "type": "enum BookingStatus",
                       "description": "Acceptable values one of [\"ACCEPTED\", \"PENDING\", \"CANCELLED\", \"REJECTED\"]"
                     },
                     "seatsPerTimeSlot": {
@@ -1777,58 +1740,83 @@ export const openApiSpec = {
               "description": "Booking(s) created successfully.",
               "content": {
                 "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfBookings"
+                  },
                   "examples": {
                     "booking created successfully example": {
                       "value": {
-                        "booking": {
-                          "id": 91,
-                          "userId": 5,
-                          "description": "",
-                          "eventTypeId": 7,
-                          "uid": "bFJeNb2uX8ANpT3JL5EfXw",
-                          "title": "60min between Pro Example and John Doe",
-                          "startTime": "2023-05-25T09:30:00.000Z",
-                          "endTime": "2023-05-25T10:30:00.000Z",
-                          "attendees": [
-                            {
-                              "email": "john.doe@example.com",
-                              "name": "John Doe",
-                              "timeZone": "Asia/Kolkata",
-                              "locale": "en"
-                            }
-                          ],
-                          "user": {
-                            "email": "pro@example.com",
-                            "name": "Pro Example",
-                            "timeZone": "Asia/Kolkata",
-                            "locale": "en"
-                          },
-                          "payment": [
-                            {
-                              "id": 1,
-                              "success": true,
-                              "paymentOption": "ON_BOOKING"
-                            }
-                          ],
-                          "metadata": {},
-                          "status": "ACCEPTED",
-                          "responses": {
-                            "email": "john.doe@example.com",
+                        "id": 123456,
+                        "uid": "1vf65zmgm123tvLiGxUT8",
+                        "idempotencyKey": "e6a50d09-9677-5123-bcd0-76aec971d52b",
+                        "userId": 92123,
+                        "userPrimaryEmail": "jared@gmail.com",
+                        "eventTypeId": 81236,
+                        "title": "30 Min Meeting between Jared and John Doe",
+                        "description": "",
+                        "customInputs": {},
+                        "responses": {
                             "name": "John Doe",
+                            "email": "johndoe@example.com",
+                            "guests": [],
                             "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
+                                "value": "inPerson",
+                                "optionValue": ""
                             }
-                          }
-                        }
-                      }
+                        },
+                        "startTime": "2024-08-28T12:00:00.000Z",
+                        "endTime": "2024-08-28T12:30:00.000Z",
+                        "location": "inPerson",
+                        "createdAt": "2024-07-21T20:14:00.053Z",
+                        "updatedAt": null,
+                        "status": "ACCEPTED",
+                        "paid": false,
+                        "destinationCalendarId": null,
+                        "cancellationReason": null,
+                        "rejectionReason": null,
+                        "dynamicEventSlugRef": null,
+                        "dynamicGroupSlugRef": null,
+                        "rescheduled": null,
+                        "fromReschedule": null,
+                        "recurringEventId": null,
+                        "smsReminderNumber": null,
+                        "scheduledJobs": [],
+                        "metadata": {},
+                        "isRecorded": false,
+                        "iCalUID": "1vf65zmgm1231iGxUT8@Cal.com",
+                        "iCalSequence": 0,
+                        "rating": null,
+                        "ratingFeedback": null,
+                        "noShowHost": null,
+                        "user": {
+                            "email": null,
+                            "name": "Jared",
+                            "timeZone": "Asia/Dubai",
+                            "username": "jared"
+                        },
+                        "attendees": [
+                            {
+                                "id": 3229523,
+                                "email": "johndoe@example.com",
+                                "name": "John Doe",
+                                "timeZone": "Europe/London",
+                                "locale": "en",
+                                "bookingId": 2658488,
+                                "noShow": false
+                            }
+                        ],
+                        "payment": [],
+                        "references": [],
+                        "paymentRequired": false,
+                        "luckyUsers": []
+                    }
                     }
                   }
                 }
               }
             },
             "400": {
-              "description": "Bad request\n<table>\n  <tr>\n    <td>Message</td>\n    <td>Cause</td>\n  </tr>\n  <tr>\n    <td>Booking body is invalid</td>\n    <td>Missing property on booking entity.</td>\n  </tr>\n  <tr>\n    <td>Invalid eventTypeId</td>\n    <td>The provided eventTypeId does not exist.</td>\n  </tr>\n  <tr>\n    <td>Missing recurringCount</td>\n    <td>The eventType is recurring, and no recurringCount was passed.</td>\n  </tr>\n  <tr>\n    <td>Invalid recurringCount</td>\n    <td>The provided recurringCount is greater than the eventType recurring config</td>\n  </tr>\n</table>\n"
+              "description": "Bad request"
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -1860,9 +1848,7 @@ export const openApiSpec = {
               "in": "query",
               "name": "allRemainingBookings",
               "required": false,
-              "schema": {
-                "type": "boolean"
-              },
+              "type": "boolean",
               "description": "Delete all remaining bookings"
             },
             {
@@ -1878,10 +1864,10 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, booking cancelled successfully"
+              "description": "Booking successfully cancelled."
             },
             "400": {
-              "description": "Bad request\n <table>\n   <tr>\n     <td>Message</td>\n     <td>Cause</td>\n   </tr>\n   <tr>\n     <td>Booking not found</td>\n     <td>The provided id didn't correspond to any existing booking.</td>\n   </tr>\n   <tr>\n     <td>User not found</td>\n     <td>The userId did not matched an existing user.</td>\n   </tr>\n </table>\n"
+              "description": "Bad request"
             },
             "404": {
               "description": "User not found"
@@ -1919,52 +1905,48 @@ export const openApiSpec = {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Booking"
+                    "$ref": "#/components/schemas/ArrayOfBookings"
                   },
                   "examples": {
-                    "booking": {
-                      "value": {
-                        "booking": {
-                          "id": 91,
-                          "userId": 5,
-                          "description": "",
-                          "eventTypeId": 7,
-                          "uid": "bFJeNb2uX8ANpT3JL5EfXw",
-                          "title": "60min between Pro Example and John Doe",
-                          "startTime": "2023-05-25T09:30:00.000Z",
-                          "endTime": "2023-05-25T10:30:00.000Z",
-                          "attendees": [
-                            {
-                              "email": "john.doe@example.com",
-                              "name": "John Doe",
-                              "timeZone": "Asia/Kolkata",
-                              "locale": "en"
-                            }
-                          ],
-                          "user": {
-                            "email": "pro@example.com",
-                            "name": "Pro Example",
-                            "timeZone": "Asia/Kolkata",
-                            "locale": "en"
-                          },
-                          "payment": [
-                            {
-                              "id": 1,
-                              "success": true,
-                              "paymentOption": "ON_BOOKING"
-                            }
-                          ],
-                          "metadata": {},
-                          "status": "ACCEPTED",
-                          "responses": {
-                            "email": "john.doe@example.com",
-                            "name": "John Doe",
-                            "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
-                            }
+                    "booking created successfully example": {
+                        "value": {
+                          "booking": {
+                              "id": 2651238,
+                              "userId": 9212366,
+                              "description": "",
+                              "eventTypeId": 891236,
+                              "uid": "1vf65zmg12312321LiGxUT8",
+                              "title": "30 Min Meeting between Jared and John Doe",
+                              "startTime": "2024-08-28T12:00:00.000Z",
+                              "endTime": "2024-08-28T12:30:00.000Z",
+                              "attendees": [
+                                  {
+                                      "email": "johndoe@example.com",
+                                      "name": "John Doe",
+                                      "timeZone": "Europe/London",
+                                      "locale": "en"
+                                  }
+                              ],
+                              "user": {
+                                  "email": "jared@gmail.com",
+                                  "name": "Jared",
+                                  "timeZone": "Asia/Dubai",
+                                  "locale": null
+                              },
+                              "payment": [],
+                              "metadata": {},
+                              "status": "ACCEPTED",
+                              "responses": {
+                                  "name": "John Doe",
+                                  "email": "johndoe@example.com",
+                                  "guests": [],
+                                  "location": {
+                                      "value": "inPerson",
+                                      "optionValue": ""
+                                  }
+                              },
+                              "fromReschedule": null
                           }
-                        }
                       }
                     }
                   }
@@ -1995,17 +1977,17 @@ export const openApiSpec = {
                       "description": "Booking event title"
                     },
                     "start": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "Start time of the Event"
                     },
                     "end": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "End time of the Event"
                     },
                     "status": {
-                      "type": "string",
+                      "type": "enum BookingStatus",
                       "description": "Acceptable values one of [\"ACCEPTED\", \"PENDING\", \"CANCELLED\", \"REJECTED\"]"
                     },
                     "description": {
@@ -2052,28 +2034,48 @@ export const openApiSpec = {
               "description": "OK, booking edited successfully",
               "content": {
                 "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfBookings"
+                  },
                   "examples": {
                     "bookings": {
                       "value": {
                         "booking": {
-                          "id": 11223344,
-                          "userId": 182,
-                          "description": null,
-                          "eventTypeId": 2323232,
-                          "uid": "stoSJtnh83PEL4rZmqdHe2",
-                          "title": "Debugging between Syed Ali Shahbaz and Hello Hello",
-                          "startTime": "2023-05-24T13:00:00.000Z",
-                          "endTime": "2023-05-24T13:30:00.000Z",
-                          "metadata": {},
-                          "status": "CANCELLED",
-                          "responses": {
-                            "email": "john.doe@example.com",
-                            "name": "John Doe",
-                            "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
-                            }
-                          }
+                            "id": 2651238,
+                            "userId": 9212366,
+                            "description": "",
+                            "eventTypeId": 891236,
+                            "uid": "1vf65zmg12312321LiGxUT8",
+                            "title": "30 Min Meeting between Jared and John Doe",
+                            "startTime": "2024-08-28T12:00:00.000Z",
+                            "endTime": "2024-08-28T12:30:00.000Z",
+                            "attendees": [
+                                {
+                                    "email": "johndoe@example.com",
+                                    "name": "John Doe",
+                                    "timeZone": "Europe/London",
+                                    "locale": "en"
+                                }
+                            ],
+                            "user": {
+                                "email": "jared@gmail.com",
+                                "name": "Jared",
+                                "timeZone": "Asia/Dubai",
+                                "locale": null
+                            },
+                            "payment": [],
+                            "metadata": {},
+                            "status": "ACCEPTED",
+                            "responses": {
+                                "name": "John Doe",
+                                "email": "johndoe@example.com",
+                                "guests": [],
+                                "location": {
+                                    "value": "inPerson",
+                                    "optionValue": ""
+                                }
+                            },
+                            "fromReschedule": null
                         }
                       }
                     }
