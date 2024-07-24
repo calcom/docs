@@ -1524,9 +1524,8 @@ export const openApiSpec = {
                   },
                   "examples": {
                     "bookings": {
-                      "value": [
-                        {
-                          "booking": {
+                      "value": {
+                          "bookings": [{
                             "id": 91,
                             "userId": 5,
                             "description": "",
@@ -1566,9 +1565,8 @@ export const openApiSpec = {
                                 "value": "inPerson"
                               }
                             }
-                          }
+                          }]
                         }
-                      ]
                     }
                   }
                 }
@@ -2585,7 +2583,27 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfDestinationCalendars"
+                  },
+                  "examples": {
+                    "destinationCalendars": {
+                      "value": {
+                        "destinationCalendars": [{
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": null,
+                            "userId": 123
+                        }]
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2649,8 +2667,29 @@ export const openApiSpec = {
             "destination-calendars"
           ],
           "responses": {
-            "201": {
-              "description": "OK, destination calendar created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. DestinationCalendar body is invalid."
@@ -2686,7 +2725,7 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, destinationCalendar removed successfully"
+              "description": "OK, Destination Calendar removed successfully"
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2720,7 +2759,28 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2783,7 +2843,28 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
