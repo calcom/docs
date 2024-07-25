@@ -312,10 +312,6 @@ export default {
           title: "Customization",
           href: "/core-features/customization",
         },
-        {
-          title: "i18n Internationalization",
-          href: "/core-features/i18n-internationalization",
-        },
       ],
     },
     {
