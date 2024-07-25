@@ -203,10 +203,6 @@ export default {
               href: "/core-features/event-types/hide-notes-in-calendar",
             },
             {
-              title: "Require additional notes",
-              href: "/core-features/event-types/require-additional-notes",
-            },
-            {
               title: "Booking success URL",
               href: "/core-features/event-types/booking-success-url",
             },
