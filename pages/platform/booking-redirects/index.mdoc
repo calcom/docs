@@ -74,14 +74,25 @@ const { mutate: cancelBooking } = useCancelBooking({
 });
 ```
 
-4. Create a cancel button that invokes mutation returned by the “useCancelBooking” using the booking uid from the URL parameter. Provide a suitable “cancellationReason”.
+4. Create a cancel button that invokes mutation returned by the “useCancelBooking”. You have to pass id of the booking which you can get by fetching booking using "useGetBooking" hook by uid from the query params. Provide a suitable “cancellationReason”.
 
 ```js 
+import { useGetBooking, useCancelBooking } from "@calcom/atoms";
+
+...
+const { isLoading, data: booking, refetch } = useGetBooking((router.query.bookingUid as string) ?? "");
+const { mutate: cancelBooking } = useCancelBooking({
+    onSuccess: () => {
+      refetch();
+    },
+  });
+...
+
 <button
     className="underline"
     onClick={() => {
         cancelBooking({
-            uid: booking.uid,
+            id: booking.id,
             cancellationReason: "User request",
         });
     }}>
