@@ -143,6 +143,9 @@ const ObjectTypeFormatter = ({ typeinfo }) => {
         <div key={k} className="py-2">
           <div>
             <span className="font-[700]">{k}</span>
+            { typeinfo[k].required && (
+              <span className="text-red-500">*</span>
+            )}
             <span className="ml-4 text-xs">{typeinfo[k].type}</span>
           </div>
           {typeinfo[k].description && (

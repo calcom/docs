@@ -2904,7 +2904,65 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_types": [{
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }]
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -3092,67 +3150,28 @@ export const openApiSpec = {
                       "type": "array",
                       "description": "A list of all available locations for the event type",
                       "items": {
-                        "type": "array",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "integrations:daily"
-                                  ]
-                                }
-                              }
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "The type of location (e.g., integrations:daily, attendeeInPerson, inPerson, link, phone, userPhone).",
+                              "required": true,
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "attendeeInPerson"
-                                  ]
-                                }
-                              }
+                            "address": {
+                              "type": "string",
+                              "description": "The address for Host Address(inPerson) locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "inPerson"
-                                  ]
-                                },
-                                "address": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "link": {
+                              "type": "string",
+                              "description": "The link for online locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "link"
-                                  ]
-                                },
-                                "link": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "hostPhoneNumber": {
+                              "type": "string",
+                              "description": "The host's phone number for Host phone (userPhone) locations."
                             }
-                          ]
-                        }
+                          },
+                          "required": ["type"],
+                          "description": "A location object representing the type and optional details of an event location."
                       }
                     }
                   }
@@ -3250,8 +3269,65 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, event type created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                        "event_type": {
+                            "id": 123123,
+                            "title": "Example Event Type",
+                            "slug": "example",
+                            "length": 60,
+                            "hidden": false,
+                            "position": 0,
+                            "userId": 232323,
+                            "teamId": null,
+                            "scheduleId": null,
+                            "eventName": null,
+                            "timeZone": null,
+                            "periodType": "UNLIMITED",
+                            "periodStartDate": null,
+                            "periodEndDate": null,
+                            "periodDays": null,
+                            "periodCountCalendarDays": null,
+                            "requiresConfirmation": false,
+                            "recurringEvent": null,
+                            "disableGuests": false,
+                            "hideCalendarNotes": false,
+                            "minimumBookingNotice": 120,
+                            "beforeEventBuffer": 0,
+                            "afterEventBuffer": 0,
+                            "schedulingType": null,
+                            "price": 0,
+                            "currency": "usd",
+                            "slotInterval": null,
+                            "parentId": null,
+                            "successRedirectUrl": null,
+                            "description": null,
+                            "locations": null,
+                            "metadata": {},
+                            "seatsPerTimeSlot": null,
+                            "seatsShowAttendees": false,
+                            "seatsShowAvailabilityCount": true,
+                            "bookingFields": null,
+                            "bookingLimits": null,
+                            "onlyShowFirstAvailableSlot": false,
+                            "durationLimits": null,
+                            "children": [],
+                            "hosts": []
+                        },
+                        "message": "Event type created successfully"
+                    }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. EventType body is invalid."
@@ -3290,8 +3366,8 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, eventType removed successfully"
+            "200": {
+              "description": "OK, Event Type with id: 123123 deleted successfully"
             },
             "400": {
               "description": "Bad request. EventType id is invalid."
@@ -3330,7 +3406,65 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_type": {
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -3526,67 +3660,28 @@ export const openApiSpec = {
                       "type": "array",
                       "description": "A list of all available locations for the event type",
                       "items": {
-                        "type": "array",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "integrations:daily"
-                                  ]
-                                }
-                              }
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "The type of location (e.g., integrations:daily, attendeeInPerson, inPerson, link, phone, userPhone).",
+                              "required": true,
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "attendeeInPerson"
-                                  ]
-                                }
-                              }
+                            "address": {
+                              "type": "string",
+                              "description": "The address for Host Address(inPerson) locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "inPerson"
-                                  ]
-                                },
-                                "address": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "link": {
+                              "type": "string",
+                              "description": "The link for online locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "link"
-                                  ]
-                                },
-                                "link": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "hostPhoneNumber": {
+                              "type": "string",
+                              "description": "The host's phone number for Host phone (userPhone) locations."
                             }
-                          ]
-                        }
+                          },
+                          "required": ["type"],
+                          "description": "A location object representing the type and optional details of an event location."
                       }
                     }
                   }
@@ -3610,8 +3705,66 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, eventType edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_type": {
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. EventType body is invalid."
