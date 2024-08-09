@@ -6,4 +6,5 @@ export enum TagColor {
   rose = "rose",
   violet = "violet",
   neutral = "neutral",
+  slate = "slate",
 }

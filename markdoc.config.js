@@ -190,6 +190,7 @@ const config = {
       render: 'OpenAPIDoc',
       description: 'An Open API Doc card',
       attributes: {
+        version: { type: String },
         url: { type: String },
         path: { type: String },
         method: {
@@ -295,7 +296,15 @@ const config = {
     classnamesTable : {
       render: 'ClassnamesTable',
       attributes: { atom: { type: String } },
-    }
+    },
+    jsonSchemaRenderer: {
+      render: 'JSONSchemaRenderer',
+      description: 'JSON schema renderer',
+      attributes: {
+        schema: { type: Object },
+        type: {String},
+      },
+    },
   },
   nodes: {
     fence: {

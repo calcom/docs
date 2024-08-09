@@ -18,7 +18,8 @@ export const openApiSpec = {
         "ApiKeyAuth": {
           "type": "apiKey",
           "in": "query",
-          "name": "apiKey"
+          "name": "apiKey",
+          "example": "cal_live_<unique_identifier>",
         }
       },
       "schemas": {
@@ -26,6 +27,31 @@ export const openApiSpec = {
           "type": "array",
           "items": {
             "$ref": "#/components/schemas/Booking"
+          }
+        },
+        "Attendee": {
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "bookingId": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "timeZone": {
+              "type": "string"
+            }
+          }
+        },
+        "ArrayOfAttendees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Attendee"
           }
         },
         "Booking": {
@@ -118,6 +144,54 @@ export const openApiSpec = {
               }
             }
           }
+        },
+        "BookingReferences": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 34342
+            },
+            "type": {
+              "type": "string",
+              "example": "daily_video"
+            },
+            "bookingId": {
+              "type": "number",
+              "example": "23132"
+            },
+            "uid": {
+              "type": "uid",
+              "example": "89nash7jkasdh8saGAs3j1d"
+            },
+            "meetingId": {
+              "type": "uid",
+              "example": "89nash7jkasdh8saGAs3j1d"
+            },
+            "meetingPassword": {
+              "type": "JWT",
+              "example": "eyJhbGc7asdsda1NiIsInR5cCI6IkpXVCJ9.eyJyIjoia0k4b2hMbDJ3amxLZE1HQ0c1QWYiLCJleHAiOjE3MjI0OTc0MDAsIm8iOnRydWUsImVydWkiOmZhbHNlLCJkIjoiYmJkOThhNzEtMT7dahfd8fyadfadsfjNWJkMTA1IiwiaWF0IjoxNzIwODY4MjY5fQ.BhS8knskb_2LN5NCQSuagsidasdPH1chkpJcPqDOY9Ypc"
+            },
+            "meetingUrl": {
+              "type": "URL",
+              "example": "https://meetco.daily.co/89nash7jkasdh8saGAs3j1d"
+            },
+            "deleted": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "ArrayOfBookingReferences": {
+          "type": "object",
+          "properties": {
+            "booking_references": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/BookingReferences"
+              }
+            }
+          }
         }
       }
     },
@@ -181,9 +255,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -192,7 +265,37 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfAttendees"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": 
+                        {
+                          "attendees": [
+                            {
+                              "id": 251,
+                              "bookingId": 313,
+                              "name": "John Doe",
+                              "email": "john.doe@example.com",
+                              "timeZone": "Asia/Jerusalem"
+                            },
+                            {
+                              "id": 252,
+                              "bookingId": 314,
+                              "name": "Jane Doe",
+                              "email": "jane.doe@example.com",
+                              "timeZone": "Asia/Dubai"
+                            },
+                          ]  
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -210,9 +313,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -231,17 +333,21 @@ export const openApiSpec = {
                   ],
                   "properties": {
                     "bookingId": {
-                      "type": "number"
+                      "type": "number",
+                      "description": "ID of the booking where you wish to add this attendee",
                     },
                     "email": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "Email of the attendee",
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Name of the attendee",
                     },
                     "timeZone": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "TimeZone of the attendee",
                     }
                   }
                 }
@@ -253,14 +359,38 @@ export const openApiSpec = {
           ],
           "responses": {
             "201": {
-              "description": "OK, attendee created"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 255,
+                            "bookingId": 313,
+                            "name": "Justin Doe",
+                            "email": "justin.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          },
+                          "message": "Attendee created successfully"
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Attendee body is invalid."
             },
             "401": {
               "description": "Authorization information is missing or invalid."
-            }
+            },
+            "403": {
+              "description": "Forbidden"
+            }            
           }
         }
       },
@@ -273,17 +403,14 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the attendee to delete"
             }
@@ -292,14 +419,14 @@ export const openApiSpec = {
             "attendees"
           ],
           "responses": {
-            "201": {
-              "description": "OK, attendee removed successfully"
-            },
-            "400": {
-              "description": "Bad request. Attendee id is invalid."
+            "200": {
+              "description": "Attendee with id: {id} deleted successfully",
             },
             "401": {
               "description": "Authorization information is missing or invalid."
+            },
+            "403": {
+              "description": "Forbidden"
             }
           }
         },
@@ -311,17 +438,14 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "example": "cal_live_<unique_identifier>",
+              "type": "string",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the attendee to get"
             }
@@ -331,13 +455,33 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 251,
+                            "bookingId": 313,
+                            "name": "John Doe",
+                            "email": "john.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          }
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
             },
-            "404": {
-              "description": "Attendee was not found"
+            "403": {
+              "description": "Forbidden"
             }
           }
         },
@@ -354,13 +498,16 @@ export const openApiSpec = {
                   "properties": {
                     "email": {
                       "type": "string",
-                      "format": "email"
+                      "format": "email",
+                      "description": "Email of the attendee",
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Name of the attendee",
                     },
                     "timeZone": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Timezone of the attendee when booking",
                     }
                   }
                 }
@@ -372,16 +519,15 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "example": "cal_live_<unique_identifier>",
+              "type": "integer",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
               "schema": {
-                "type": "integer"
+                "type": "integer",
               },
               "required": true,
               "description": "ID of the attendee to get"
@@ -391,14 +537,34 @@ export const openApiSpec = {
             "attendees"
           ],
           "responses": {
-            "201": {
-              "description": "OK, attendee edited successfully"
-            },
-            "400": {
-              "description": "Bad request. Attendee body is invalid."
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Attendee"
+                  },
+                  "examples": {
+                    "attendee": {
+                        "value": {
+                          "attendee": {
+                            "id": 251,
+                            "bookingId": 313,
+                            "name": "John Doe",
+                            "email": "john.doe@example.com",
+                            "timeZone": "Asia/Jerusalem"
+                          }
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
+            },
+            "403": {
+              "description": "Forbidden"
             }
           }
         }
@@ -412,9 +578,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "example": "cal_live_<unique_identifier>",
+              "type": "string",
               "description": "Your API key"
             }
           ],
@@ -433,7 +598,7 @@ export const openApiSpec = {
                   "properties": {
                     "days": {
                       "type": "array",
-                      "description": "Array of integers depicting weekdays",
+                      "description": "Array of integers depicting days of the week",
                       "items": {
                         "type": "integer",
                         "enum": [
@@ -442,7 +607,8 @@ export const openApiSpec = {
                           2,
                           3,
                           4,
-                          5
+                          5,
+                          6
                         ]
                       }
                     },
@@ -451,29 +617,21 @@ export const openApiSpec = {
                       "description": "ID of schedule this availability is associated with"
                     },
                     "startTime": {
-                      "type": "string",
+                      "type": "DateTime",
                       "description": "Start time of the availability"
                     },
                     "endTime": {
-                      "type": "string",
+                      "type": "DateTime",
                       "description": "End time of the availability"
                     }
                   }
                 },
                 "examples": {
                   "availability": {
-                    "summary": "An example of availability",
-                    "value": {
-                      "scheduleId": 123,
-                      "days": [
-                        1,
-                        2,
-                        3,
-                        5
-                      ],
-                      "startTime": "1970-01-01T17:00:00.000Z",
-                      "endTime": "1970-01-01T17:00:00.000Z"
-                    }
+                    "startTime": "1970-01-01T09:00:00.000Z",
+                    "endTime": "1970-01-01T17:00:00.000Z",
+                    "scheduleId": 272,
+                    "days": [2,3,4] 
                   }
                 }
               }
@@ -486,8 +644,37 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    2,
+                                    3,
+                                    4
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            },
+                            "message": "Availability created successfully"            
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability body is invalid."
@@ -506,9 +693,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the availability to delete"
             },
@@ -516,9 +701,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "example": "cal_live_<unique_identifier>",
+              "type": "integer",
               "description": "Your API key"
             }
           ],
@@ -529,8 +713,22 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability removed successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                          "message": "Availability with id: {id} deleted successfully"
+                        }          
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability id is invalid."
@@ -547,19 +745,16 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the availability to get"
             },
             {
               "in": "query",
               "name": "apiKey",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "description": "Your API key"
             }
           ],
@@ -571,7 +766,35 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    2,
+                                    3,
+                                    4
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            }, 
+                        }
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid"
@@ -588,19 +811,16 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API key",
-              "schema": {
-                "type": "integer"
-              }
+              "type": "integer"
             },
             {
               "in": "path",
               "name": "id",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "description": "ID of the availability to edit"
             }
           ],
@@ -643,18 +863,11 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "availability": {
-                    "summary": "An example of availability",
-                    "value": {
-                      "scheduleId": 123,
                       "days": [
                         1,
-                        2,
                         3,
                         5
                       ],
-                      "startTime": "1970-01-01T17:00:00.000Z",
-                      "endTime": "1970-01-01T17:00:00.000Z"
-                    }
                   }
                 }
               }
@@ -667,8 +880,36 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/availability"
           },
           "responses": {
-            "201": {
-              "description": "OK, availability edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Availability"
+                  },
+                  "examples": {
+                    "availability": {
+                        "value": {
+                            "availability": {
+                                "id": 12345566,
+                                "startTime": "1970-01-01T09:00:00.000Z",
+                                "endTime": "1970-01-01T17:00:00.000Z",
+                                "date": null,
+                                "scheduleId": 272,
+                                "days": [
+                                    1,
+                                    3,
+                                    5
+                                ],
+                                "Schedule": {
+                                    "userId": 12344123
+                                }
+                            }, 
+                        }
+                      }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Availability body is invalid."
@@ -687,19 +928,15 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "example": "1234abcd5678efgh",
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "teamId",
               "required": true,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "example": 123,
               "description": "ID of the team to fetch the availability for"
             },
@@ -726,9 +963,7 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "eventTypeId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "example": 123,
               "description": "Event Type ID of the event type to fetch the availability for"
             }
@@ -811,27 +1046,21 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
-              "example": "1234abcd5678efgh",
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "example": 101,
               "description": "ID of the user to fetch the availability for"
             },
             {
               "in": "query",
               "name": "username",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "example": "alice",
               "description": "username of the user to fetch the availability for"
             },
@@ -858,9 +1087,7 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "eventTypeId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "example": 123,
               "description": "Event Type ID of the event type to fetch the availability for"
             }
@@ -942,9 +1169,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -955,7 +1181,14 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfBookingReferences"
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -971,9 +1204,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -1027,8 +1259,27 @@ export const openApiSpec = {
             "booking-references"
           ],
           "responses": {
-            "201": {
-              "description": "OK,  booking reference created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type" : "object",
+                    "properties": {
+                      "booking_reference": {
+                        "type": "object",
+                        "properties": {   
+                          "$ref": "#/components/schemas/BookingReferences"
+                        }
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "Booking reference created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. BookingReference body is invalid."
@@ -1047,9 +1298,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking reference to delete"
             },
@@ -1057,9 +1306,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "string",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -1067,8 +1315,21 @@ export const openApiSpec = {
             "booking-references"
           ],
           "responses": {
-            "201": {
-              "description": "OK, bookingReference removed successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type" : "object",
+                     "properties": {
+                       "message": {
+                         "type": "string",
+                         "example": "BookingReference with id: 12345 deleted"
+                       }
+                     }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. BookingReference id is invalid."
@@ -1085,9 +1346,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking reference to get"
             },
@@ -1095,9 +1354,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -1106,7 +1364,22 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type" : "object",
+                    "properties": {
+                      "booking_reference": {
+                        "type": "object",
+                        "properties": {   
+                          "$ref": "#/components/schemas/BookingReferences"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -1155,17 +1428,14 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking reference to edit"
             }
@@ -1174,8 +1444,23 @@ export const openApiSpec = {
             "booking-references"
           ],
           "responses": {
-            "201": {
-              "description": "OK, BookingReference edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type" : "object",
+                    "properties": {
+                      "booking_reference": {
+                        "type": "object",
+                        "properties": {   
+                          "$ref": "#/components/schemas/BookingReferences"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. BookingReference body is invalid."
@@ -1194,76 +1479,35 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "Your API key",
-              "example": "123456789abcdefgh"
+              "example": "cal_live_<unique_identifier>",
             },
             {
               "in": "query",
               "name": "userId",
               "required": false,
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "integer",
-                    "example": 1
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    },
-                    "example": [
-                      2,
-                      3,
-                      4
-                    ]
-                  }
-                ]
-              }
+              "type": "integer or array of integers",
+              "example": 1
             },
             {
               "in": "query",
               "name": "take",
               "required": false,
-              "schema": {
-                "type": "number",
-              }
+              "type": "number",
             },
             {
               "in": "query",
               "name": "page",
               "required": false,
-              "schema": {
-                "type": "number",
-              }
+              "type": "number",
             },            
             {
               "in": "query",
               "name": "attendeeEmail",
               "required": false,
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "format": "email",
-                    "example": "john.doe@example.com"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "email"
-                    },
-                    "example": [
-                      "john.doe@example.com",
-                      "jane.doe@example.com"
-                    ]
-                  }
-                ]
-              }
+              "type": "email or array of email",
+              "example": "john.doe@example.com"
             }
           ],
           "operationId": "listBookings",
@@ -1280,9 +1524,8 @@ export const openApiSpec = {
                   },
                   "examples": {
                     "bookings": {
-                      "value": [
-                        {
-                          "booking": {
+                      "value": {
+                          "bookings": [{
                             "id": 91,
                             "userId": 5,
                             "description": "",
@@ -1322,9 +1565,8 @@ export const openApiSpec = {
                                 "value": "inPerson"
                               }
                             }
-                          }
+                          }]
                         }
-                      ]
                     }
                   }
                 }
@@ -1345,9 +1587,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -1373,12 +1614,12 @@ export const openApiSpec = {
                       "description": "ID of the event type to book"
                     },
                     "start": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "Start time of the Event"
                     },
                     "end": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "End time of the Event"
                     },
@@ -1417,7 +1658,9 @@ export const openApiSpec = {
                     },
                     "metadata": {
                       "type": "object",
-                      "properties": {},
+                      "properties": {
+
+                      },
                       "description": "Any metadata associated with the booking"
                     },
                     "timeZone": {
@@ -1441,7 +1684,7 @@ export const openApiSpec = {
                       "description": "Event description"
                     },
                     "status": {
-                      "type": "string",
+                      "type": "enum BookingStatus",
                       "description": "Acceptable values one of [\"ACCEPTED\", \"PENDING\", \"CANCELLED\", \"REJECTED\"]"
                     },
                     "seatsPerTimeSlot": {
@@ -1495,58 +1738,83 @@ export const openApiSpec = {
               "description": "Booking(s) created successfully.",
               "content": {
                 "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfBookings"
+                  },
                   "examples": {
                     "booking created successfully example": {
                       "value": {
-                        "booking": {
-                          "id": 91,
-                          "userId": 5,
-                          "description": "",
-                          "eventTypeId": 7,
-                          "uid": "bFJeNb2uX8ANpT3JL5EfXw",
-                          "title": "60min between Pro Example and John Doe",
-                          "startTime": "2023-05-25T09:30:00.000Z",
-                          "endTime": "2023-05-25T10:30:00.000Z",
-                          "attendees": [
-                            {
-                              "email": "john.doe@example.com",
-                              "name": "John Doe",
-                              "timeZone": "Asia/Kolkata",
-                              "locale": "en"
-                            }
-                          ],
-                          "user": {
-                            "email": "pro@example.com",
-                            "name": "Pro Example",
-                            "timeZone": "Asia/Kolkata",
-                            "locale": "en"
-                          },
-                          "payment": [
-                            {
-                              "id": 1,
-                              "success": true,
-                              "paymentOption": "ON_BOOKING"
-                            }
-                          ],
-                          "metadata": {},
-                          "status": "ACCEPTED",
-                          "responses": {
-                            "email": "john.doe@example.com",
+                        "id": 123456,
+                        "uid": "1vf65zmgm123tvLiGxUT8",
+                        "idempotencyKey": "e6a50d09-9677-5123-bcd0-76aec971d52b",
+                        "userId": 92123,
+                        "userPrimaryEmail": "jared@gmail.com",
+                        "eventTypeId": 81236,
+                        "title": "30 Min Meeting between Jared and John Doe",
+                        "description": "",
+                        "customInputs": {},
+                        "responses": {
                             "name": "John Doe",
+                            "email": "johndoe@example.com",
+                            "guests": [],
                             "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
+                                "value": "inPerson",
+                                "optionValue": ""
                             }
-                          }
-                        }
-                      }
+                        },
+                        "startTime": "2024-08-28T12:00:00.000Z",
+                        "endTime": "2024-08-28T12:30:00.000Z",
+                        "location": "inPerson",
+                        "createdAt": "2024-07-21T20:14:00.053Z",
+                        "updatedAt": null,
+                        "status": "ACCEPTED",
+                        "paid": false,
+                        "destinationCalendarId": null,
+                        "cancellationReason": null,
+                        "rejectionReason": null,
+                        "dynamicEventSlugRef": null,
+                        "dynamicGroupSlugRef": null,
+                        "rescheduled": null,
+                        "fromReschedule": null,
+                        "recurringEventId": null,
+                        "smsReminderNumber": null,
+                        "scheduledJobs": [],
+                        "metadata": {},
+                        "isRecorded": false,
+                        "iCalUID": "1vf65zmgm1231iGxUT8@Cal.com",
+                        "iCalSequence": 0,
+                        "rating": null,
+                        "ratingFeedback": null,
+                        "noShowHost": null,
+                        "user": {
+                            "email": null,
+                            "name": "Jared",
+                            "timeZone": "Asia/Dubai",
+                            "username": "jared"
+                        },
+                        "attendees": [
+                            {
+                                "id": 3229523,
+                                "email": "johndoe@example.com",
+                                "name": "John Doe",
+                                "timeZone": "Europe/London",
+                                "locale": "en",
+                                "bookingId": 2658488,
+                                "noShow": false
+                            }
+                        ],
+                        "payment": [],
+                        "references": [],
+                        "paymentRequired": false,
+                        "luckyUsers": []
+                    }
                     }
                   }
                 }
               }
             },
             "400": {
-              "description": "Bad request\n<table>\n  <tr>\n    <td>Message</td>\n    <td>Cause</td>\n  </tr>\n  <tr>\n    <td>Booking body is invalid</td>\n    <td>Missing property on booking entity.</td>\n  </tr>\n  <tr>\n    <td>Invalid eventTypeId</td>\n    <td>The provided eventTypeId does not exist.</td>\n  </tr>\n  <tr>\n    <td>Missing recurringCount</td>\n    <td>The eventType is recurring, and no recurringCount was passed.</td>\n  </tr>\n  <tr>\n    <td>Invalid recurringCount</td>\n    <td>The provided recurringCount is greater than the eventType recurring config</td>\n  </tr>\n</table>\n"
+              "description": "Bad request"
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -1562,9 +1830,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking to cancel"
             },
@@ -1572,27 +1838,22 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "allRemainingBookings",
               "required": false,
-              "schema": {
-                "type": "boolean"
-              },
+              "type": "boolean",
               "description": "Delete all remaining bookings"
             },
             {
               "in": "query",
               "name": "cancellationReason",
               "required": false,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "The reason for cancellation of the booking"
             }
           ],
@@ -1601,10 +1862,10 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, booking cancelled successfully"
+              "description": "Booking successfully cancelled."
             },
             "400": {
-              "description": "Bad request\n <table>\n   <tr>\n     <td>Message</td>\n     <td>Cause</td>\n   </tr>\n   <tr>\n     <td>Booking not found</td>\n     <td>The provided id didn't correspond to any existing booking.</td>\n   </tr>\n   <tr>\n     <td>User not found</td>\n     <td>The userId did not matched an existing user.</td>\n   </tr>\n </table>\n"
+              "description": "Bad request"
             },
             "404": {
               "description": "User not found"
@@ -1620,9 +1881,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking to get"
             },
@@ -1630,9 +1889,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -1645,52 +1903,48 @@ export const openApiSpec = {
               "content": {
                 "application/json": {
                   "schema": {
-                    "$ref": "#/components/schemas/Booking"
+                    "$ref": "#/components/schemas/ArrayOfBookings"
                   },
                   "examples": {
-                    "booking": {
-                      "value": {
-                        "booking": {
-                          "id": 91,
-                          "userId": 5,
-                          "description": "",
-                          "eventTypeId": 7,
-                          "uid": "bFJeNb2uX8ANpT3JL5EfXw",
-                          "title": "60min between Pro Example and John Doe",
-                          "startTime": "2023-05-25T09:30:00.000Z",
-                          "endTime": "2023-05-25T10:30:00.000Z",
-                          "attendees": [
-                            {
-                              "email": "john.doe@example.com",
-                              "name": "John Doe",
-                              "timeZone": "Asia/Kolkata",
-                              "locale": "en"
-                            }
-                          ],
-                          "user": {
-                            "email": "pro@example.com",
-                            "name": "Pro Example",
-                            "timeZone": "Asia/Kolkata",
-                            "locale": "en"
-                          },
-                          "payment": [
-                            {
-                              "id": 1,
-                              "success": true,
-                              "paymentOption": "ON_BOOKING"
-                            }
-                          ],
-                          "metadata": {},
-                          "status": "ACCEPTED",
-                          "responses": {
-                            "email": "john.doe@example.com",
-                            "name": "John Doe",
-                            "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
-                            }
+                    "booking created successfully example": {
+                        "value": {
+                          "booking": {
+                              "id": 2651238,
+                              "userId": 9212366,
+                              "description": "",
+                              "eventTypeId": 891236,
+                              "uid": "1vf65zmg12312321LiGxUT8",
+                              "title": "30 Min Meeting between Jared and John Doe",
+                              "startTime": "2024-08-28T12:00:00.000Z",
+                              "endTime": "2024-08-28T12:30:00.000Z",
+                              "attendees": [
+                                  {
+                                      "email": "johndoe@example.com",
+                                      "name": "John Doe",
+                                      "timeZone": "Europe/London",
+                                      "locale": "en"
+                                  }
+                              ],
+                              "user": {
+                                  "email": "jared@gmail.com",
+                                  "name": "Jared",
+                                  "timeZone": "Asia/Dubai",
+                                  "locale": null
+                              },
+                              "payment": [],
+                              "metadata": {},
+                              "status": "ACCEPTED",
+                              "responses": {
+                                  "name": "John Doe",
+                                  "email": "johndoe@example.com",
+                                  "guests": [],
+                                  "location": {
+                                      "value": "inPerson",
+                                      "optionValue": ""
+                                  }
+                              },
+                              "fromReschedule": null
                           }
-                        }
                       }
                     }
                   }
@@ -1721,17 +1975,17 @@ export const openApiSpec = {
                       "description": "Booking event title"
                     },
                     "start": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "Start time of the Event"
                     },
                     "end": {
-                      "type": "string",
+                      "type": "datetime",
                       "format": "date-time",
                       "description": "End time of the Event"
                     },
                     "status": {
-                      "type": "string",
+                      "type": "enum BookingStatus",
                       "description": "Acceptable values one of [\"ACCEPTED\", \"PENDING\", \"CANCELLED\", \"REJECTED\"]"
                     },
                     "description": {
@@ -1758,17 +2012,14 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the booking to edit"
             }
@@ -1781,28 +2032,48 @@ export const openApiSpec = {
               "description": "OK, booking edited successfully",
               "content": {
                 "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfBookings"
+                  },
                   "examples": {
                     "bookings": {
                       "value": {
                         "booking": {
-                          "id": 11223344,
-                          "userId": 182,
-                          "description": null,
-                          "eventTypeId": 2323232,
-                          "uid": "stoSJtnh83PEL4rZmqdHe2",
-                          "title": "Debugging between Syed Ali Shahbaz and Hello Hello",
-                          "startTime": "2023-05-24T13:00:00.000Z",
-                          "endTime": "2023-05-24T13:30:00.000Z",
-                          "metadata": {},
-                          "status": "CANCELLED",
-                          "responses": {
-                            "email": "john.doe@example.com",
-                            "name": "John Doe",
-                            "location": {
-                              "optionValue": "",
-                              "value": "inPerson"
-                            }
-                          }
+                            "id": 2651238,
+                            "userId": 9212366,
+                            "description": "",
+                            "eventTypeId": 891236,
+                            "uid": "1vf65zmg12312321LiGxUT8",
+                            "title": "30 Min Meeting between Jared and John Doe",
+                            "startTime": "2024-08-28T12:00:00.000Z",
+                            "endTime": "2024-08-28T12:30:00.000Z",
+                            "attendees": [
+                                {
+                                    "email": "johndoe@example.com",
+                                    "name": "John Doe",
+                                    "timeZone": "Europe/London",
+                                    "locale": "en"
+                                }
+                            ],
+                            "user": {
+                                "email": "jared@gmail.com",
+                                "name": "Jared",
+                                "timeZone": "Asia/Dubai",
+                                "locale": null
+                            },
+                            "payment": [],
+                            "metadata": {},
+                            "status": "ACCEPTED",
+                            "responses": {
+                                "name": "John Doe",
+                                "email": "johndoe@example.com",
+                                "guests": [],
+                                "location": {
+                                    "value": "inPerson",
+                                    "optionValue": ""
+                                }
+                            },
+                            "fromReschedule": null
                         }
                       }
                     }
@@ -1828,27 +2099,22 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "userId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the user to fetch the credentials for"
             },
             {
               "in": "query",
               "name": "credentialId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the credential to update"
             }
           ],
@@ -1875,18 +2141,15 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "userId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the user to fetch the credentials for"
             }
           ],
@@ -1913,27 +2176,22 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "userId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the user to fetch the credentials for"
             },
             {
               "in": "query",
               "name": "credentialId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the credential to update"
             }
           ],
@@ -1979,18 +2237,15 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "query",
               "name": "userId",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "ID of the user to fetch the credentials for"
             }
           ],
@@ -2041,9 +2296,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2069,9 +2323,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2162,9 +2415,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventTypeCustomInput to delete"
             },
@@ -2172,9 +2423,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2199,9 +2449,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventTypeCustomInput to get"
             },
@@ -2209,9 +2457,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2289,9 +2536,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventTypeCustomInput to edit"
             },
@@ -2299,9 +2544,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2328,9 +2572,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2340,7 +2583,27 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArrayOfDestinationCalendars"
+                  },
+                  "examples": {
+                    "destinationCalendars": {
+                      "value": {
+                        "destinationCalendars": [{
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": null,
+                            "userId": 123
+                        }]
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2356,9 +2619,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2405,8 +2667,29 @@ export const openApiSpec = {
             "destination-calendars"
           ],
           "responses": {
-            "201": {
-              "description": "OK, destination calendar created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. DestinationCalendar body is invalid."
@@ -2424,9 +2707,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the destination calendar to delete"
             },
@@ -2434,9 +2715,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2445,7 +2725,7 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, destinationCalendar removed successfully"
+              "description": "OK, Destination Calendar removed successfully"
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2461,9 +2741,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the destination calendar to get"
             },
@@ -2471,9 +2749,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2482,7 +2759,28 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2498,9 +2796,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the destination calendar to edit"
             },
@@ -2508,9 +2804,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -2548,7 +2843,28 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/DestinationCalendar"
+                  },
+                  "examples": {
+                    "destinationCalendar": {
+                      "value": {
+                        "destinationCalendar": {
+                            "id": 1234,
+                            "integration": "google_calendar",
+                            "externalId": "johndoe@example.com",
+                            "eventTypeId": 123412,
+                            "userId": null
+                        },
+                        "message": "Destination calendar created successfully"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2567,18 +2883,15 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "query",
               "name": "slug",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": false,
               "description": "Slug to filter event types by"
             }
@@ -2591,7 +2904,65 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_types": [{
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }]
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -2608,9 +2979,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -2780,67 +3150,28 @@ export const openApiSpec = {
                       "type": "array",
                       "description": "A list of all available locations for the event type",
                       "items": {
-                        "type": "array",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "integrations:daily"
-                                  ]
-                                }
-                              }
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "The type of location (e.g., integrations:daily, attendeeInPerson, inPerson, link, phone, userPhone).",
+                              "required": true,
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "attendeeInPerson"
-                                  ]
-                                }
-                              }
+                            "address": {
+                              "type": "string",
+                              "description": "The address for Host Address(inPerson) locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "inPerson"
-                                  ]
-                                },
-                                "address": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "link": {
+                              "type": "string",
+                              "description": "The link for online locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "link"
-                                  ]
-                                },
-                                "link": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "hostPhoneNumber": {
+                              "type": "string",
+                              "description": "The host's phone number for Host phone (userPhone) locations."
                             }
-                          ]
-                        }
+                          },
+                          "required": ["type"],
+                          "description": "A location object representing the type and optional details of an event location."
                       }
                     }
                   }
@@ -2938,8 +3269,65 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, event type created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                        "event_type": {
+                            "id": 123123,
+                            "title": "Example Event Type",
+                            "slug": "example",
+                            "length": 60,
+                            "hidden": false,
+                            "position": 0,
+                            "userId": 232323,
+                            "teamId": null,
+                            "scheduleId": null,
+                            "eventName": null,
+                            "timeZone": null,
+                            "periodType": "UNLIMITED",
+                            "periodStartDate": null,
+                            "periodEndDate": null,
+                            "periodDays": null,
+                            "periodCountCalendarDays": null,
+                            "requiresConfirmation": false,
+                            "recurringEvent": null,
+                            "disableGuests": false,
+                            "hideCalendarNotes": false,
+                            "minimumBookingNotice": 120,
+                            "beforeEventBuffer": 0,
+                            "afterEventBuffer": 0,
+                            "schedulingType": null,
+                            "price": 0,
+                            "currency": "usd",
+                            "slotInterval": null,
+                            "parentId": null,
+                            "successRedirectUrl": null,
+                            "description": null,
+                            "locations": null,
+                            "metadata": {},
+                            "seatsPerTimeSlot": null,
+                            "seatsShowAttendees": false,
+                            "seatsShowAvailabilityCount": true,
+                            "bookingFields": null,
+                            "bookingLimits": null,
+                            "onlyShowFirstAvailableSlot": false,
+                            "durationLimits": null,
+                            "children": [],
+                            "hosts": []
+                        },
+                        "message": "Event type created successfully"
+                    }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. EventType body is invalid."
@@ -2958,18 +3346,15 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventType to delete"
             }
@@ -2981,8 +3366,8 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, eventType removed successfully"
+            "200": {
+              "description": "OK, Event Type with id: 123123 deleted successfully"
             },
             "400": {
               "description": "Bad request. EventType id is invalid."
@@ -2999,9 +3384,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
@@ -3009,9 +3393,7 @@ export const openApiSpec = {
               "in": "path",
               "name": "id",
               "example": 4,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventType to get"
             }
@@ -3024,7 +3406,65 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_type": {
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -3041,18 +3481,15 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the eventType to edit"
             }
@@ -3223,67 +3660,28 @@ export const openApiSpec = {
                       "type": "array",
                       "description": "A list of all available locations for the event type",
                       "items": {
-                        "type": "array",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "integrations:daily"
-                                  ]
-                                }
-                              }
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "The type of location (e.g., integrations:daily, attendeeInPerson, inPerson, link, phone, userPhone).",
+                              "required": true,
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "attendeeInPerson"
-                                  ]
-                                }
-                              }
+                            "address": {
+                              "type": "string",
+                              "description": "The address for Host Address(inPerson) locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "inPerson"
-                                  ]
-                                },
-                                "address": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "link": {
+                              "type": "string",
+                              "description": "The link for online locations."
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": "string",
-                                  "enum": [
-                                    "link"
-                                  ]
-                                },
-                                "link": {
-                                  "type": "string"
-                                },
-                                "displayLocationPublicly": {
-                                  "type": "boolean"
-                                }
-                              }
+                            "hostPhoneNumber": {
+                              "type": "string",
+                              "description": "The host's phone number for Host phone (userPhone) locations."
                             }
-                          ]
-                        }
+                          },
+                          "required": ["type"],
+                          "description": "A location object representing the type and optional details of an event location."
                       }
                     }
                   }
@@ -3307,8 +3705,66 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/event-types"
           },
           "responses": {
-            "201": {
-              "description": "OK, eventType edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/EventType"
+                  },
+                  "examples": {
+                    "eventTypes": {
+                      "value": {
+                          "event_type": {
+                              "id": 12345,
+                              "title": "Example Event Type",
+                              "slug": "example",
+                              "length": 60,
+                              "hidden": false,
+                              "position": 0,
+                              "userId": 433223,
+                              "teamId": null,
+                              "scheduleId": 232323,
+                              "eventName": null,
+                              "timeZone": null,
+                              "periodType": "UNLIMITED",
+                              "periodStartDate": null,
+                              "periodEndDate": null,
+                              "periodDays": null,
+                              "periodCountCalendarDays": null,
+                              "requiresConfirmation": false,
+                              "recurringEvent": null,
+                              "disableGuests": false,
+                              "hideCalendarNotes": false,
+                              "minimumBookingNotice": 120,
+                              "beforeEventBuffer": 0,
+                              "afterEventBuffer": 0,
+                              "schedulingType": null,
+                              "price": 0,
+                              "currency": "usd",
+                              "slotInterval": null,
+                              "parentId": null,
+                              "successRedirectUrl": null,
+                              "description": null,
+                              "locations": null,
+                              "metadata": {},
+                              "seatsPerTimeSlot": null,
+                              "seatsShowAttendees": false,
+                              "seatsShowAvailabilityCount": true,
+                              "bookingFields": null,
+                              "bookingLimits": null,
+                              "onlyShowFirstAvailableSlot": false,
+                              "durationLimits": null,
+                              "children": [],
+                              "hosts": [],
+                              "customInputs": [],
+                              "link": "https://cal.com/example-user/example"
+                          }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. EventType body is invalid."
@@ -3329,9 +3785,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -3425,18 +3880,14 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric userId of the membership to get"
             },
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric teamId of the membership to get"
             }
@@ -3462,18 +3913,14 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric userId of the membership to get"
             },
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric teamId of the membership to get"
             }
@@ -3499,18 +3946,14 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric userId of the membership to get"
             },
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric teamId of the membership to get"
             }
@@ -3539,17 +3982,14 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the payment to get"
             }
@@ -3597,9 +4037,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -3680,9 +4119,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -3776,18 +4214,15 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the schedule to delete"
             },
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -3814,18 +4249,15 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the schedule to get"
             },
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -3902,18 +4334,15 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the schedule to edit"
             },
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -4002,9 +4431,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -4030,9 +4458,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             }
@@ -4086,36 +4513,29 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "userId of the selected calendar to get"
             },
             {
               "in": "path",
               "name": "externalId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "externalId of the selected-calendar to get"
             },
             {
               "in": "path",
               "name": "integration",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": true,
               "description": "integration of the selected calendar to get"
             }
@@ -4142,36 +4562,29 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "userId of the selected calendar to get"
             },
             {
               "in": "path",
               "name": "externalId",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": true,
               "description": "externalId of the selected calendar to get"
             },
             {
               "in": "path",
               "name": "integration",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": true,
               "description": "integration of the selected calendar to get"
             }
@@ -4198,36 +4611,29 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "path",
               "name": "userId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "userId of the selected calendar to get"
             },
             {
               "in": "path",
               "name": "externalId",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": true,
               "description": "externalId of the selected calendar to get"
             },
             {
               "in": "path",
               "name": "integration",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "required": true,
               "description": "integration of the selected calendar to get"
             }
@@ -4258,66 +4664,55 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
             {
               "in": "query",
               "name": "eventTypeId",
-              "schema": {
-                "type": "number"
-              },
+              "type": "number",
               "required": false,
               "description": "The event type Id to fetch available slots against"
             },
             {
               "in": "query",
               "name": "startTime",
-              "schema": {
-                "type": "string",
-                "format": "date-time"
-              },
+              "type": "string",
+              "format": "date-time",
               "required": true,
               "description": "Start time of the slot lookup"
             },
             {
               "in": "query",
               "name": "endTime",
-              "schema": {
-                "type": "string",
-                "format": "date-time"
-              },
+              "type": "string",
+              "format": "date-time",
               "required": true,
               "description": "End time of the slot lookup"
             },
             {
               "in": "query",
               "name": "timeZone",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "TimeZone for the slot lookup"
             },
             {
               "in": "query",
               "name": "usernameList",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "string"
               },
-              "description": "An array of usernames [To be used when not using eventTypeId]"
+              "description": "An array of usernames [To be used when not using eventTypeId]",
+              "example": ["user1", "user2", "user3"]
             },
             {
               "in": "query",
               "name": "eventTypeSlug",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
               "description": "Slug of the event type to fetch available slots against [To be used when not using eventTypeId]"
             }
           ],
@@ -4362,9 +4757,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4391,9 +4785,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4480,9 +4873,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the team to delete"
             },
@@ -4490,9 +4881,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4518,9 +4908,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the team to get"
             },
@@ -4528,9 +4916,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4556,9 +4943,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "teamId",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the team to edit"
             },
@@ -4566,9 +4951,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4617,9 +5001,8 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
             },
@@ -4660,9 +5043,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             },
             {
@@ -4704,9 +5086,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -4813,18 +5194,15 @@ export const openApiSpec = {
               "in": "path",
               "name": "userId",
               "example": 1,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the user to delete"
             },
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API key"
             }
@@ -4852,18 +5230,15 @@ export const openApiSpec = {
               "in": "path",
               "name": "userId",
               "example": 4,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the user to get"
             },
             {
               "in": "query",
               "name": "apiKey",
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API key"
             }
@@ -4891,9 +5266,7 @@ export const openApiSpec = {
               "in": "path",
               "name": "userId",
               "example": 4,
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "ID of the user to edit"
             },
@@ -4901,9 +5274,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -5009,9 +5381,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -5041,9 +5412,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -5123,9 +5493,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric ID of the hooks to delete"
             },
@@ -5133,9 +5501,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -5164,9 +5531,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric ID of the webhook to get"
             },
@@ -5174,9 +5539,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
@@ -5205,9 +5569,7 @@ export const openApiSpec = {
             {
               "in": "path",
               "name": "id",
-              "schema": {
-                "type": "integer"
-              },
+              "type": "integer",
               "required": true,
               "description": "Numeric ID of the webhook to edit"
             },
@@ -5215,9 +5577,8 @@ export const openApiSpec = {
               "in": "query",
               "name": "apiKey",
               "required": true,
-              "schema": {
-                "type": "string"
-              },
+              "type": "integer",
+              "example": "cal_live_<unique_identifier>",
               "description": "Your API key"
             }
           ],
