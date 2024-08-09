@@ -22,7 +22,8 @@ export const availabilitySettingsAtomClassnamesPropData: AtomsClassnamesProp[] =
     {name: 'scheduleDay', description: 'Adds styling to just the day of a particular schedule'},
     {name: 'dayRanges', description: 'Adds styling to day ranges'}, 
     {name: 'timeRanges', description: 'Time ranges in the availability settings can be customized'}, 
-    {name: 'labelAndSwitchContainer', description: 'Adds styling to label and switches'}
+    {name: 'labelAndSwitchContainer', description: 'Adds styling to label and switches'},
+    {name: 'overridesModalClassNames', description: 'Adds styling to the date overrides modal'}
 ]
 
 export const bookerAtomPropsClassnamesPropData: AtomsClassnamesProp[] = [
