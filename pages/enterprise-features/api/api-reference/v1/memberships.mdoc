@@ -4,6 +4,62 @@ title: Memberships
 
 Memberships control mappings of users to particular roles within teams.
 
+## Memberships Object
+
+{% jsonSchemaRenderer schema={
+    properties: {
+        id: {
+            type: "integer",
+            description: "The ID of the membership, generated automatically"
+        },
+        teamId: {
+            type: "integer",
+            description: "The ID of the team associated with the membership"
+        },
+        userId: {
+            type: "integer",
+            description: "The ID of the user associated with the membership"
+        },
+        accepted: {
+            type: "boolean",
+            description: "Indicates whether the membership has been accepted",
+            default: false
+        },
+        role: {
+            type: "MembershipRole",
+            description: "The role of the user in the team"
+        },
+        team: {
+            type: "Team Object",
+            description: "The team associated with the membership"
+        },
+        user: {
+            type: "User Object",
+            description: "The user associated with the membership"
+        },
+        disableImpersonation: {
+            type: "boolean",
+            description: "Indicates whether impersonation is disabled for this membership",
+            default: false
+        }
+    }
+} /%}
+
+#### Example Memberships Object
+
+```js
+{
+    "id": 1501,
+    "teamId": 300,
+    "userId": 75,
+    "accepted": true,
+    "role": "MEMBER",
+    "team": [Team Object],
+    "user": [User Object],
+    "disableImpersonation": false
+}
+```
+
 ## Find all memberships
 
 {% openapidoc method="GET" url="https://api.cal.com/docs" path="/memberships" /%}

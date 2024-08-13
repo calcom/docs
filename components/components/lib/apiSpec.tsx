@@ -3845,7 +3845,50 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                        "memberships": [
+                            {
+                                "id": 714,
+                                "teamId": 1,
+                                "userId": 123,
+                                "accepted": true,
+                                "role": "ADMIN",
+                                "disableImpersonation": false
+                            },
+                            {
+                                "id": 134123,
+                                "teamId": 123,
+                                "userId": 123,
+                                "accepted": true,
+                                "role": "ADMIN",
+                                "disableImpersonation": false
+                            },
+                            {
+                                "id": 134132,
+                                "teamId": 1234,
+                                "userId": 123,
+                                "accepted": true,
+                                "role": "MEMBER",
+                                "disableImpersonation": false
+                            },
+                            {
+                                "id": 24123,
+                                "teamId": 12312,
+                                "userId": 123,
+                                "accepted": true,
+                                "role": "ADMIN",
+                                "disableImpersonation": false
+                            }
+                        ]
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -3861,8 +3904,8 @@ export const openApiSpec = {
             "memberships"
           ],
           "responses": {
-            "201": {
-              "description": "OK, membership created"
+            "200": {
+              "description": "OK"
             },
             "400": {
               "description": "Bad request. Membership body is invalid."
@@ -3930,7 +3973,24 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "membership": {
+                          "id": 714,
+                          "teamId": 1,
+                          "userId": 123,
+                          "accepted": true,
+                          "role": "ADMIN",
+                          "disableImpersonation": false
+                      }
+                  }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
