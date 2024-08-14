@@ -3939,7 +3939,7 @@ export const openApiSpec = {
             "memberships"
           ],
           "responses": {
-            "201": {
+            "200": {
               "description": "OK, membership removed successfuly"
             },
             "400": {
@@ -4022,7 +4022,7 @@ export const openApiSpec = {
             "memberships"
           ],
           "responses": {
-            "201": {
+            "200": {
               "description": "OK, membership edited successfully"
             },
             "400": {
@@ -4111,55 +4111,32 @@ export const openApiSpec = {
               "description": "OK",
               "content": {
                 "application/json": {
-                  "examples": {
-                    "schedules": {
-                      "value": {
-                        "schedules": [
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "schedules": [
                           {
-                            "id": 1234,
-                            "userId": 5678,
-                            "name": "Sample Schedule 1",
-                            "timeZone": "America/Chicago",
-                            "availability": [
-                              {
-                                "id": 987,
-                                "eventTypeId": null,
-                                "days": [
-                                  1,
-                                  2,
-                                  3,
-                                  4,
-                                  5
-                                ],
-                                "startTime": "09:00:00",
-                                "endTime": "23:00:00"
-                              }
-                            ]
-                          },
-                          {
-                            "id": 2345,
-                            "userId": 6789,
-                            "name": "Sample Schedule 2",
-                            "timeZone": "Europe/Amsterdam",
-                            "availability": [
-                              {
-                                "id": 876,
-                                "eventTypeId": null,
-                                "days": [
-                                  1,
-                                  2,
-                                  3,
-                                  4,
-                                  5
-                                ],
-                                "startTime": "09:00:00",
-                                "endTime": "17:00:00"
-                              }
-                            ]
+                              "id": 123123,
+                              "userId": 123,
+                              "name": "Working Hours",
+                              "timeZone": "Asia/Dubai",
+                              "availability": [
+                                  {
+                                      "id": 456234,
+                                      "eventTypeId": null,
+                                      "date": null,
+                                      "days": [
+                                          2,
+                                          3,
+                                          4
+                                      ],
+                                      "startTime": "09:00:00",
+                                      "endTime": "17:00:00"
+                                  }
+                              ]
                           }
-                        ]
-                      }
-                    }
+                      ]
+                  }
                   }
                 }
               }
@@ -4209,10 +4186,8 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "schedule": {
-                    "value": {
                       "name": "Sample Schedule",
                       "timeZone": "Asia/Calcutta"
-                    }
                   }
                 }
               }
@@ -4223,35 +4198,35 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, schedule created",
+              "description": "OK",
               "content": {
                 "application/json": {
-                  "examples": {
-                    "schedule": {
-                      "value": {
-                        "schedule": {
-                          "id": 79471,
-                          "userId": 182,
-                          "name": "Total Testing",
-                          "timeZone": "Asia/Calcutta",
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "schedule": {
+                          "id": 1234,
+                          "userId": 111,
+                          "name": "Sample Schedule",
+                          "timeZone": "Europe/Dublin",
                           "availability": [
-                            {
-                              "id": 337917,
-                              "eventTypeId": null,
-                              "days": [
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                              ],
-                              "startTime": "09:00:00",
-                              "endTime": "17:00:00"
-                            }
+                              {
+                                  "id": 4566,
+                                  "eventTypeId": null,
+                                  "date": null,
+                                  "days": [
+                                      1,
+                                      2,
+                                      3,
+                                      4,
+                                      5
+                                  ],
+                                  "startTime": "09:00:00",
+                                  "endTime": "17:00:00"
+                              }
                           ]
-                        },
-                        "message": "Schedule created successfully"
-                      }
+                      },
+                      "message": "Schedule created successfully"
                     }
                   }
                 }
@@ -4291,8 +4266,8 @@ export const openApiSpec = {
             "schedules"
           ],
           "responses": {
-            "201": {
-              "description": "OK, schedule removed successfully"
+            "200": {
+              "description": "Schedule with id: 1223344 deleted successfully"
             },
             "400": {
               "description": "Bad request. Schedule id is invalid."
@@ -4330,49 +4305,28 @@ export const openApiSpec = {
               "description": "OK",
               "content": {
                 "application/json": {
-                  "examples": {
-                    "schedule": {
-                      "value": {
-                        "schedule": {
-                          "id": 12345,
-                          "userId": 182,
-                          "name": "Sample Schedule",
-                          "timeZone": "Asia/Calcutta",
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "schedule": {
+                          "id": 123123,
+                          "userId": 2341,
+                          "name": "Working Hours",
+                          "timeZone": "Asia/Dubai",
                           "availability": [
-                            {
-                              "id": 111,
-                              "eventTypeId": null,
-                              "days": [
-                                0,
-                                1,
-                                2,
-                                3,
-                                4,
-                                6
-                              ],
-                              "startTime": "00:00:00",
-                              "endTime": "23:45:00"
-                            },
-                            {
-                              "id": 112,
-                              "eventTypeId": null,
-                              "days": [
-                                5
-                              ],
-                              "startTime": "00:00:00",
-                              "endTime": "12:00:00"
-                            },
-                            {
-                              "id": 113,
-                              "eventTypeId": null,
-                              "days": [
-                                5
-                              ],
-                              "startTime": "15:00:00",
-                              "endTime": "23:45:00"
-                            }
+                              {
+                                  "id": 223344,
+                                  "eventTypeId": null,
+                                  "date": null,
+                                  "days": [
+                                      2,
+                                      3,
+                                      4
+                                  ],
+                                  "startTime": "09:00:00",
+                                  "endTime": "17:00:00"
+                              }
                           ]
-                        }
                       }
                     }
                   }
@@ -4427,10 +4381,8 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "schedule": {
-                    "value": {
                       "name": "Updated Schedule",
                       "timeZone": "Asia/Calcutta"
-                    }
                   }
                 }
               }
@@ -4441,33 +4393,31 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, schedule edited successfully",
+              "description": "OK",
               "content": {
                 "application/json": {
-                  "examples": {
-                    "schedule": {
-                      "value": {
-                        "schedule": {
-                          "id": 12345,
-                          "userId": 1,
-                          "name": "Total Testing Part 2",
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "schedule": {
+                          "id": 112233,
+                          "userId": 123,
+                          "name": "Updated Schedule",
                           "timeZone": "Asia/Calcutta",
                           "availability": [
-                            {
-                              "id": 4567,
-                              "eventTypeId": null,
-                              "days": [
-                                1,
-                                2,
-                                3,
-                                4,
-                                5
-                              ],
-                              "startTime": "09:00:00",
-                              "endTime": "17:00:00"
-                            }
+                              {
+                                  "id": 456,
+                                  "eventTypeId": null,
+                                  "date": null,
+                                  "days": [
+                                      2,
+                                      3,
+                                      4
+                                  ],
+                                  "startTime": "09:00:00",
+                                  "endTime": "17:00:00"
+                              }
                           ]
-                        }
                       }
                     }
                   }
