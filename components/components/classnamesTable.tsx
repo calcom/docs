@@ -1,4 +1,4 @@
-import { googleCalendarAtomClassnamesPropData, availabilitySettingsAtomClassnamesPropData, bookerAtomPropsClassnamesPropData, outlookCalendarAtomClassnamesPropData } from "@utils/atomsClassnameTableData";
+import { googleCalendarAtomClassnamesPropData, availabilitySettingsAtomClassnamesPropData, bookerAtomPropsClassnamesPropData, outlookCalendarAtomClassnamesPropData, calendarSettingsAtomClassnamesPropData, destinationCalendarSettingsAtomClassnamesPropData, selectedCalendarSettingsAtomClassnamesPropData, appleCalendarAtomClassnamesPropData } from "@utils/atomsClassnameTableData";
 import { Atoms } from "@utils/atomsPropTableData";
 
 export default ({
@@ -16,12 +16,28 @@ export default ({
     tableData = outlookCalendarAtomClassnamesPropData
   }
 
+  if (atom === Atoms.AppleCalendar) { 
+    tableData = appleCalendarAtomClassnamesPropData
+  }
+
   if (atom === Atoms.Availability) {
     tableData = availabilitySettingsAtomClassnamesPropData
   }
 
   if (atom === Atoms.Booker) {
     tableData = bookerAtomPropsClassnamesPropData
+  }
+
+  if (atom === Atoms.CalendarSettings) {
+    tableData = calendarSettingsAtomClassnamesPropData
+  }
+
+  if (atom === Atoms.DestinationCalendarSettings) {
+    tableData = destinationCalendarSettingsAtomClassnamesPropData
+  }
+
+  if (atom === Atoms.SelectedCalendarSettings) {
+    tableData = selectedCalendarSettingsAtomClassnamesPropData
   }
 
   if(atom === "") {

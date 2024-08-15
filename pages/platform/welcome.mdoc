@@ -245,6 +245,66 @@ This is how the booker embed atom actually looks like
 
 {% note type="info" %}For the time being, the booker embed atom does not include the following features: Calendar Overlay and Out Of Office.{% /note %}
 
+### 7. Calendar settings atom
+
+The below code snippet renders the calendar settings atom through which you can configure how your event types interact with your calendars. The atom gives you the ability to select where to add events when you're booked. Additionally, you can also select which calendars you want to check for conflicts to prevent double bookings.
+
+```js
+import { CalendarSettings } from "@calcom/atoms";
+
+export default function CalendarSettingsComponent( props : CalendarSettingsComponentProps ) {
+  return (
+    <>
+      <CalendarSettings />
+    <>
+  )
+}
+```
+
+This is how the calendar settings atom will look like
+
+{% img src="/docs/images/calendar_settings.png" /%}
+
+Additionally, if you wish to select either the Destination Calendar or the Selected Calendar, we also provide atoms specifically designed for this purpose.
+
+**1. Destination calendar settings atom**
+
+The below code snippet renders the destination calendar settings atom. Through this atom you can select which calendar you want to add events to when you're booked.
+
+```js
+import { DestinationCalendarSettings } from "@calcom/atoms";
+
+export default function DestinationCalendars( props : DestinationCalendarsProps ) {
+  return (
+    <>
+      <DestinationCalendarSettings classNames="mx-5" statusLoader={<>Loading...</>} />
+    <>
+  )
+}
+```
+This is how the destination calendar settings atom will look like.
+
+{% img src="/docs/images/destination_calendars.png" /%}
+
+**2. Selected calendar settings atom**
+
+The below code snippet renders the selected calendar settings atom. Through this atom you can select which calendars you want to check for conflicts to prevent double bookings.
+
+```js
+import { SelectedCalendarSettings } from "@calcom/atoms";
+
+export default function SelectedCalendars( props : SelectedCalendarsProps ) {
+  return (
+    <>
+      <SelectedCalendarSettings classNames="mx-5 mb-6" />
+    <>
+  )
+}
+```
+This is how the selected calendar settings atom will look like
+
+{% img src="/docs/images/selected_calendars.png" /%}
+
 ## Platform apis
 
 We've also created a set of new and scalable apis for our platform customers called v2 which we plan to make the successor for our v1 apis. Internally all the atoms use the new platform apis to handle scheduling.
