@@ -4452,7 +4452,30 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "selected_calendars": [
+                          {
+                              "userId": 1234,
+                              "integration": "google_calendar",
+                              "externalId": "john@gmail.com",
+                              "credentialId": 45678
+                          },
+                          {
+                              "userId": 1234,
+                              "integration": "google_calendar",
+                              "externalId": "en.indian#holiday@group.v.calendar.google.com",
+                              "credentialId": 45678
+                          }
+                      ]
+                  }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -4503,8 +4526,24 @@ export const openApiSpec = {
             "selected-calendars"
           ],
           "responses": {
-            "201": {
-              "description": "OK, selected calendar created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "selected_calendar": {
+                          "userId": 112233,
+                          "integration": "google_calendar",
+                          "externalId": "john@gmail.com",
+                          "credentialId": null
+                      },
+                      "message": "Selected Calendar created successfully"
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. SelectedCalendar body is invalid."
@@ -4554,8 +4593,8 @@ export const openApiSpec = {
             "selected-calendars"
           ],
           "responses": {
-            "201": {
-              "description": "OK, selected-calendar removed successfully"
+            "200": {
+              "description": "Selected Calendar with id: 112233_google_calendar_john@gmail.com deleted successfully"
             },
             "400": {
               "description": "Bad request. SelectedCalendar id is invalid."
@@ -4604,7 +4643,22 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "selected_calendar": {
+                          "userId": 1234,
+                          "integration": "google_calendar",
+                          "externalId": "john@gmail.com",
+                          "credentialId": 112233
+                      }
+                  }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -4652,8 +4706,23 @@ export const openApiSpec = {
             "selected-calendars"
           ],
           "responses": {
-            "201": {
-              "description": "OK, selected-calendar edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "selected_calendar": {
+                          "userId": 1234,
+                          "integration": "google_calendar",
+                          "externalId": "addressbook#contacts@group.v.calendar.google.com",
+                          "credentialId": 445566
+                      }
+                  }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. SelectedCalendar body is invalid."
@@ -5404,7 +5473,30 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "webhooks": [
+                          {
+                              "id": "053c0164-ac2c-4222-af17-41a1754d6efa",
+                              "userId": 923966,
+                              "eventTypeId": null,
+                              "payloadTemplate": null,
+                              "eventTriggers": [
+                                  "BOOKING_CANCELLED",
+                                  "BOOKING_CREATED"
+                              ],
+                              "appId": null,
+                              "subscriberUrl": "https://abcdef.api.example.io/"
+                          }
+                      ]
+                  }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -5483,8 +5575,33 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/webhooks"
           },
           "responses": {
-            "201": {
-              "description": "OK, webhook created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "webhook": {
+                          "id": "24d9a4cd-12312-47c4-b942-b4135c8e62cc",
+                          "userId": 123412,
+                          "eventTypeId": null,
+                          "payloadTemplate": null,
+                          "eventTriggers": [
+                              "BOOKING_CANCELLED",
+                              "BOOKING_CREATED",
+                              "BOOKING_RESCHEDULED",
+                              "MEETING_ENDED",
+                              "FORM_SUBMITTED"
+                          ],
+                          "appId": null,
+                          "subscriberUrl": "https://abc.api.mockbin.io/"
+                      },
+                      "message": "Webhook created successfully"
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. webhook body is invalid."
@@ -5523,8 +5640,8 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/webhooks"
           },
           "responses": {
-            "201": {
-              "description": "OK, hook removed successfully"
+            "200": {
+              "description": "Webhook with id: 24d9a4cd-12312312-47c4-b942-b4135c8e62cc deleted successfully"
             },
             "400": {
               "description": "Bad request. hook id is invalid."
@@ -5562,7 +5679,31 @@ export const openApiSpec = {
           },
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "webhook": {
+                          "id": "24d9a4cd-112312-47c4-b942-b4135c8e62cc",
+                          "userId": 12312321,
+                          "eventTypeId": null,
+                          "payloadTemplate": null,
+                          "eventTriggers": [
+                              "BOOKING_CANCELLED",
+                              "BOOKING_CREATED",
+                              "BOOKING_RESCHEDULED",
+                              "MEETING_ENDED",
+                              "FORM_SUBMITTED"
+                          ],
+                          "appId": null,
+                          "subscriberUrl": "https://abc.api.mockbin.io/"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -5643,8 +5784,32 @@ export const openApiSpec = {
             "url": "https://docs.cal.com/core-features/webhooks"
           },
           "responses": {
-            "201": {
-              "description": "OK, webhook edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "webhook": {
+                          "id": "24d9a4cd-11231-47c4-b942-b4135c8e62cc",
+                          "userId": 123123,
+                          "eventTypeId": null,
+                          "payloadTemplate": null,
+                          "eventTriggers": [
+                              "BOOKING_CANCELLED",
+                              "BOOKING_CREATED",
+                              "BOOKING_RESCHEDULED",
+                              "MEETING_ENDED",
+                              "FORM_SUBMITTED"
+                          ],
+                          "appId": null,
+                          "subscriberUrl": "https://abc.api.mockbin.io/"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Webhook body is invalid."

@@ -51,25 +51,29 @@ The schedules endpoint in Cal.com's API suite allows you to set out time blocks 
     "timeZone": "America/New_York",
     "availability": [Availability Object[]]
 }
-
 ```
 
 ## Find all schedules
 
+Use this endpoint to list all schedules associated with your profile
 {% openapidoc method="GET" url="https://api.cal.com/docs" path="/schedules" /%}
 
 ## Create a new schedule
 
+Use this endpoint to create a new schedule for your Cal.com account
 {% openapidoc method="POST" url="https://api.cal.com/docs" path="/schedules" /%}
 
 ## Find a schedule
 
+Use this endpoint to list details of a specific schedule associated with your profile
 {% openapidoc method="GET" url="https://api.cal.com/docs" path="/schedules/{id}" /%}
 
 ## Edit an existing schedule
 
+Use this endpoint to edit details of a specific schedule associated with your profile
 {% openapidoc method="PATCH" url="https://api.cal.com/docs" path="/schedules/{id}" /%}
 
 ## Remove an existing schedule
 
+Use this endpoint to remove a specific schedule associated with your profile
 {% openapidoc method="DELETE" url="https://api.cal.com/docs" path="/schedules/{id}" /%}
