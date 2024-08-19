@@ -4885,7 +4885,76 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "teams": [
+                          {
+                              "id": 1,
+                              "name": "Platform Team",
+                              "slug": "platform-admin-team",
+                              "logoUrl": null,
+                              "calVideoLogo": null,
+                              "appLogo": null,
+                              "appIconLogo": null,
+                              "bio": null,
+                              "hideBranding": false,
+                              "isPrivate": false,
+                              "hideBookATeamMember": false,
+                              "createdAt": "2024-07-30T11:39:07.207Z",
+                              "metadata": null,
+                              "theme": null,
+                              "brandColor": null,
+                              "darkBrandColor": null,
+                              "bannerUrl": null,
+                              "parentId": null,
+                              "timeFormat": null,
+                              "timeZone": "Europe/London",
+                              "weekStart": "Sunday",
+                              "isOrganization": true,
+                              "pendingPayment": false,
+                              "isPlatform": true,
+                              "createdByOAuthClientId": null,
+                              "smsLockState": "UNLOCKED",
+                              "smsLockReviewedByAdmin": false
+                          },
+                          {
+                              "id": 2,
+                              "name": "Seeded Team",
+                              "slug": "seeded-team",
+                              "logoUrl": null,
+                              "calVideoLogo": null,
+                              "appLogo": null,
+                              "appIconLogo": null,
+                              "bio": null,
+                              "hideBranding": false,
+                              "isPrivate": false,
+                              "hideBookATeamMember": false,
+                              "createdAt": "2024-07-30T11:39:09.829Z",
+                              "metadata": null,
+                              "theme": null,
+                              "brandColor": null,
+                              "darkBrandColor": null,
+                              "bannerUrl": null,
+                              "parentId": null,
+                              "timeFormat": null,
+                              "timeZone": "Europe/London",
+                              "weekStart": "Sunday",
+                              "isOrganization": false,
+                              "pendingPayment": false,
+                              "isPlatform": false,
+                              "createdByOAuthClientId": null,
+                              "smsLockState": "UNLOCKED",
+                              "smsLockReviewedByAdmin": false
+                          }
+                        ]
+                      }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -4963,6 +5032,19 @@ export const openApiSpec = {
                       "description": "ID of the team owner - only admins can set this."
                     }
                   }
+                },
+                "examples": {
+                  "team": {
+                    "name": "Team via API",
+                    "slug": "team-via-api",
+                    "hideBookATeamMember": true,
+                    "brandColor": "#123123",
+                    "darkBrandColor": "#6bc3cf",
+                    "timeZone": "Asia/Dubai",
+                    "weekStart": "Monday",
+                    "isPrivate": false,
+                    "smsLockReviewedByAdmin": false
+                  }
                 }
               }
             }
@@ -4971,8 +5053,55 @@ export const openApiSpec = {
             "teams"
           ],
           "responses": {
-            "201": {
-              "description": "OK, team created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "team": {
+                          "id": 84,
+                          "name": "Team via API",
+                          "slug": "team-via-api",
+                          "logoUrl": null,
+                          "calVideoLogo": null,
+                          "appLogo": null,
+                          "appIconLogo": null,
+                          "bio": null,
+                          "hideBranding": false,
+                          "isPrivate": false,
+                          "hideBookATeamMember": true,
+                          "createdAt": "2024-08-19T12:11:21.317Z",
+                          "metadata": null,
+                          "theme": null,
+                          "brandColor": "#123123",
+                          "darkBrandColor": "#6bc3cf",
+                          "bannerUrl": null,
+                          "parentId": null,
+                          "timeFormat": null,
+                          "timeZone": "Asia/Dubai",
+                          "weekStart": "Monday",
+                          "isOrganization": false,
+                          "pendingPayment": false,
+                          "isPlatform": false,
+                          "createdByOAuthClientId": null,
+                          "smsLockState": "UNLOCKED",
+                          "smsLockReviewedByAdmin": false
+                      },
+                      "owner": {
+                          "id": 177,
+                          "teamId": 84,
+                          "userId": 10,
+                          "accepted": true,
+                          "role": "OWNER",
+                          "disableImpersonation": false
+                      },
+                      "message": "Team created successfully. We also made user with ID=10 the owner of this team."
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Team body is invalid."
@@ -5009,7 +5138,7 @@ export const openApiSpec = {
           ],
           "responses": {
             "201": {
-              "description": "OK, team removed successfully"
+              "description": "OK, Team with id: 84 deleted successfully"
             },
             "400": {
               "description": "Bad request. Team id is invalid."
@@ -5044,7 +5173,45 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "team": {
+                          "id": 83,
+                          "name": "Logi",
+                          "slug": "logi",
+                          "logoUrl": null,
+                          "calVideoLogo": null,
+                          "appLogo": null,
+                          "appIconLogo": null,
+                          "bio": null,
+                          "hideBranding": false,
+                          "isPrivate": false,
+                          "hideBookATeamMember": false,
+                          "createdAt": "2024-08-19T11:56:16.056Z",
+                          "metadata": null,
+                          "theme": null,
+                          "brandColor": null,
+                          "darkBrandColor": null,
+                          "bannerUrl": null,
+                          "parentId": null,
+                          "timeFormat": null,
+                          "timeZone": "Europe/London",
+                          "weekStart": "Sunday",
+                          "isOrganization": false,
+                          "pendingPayment": false,
+                          "isPlatform": false,
+                          "createdByOAuthClientId": null,
+                          "smsLockState": "UNLOCKED",
+                          "smsLockReviewedByAdmin": false
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -5090,6 +5257,13 @@ export const openApiSpec = {
                       "type": "string",
                       "description": "A unique slug that works as path for the team public page"
                     }
+                  },
+                  "required": ["name", "slug"]
+                },
+                "examples": {
+                  "team": {
+                    "name": "Updated Team Name",
+                    "slug": "updated-team-slug"
                   }
                 }
               }
@@ -5099,14 +5273,55 @@ export const openApiSpec = {
             "teams"
           ],
           "responses": {
-            "201": {
-              "description": "OK, team edited successfully"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "team": {
+                          "id": 84,
+                          "name": "Updated Team Name",
+                          "slug": "updated-team-slug",
+                          "logoUrl": null,
+                          "calVideoLogo": null,
+                          "appLogo": null,
+                          "appIconLogo": null,
+                          "bio": null,
+                          "hideBranding": false,
+                          "isPrivate": false,
+                          "hideBookATeamMember": true,
+                          "createdAt": "2024-08-19T12:11:21.317Z",
+                          "metadata": null,
+                          "theme": null,
+                          "brandColor": "#123123",
+                          "darkBrandColor": "#6bc3cf",
+                          "bannerUrl": null,
+                          "parentId": null,
+                          "timeFormat": null,
+                          "timeZone": "Asia/Dubai",
+                          "weekStart": "Monday",
+                          "isOrganization": false,
+                          "pendingPayment": false,
+                          "isPlatform": false,
+                          "createdByOAuthClientId": null,
+                          "smsLockState": "UNLOCKED",
+                          "smsLockReviewedByAdmin": false
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. Team body is invalid."
             },
             "401": {
               "description": "Authorization information is missing or invalid."
+            },
+            "409": {
+              "description": "Team slug already exists"
             }
           }
         }
