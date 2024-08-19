@@ -1996,12 +1996,10 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "editBooking": {
-                    "value": {
                       "title": "Debugging between Syed Ali Shahbaz and Hello Hello",
                       "start": "2023-05-24T13:00:00.000Z",
                       "end": "2023-05-24T13:30:00.000Z",
                       "status": "CANCELLED"
-                    }
                   }
                 }
               }
