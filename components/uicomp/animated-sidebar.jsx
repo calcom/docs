@@ -21,7 +21,8 @@ export const Cursor = ({ element, fast, className }) => {
 
 export const SidebarItem = ({ page, currentPath, selectedEl, setSelectedEl, setHoveredEl, depth, onClick }) => {
   const pageSlug = page?.href
-  const isSelected = currentPath?.startsWith(pageSlug)
+  const isSelected = currentPath === pageSlug || currentPath.startsWith(`${pageSlug}/`)
+
   return <>
     <div
       ref={(el) => {
