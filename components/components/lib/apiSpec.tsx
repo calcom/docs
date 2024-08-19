@@ -4059,7 +4059,26 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "payment": {
+                          "id": 1,
+                          "amount": 10000,
+                          "success": true,
+                          "refunded": false,
+                          "fee": 0,
+                          "paymentOption": "ON_BOOKING",
+                          "currency": "usd",
+                          "bookingId": 38
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -4078,7 +4097,27 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "payments": [
+                          {
+                              "id": 1,
+                              "amount": 10000,
+                              "success": true,
+                              "refunded": false,
+                              "fee": 0,
+                              "paymentOption": "ON_BOOKING",
+                              "currency": "usd"
+                          }
+                      ]
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
