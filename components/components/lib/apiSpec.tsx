@@ -5401,7 +5401,68 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "users": [
+                          {
+                              "id": 1,
+                              "username": "delete-me",
+                              "name": "delete-me",
+                              "email": "delete-me@example.com",
+                              "emailVerified": "2024-07-30T11:39:01.729Z",
+                              "bio": null,
+                              "timeZone": "Europe/London",
+                              "weekStart": "Sunday",
+                              "endTime": 1440,
+                              "bufferTime": 0,
+                              "appTheme": null,
+                              "theme": null,
+                              "defaultScheduleId": null,
+                              "locale": "en",
+                              "timeFormat": 12,
+                              "hideBranding": false,
+                              "brandColor": null,
+                              "darkBrandColor": null,
+                              "allowDynamicBooking": true,
+                              "createdDate": "2024-07-30T11:39:01.981Z",
+                              "verified": false,
+                              "invitedTo": null,
+                              "role": "USER"
+                          },
+                          {
+                              "id": 2,
+                              "username": "onboarding",
+                              "name": "onboarding",
+                              "email": "onboarding@example.com",
+                              "emailVerified": "2024-07-30T11:39:02.487Z",
+                              "bio": null,
+                              "timeZone": "Europe/London",
+                              "weekStart": "Sunday",
+                              "endTime": 1440,
+                              "bufferTime": 0,
+                              "appTheme": null,
+                              "theme": null,
+                              "defaultScheduleId": null,
+                              "locale": "en",
+                              "timeFormat": 12,
+                              "hideBranding": false,
+                              "brandColor": null,
+                              "darkBrandColor": null,
+                              "allowDynamicBooking": true,
+                              "createdDate": "2024-07-30T11:39:02.488Z",
+                              "verified": false,
+                              "invitedTo": null,
+                              "role": "USER"
+                          }
+                        ]
+                      }
+                    }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -5485,18 +5546,15 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "user": {
-                    "summary": "An example of USER",
-                    "value": {
-                      "email": "email@example.com",
-                      "username": "johndoe",
-                      "weekStart": "MONDAY",
-                      "brandColor": "#555555",
-                      "darkBrandColor": "#111111",
-                      "timeZone": "EUROPE/PARIS",
-                      "theme": "LIGHT",
-                      "timeFormat": "TWELVE",
-                      "locale": "FR"
-                    }
+                    "email": "john@example.com",
+                    "username": "johndoe",
+                    "weekStart": "Monday",
+                    "brandColor": "#555555",
+                    "darkBrandColor": "#111111",
+                    "timeZone": "Asia/Dubai",
+                    "theme": "light",
+                    "timeFormat": 12,
+                    "locale": "fr"
                   }
                 }
               }
@@ -5506,8 +5564,61 @@ export const openApiSpec = {
             "users"
           ],
           "responses": {
-            "201": {
-              "description": "OK, user created"
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "user": {
+                          "id": 93,
+                          "username": "johndoe",
+                          "name": null,
+                          "email": "john@example.com",
+                          "emailVerified": null,
+                          "bio": null,
+                          "avatarUrl": null,
+                          "timeZone": "Asia/Dubai",
+                          "weekStart": "Monday",
+                          "startTime": 0,
+                          "endTime": 1440,
+                          "bufferTime": 0,
+                          "hideBranding": false,
+                          "theme": "light",
+                          "appTheme": null,
+                          "createdDate": "2024-08-19T14:40:46.051Z",
+                          "trialEndsAt": null,
+                          "defaultScheduleId": null,
+                          "completedOnboarding": false,
+                          "locale": "fr",
+                          "timeFormat": 12,
+                          "twoFactorSecret": null,
+                          "twoFactorEnabled": false,
+                          "backupCodes": null,
+                          "identityProvider": "CAL",
+                          "identityProviderId": null,
+                          "invitedTo": null,
+                          "brandColor": "#555555",
+                          "darkBrandColor": "#111111",
+                          "allowDynamicBooking": true,
+                          "allowSEOIndexing": true,
+                          "receiveMonthlyDigestEmail": true,
+                          "metadata": null,
+                          "verified": false,
+                          "role": "USER",
+                          "disableImpersonation": false,
+                          "organizationId": null,
+                          "locked": false,
+                          "movedToProfileId": null,
+                          "isPlatformManaged": false,
+                          "smsLockState": "UNLOCKED",
+                          "smsLockReviewedByAdmin": false
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. user body is invalid."
@@ -5544,8 +5655,8 @@ export const openApiSpec = {
             "users"
           ],
           "responses": {
-            "201": {
-              "description": "OK, user removed successfuly"
+            "200": {
+              "description": "OK. User with id: 93 deleted successfully"
             },
             "400": {
               "description": "Bad request. User id is invalid."
@@ -5581,7 +5692,41 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "user": {
+                          "id": 2,
+                          "username": "onboarding",
+                          "name": "onboarding",
+                          "email": "onboarding@example.com",
+                          "emailVerified": "2024-07-30T11:39:02.487Z",
+                          "bio": null,
+                          "timeZone": "Europe/London",
+                          "weekStart": "Sunday",
+                          "endTime": 1440,
+                          "bufferTime": 0,
+                          "appTheme": null,
+                          "theme": null,
+                          "defaultScheduleId": null,
+                          "locale": "en",
+                          "timeFormat": 12,
+                          "hideBranding": false,
+                          "brandColor": null,
+                          "darkBrandColor": null,
+                          "allowDynamicBooking": true,
+                          "createdDate": "2024-07-30T11:39:02.488Z",
+                          "verified": false,
+                          "invitedTo": null,
+                          "role": "USER"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "401": {
               "description": "Authorization information is missing or invalid."
@@ -5669,18 +5814,7 @@ export const openApiSpec = {
                 },
                 "examples": {
                   "user": {
-                    "summary": "An example of USER",
-                    "value": {
-                      "email": "email@example.com",
-                      "username": "johndoe",
-                      "weekStart": "MONDAY",
-                      "brandColor": null,
-                      "darkBrandColor": null,
-                      "timeZone": "EUROPE/PARIS",
-                      "theme": "LIGHT",
-                      "timeFormat": "TWELVE",
-                      "locale": "FR"
-                    }
+                      "timeZone": "Asia/Dubai"
                   }
                 }
               }
@@ -5691,7 +5825,41 @@ export const openApiSpec = {
           ],
           "responses": {
             "200": {
-              "description": "OK, user edited successfully"
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "user": {
+                          "id": 2,
+                          "username": "onboarding",
+                          "name": "onboarding",
+                          "email": "onboarding@example.com",
+                          "emailVerified": "2024-07-30T11:39:02.487Z",
+                          "bio": null,
+                          "timeZone": "Asia/Dubai",
+                          "weekStart": "Sunday",
+                          "endTime": 1440,
+                          "bufferTime": 0,
+                          "appTheme": null,
+                          "theme": null,
+                          "defaultScheduleId": null,
+                          "locale": "en",
+                          "timeFormat": 12,
+                          "hideBranding": false,
+                          "brandColor": null,
+                          "darkBrandColor": null,
+                          "allowDynamicBooking": true,
+                          "createdDate": "2024-07-30T11:39:02.488Z",
+                          "verified": false,
+                          "invitedTo": null,
+                          "role": "USER"
+                      }
+                    }
+                  }
+                }
+              }
             },
             "400": {
               "description": "Bad request. User body is invalid."
