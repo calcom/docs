@@ -1974,12 +1974,12 @@ export const openApiSpec = {
                       "type": "string",
                       "description": "Booking event title"
                     },
-                    "start": {
+                    "startTime": {
                       "type": "datetime",
                       "format": "date-time",
                       "description": "Start time of the Event"
                     },
-                    "end": {
+                    "endTime": {
                       "type": "datetime",
                       "format": "date-time",
                       "description": "End time of the Event"
