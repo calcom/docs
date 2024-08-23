@@ -78,13 +78,13 @@ const SchemaProperty = ({ name, property }: {name: string, property: any}) => {
 const SchemaObject = ({ schema, type }: {schema: any, type?: string}) => {
   return (
     <table className="min-w-full border-collapse rounded-md block md:table">
-      <thead className="block md:table-header-group">
+      <thead className="md:table-header-group">
         <tr className="border md:table-row">
-          <th className="block md:table-cell border px-4 py-2">{type && type == "schema" ? "Attribute" : type}</th>
-          <th className="block md:table-cell border px-4 py-2">Description</th>
+          <th className="md:table-cell border px-4 py-2">{type && type == "schema" ? "Attribute" : type}</th>
+          <th className="md:table-cell border px-4 py-2">Description</th>
         </tr>
       </thead>
-      <tbody className="block md:table-row-group">
+      <tbody className="">
         {Object.keys(schema).map((key) => (
           <SchemaProperty key={key} name={key} property={schema[key]} />
         ))}
