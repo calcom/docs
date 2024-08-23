@@ -21,9 +21,9 @@ You have the option to select priority for each host and based on their priority
 {%img src="/docs/images/i1600x900-sPtSh0GS1Fh8_uxplud.png" /%}
 
 #### Weights
-Weights are optional and must be enabled to use. They allow you to determine how meetings should be distributed among hosts. When enabled, every host has a default weight of 100%. 
-This means each host should end up with the same number of bookings by default. However, hosts with fewer availabilities can still end up with fewer bookings. 
-Only confirmed bookings count towards past bookings. 
+Weights are optional and must be enabled to use. They allow you to control how meetings are distributed among hosts. When weights are enabled, each host is assigned a default weight of 100%. 
+This means that, by default, bookings should be evenly distributed among all hosts. However, hosts with fewer availabilities may still receive fewer bookings. 
+Only confirmed bookings from the last 28 days are considered when calculating bookings for the weighted round robin algorithm.
 
 For instance, Jane Doe has a weight of 100% and already has 8 bookings while John Doe has a weight of 200% and already has 12 bookings. Assuming both of them are available, the next bookings would go to John Doe until a total of 16 bookings is reached.
 
