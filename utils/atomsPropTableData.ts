@@ -9,7 +9,10 @@ export enum Atoms {
     OutlookCalendar = "outlook calendar",
     AppleCalendar = "apple calendar",
     Availability = "availability settings",
-    Booker = "booker"
+    Booker = "booker",
+    CalendarSettings = "calendar settings",
+    DestinationCalendarSettings = "destination calendar settings",
+    SelectedCalendarSettings = "selected calendar settings",
 }
 
 export const googleCalendarAtomPropsData: AtomsProp[] = [
@@ -74,4 +77,17 @@ export const bookerAtomPropsData: AtomsProp[] = [
     {name: 'onReserveSlotError', required: false, description: 'A callback function that gets triggered when the process of reserving a slot fails'}, 
     {name: 'onDeleteSlotSuccess', required: false, description: 'A callback function to handle successful deletion of a slot'},
     {name: 'onDeleteSlotError', required: false, description: 'A callback function that gets triggered when the process of deleting a slot fails'}, 
+]
+
+export const calendarSettingsAtomPropsData: AtomsProp[] = [
+    {name: 'classNames', required: false, description: 'To pass in custom classnames from outside for styling the atom'},
+]
+
+export const destinationCalendarSettingsAtomPropsData: AtomsProp[] = [
+    {name: 'statusLoader', required: false, description: 'To pass in a custom component for the loading state.'},
+    {name: 'classNames', required: false, description: 'To pass in custom classnames from outside for styling the atom'},   
+]
+
+export const selectedCalendarSettingsAtomPropsData: AtomsProp[] = [
+    {name: 'classNames', required: false, description: 'To pass in custom classnames from outside for styling the atom'},
 ]

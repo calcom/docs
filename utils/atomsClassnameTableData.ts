@@ -11,6 +11,10 @@ export const outlookCalendarAtomClassnamesPropData: AtomsClassnamesProp[] = [
     {name: 'className', description: 'Pass in custom classnames from outside for styling the button'},
 ]
 
+export const appleCalendarAtomClassnamesPropData: AtomsClassnamesProp[] = [
+    {name: 'className', description: 'Pass in custom classnames from outside for styling the button'},
+]
+
 export const availabilitySettingsAtomClassnamesPropData: AtomsClassnamesProp[] = [
     {name: 'containerClassName', description: 'Adds styling to the whole availability settings component'},
     {name: 'ctaClassName', description: 'Adds stylings only to certain call to action buttons'}, 
@@ -42,4 +46,18 @@ export const bookerAtomPropsClassnamesPropData: AtomsClassnamesProp[] = [
     {name: 'availableTimeSlotsTitle', description: 'Adds styles to the title'}, 
     {name: 'availableTimeSlotsTimeFormatToggle', description: 'Adds styles to the format toggle buttons'}, 
     {name: 'availableTimes', description: 'Styles all the available times container'}
+]
+
+export const calendarSettingsAtomClassnamesPropData: AtomsClassnamesProp[] = [
+    {name: 'calendarSettingsCustomClassnames', description: 'Adds styling to the entire calendar settings atom'},
+    {name: 'destinationCalendarSettingsCustomClassnames', description: 'Adds styling only to the destination calendar container'},
+    {name: 'selectedCalendarSettingsCustomClassnames', description: 'Adds styling only to the selected calendar container'},
+]
+
+export const destinationCalendarSettingsAtomClassnamesPropData: AtomsClassnamesProp[] = [
+    {name: 'classNames', description: 'Pass in custom classnames from outside for styling the atom'},
+]
+
+export const selectedCalendarSettingsAtomClassnamesPropData: AtomsClassnamesProp[] = [
+    {name: 'classNames', description: 'Pass in custom classnames from outside for styling the atom'},
 ]
