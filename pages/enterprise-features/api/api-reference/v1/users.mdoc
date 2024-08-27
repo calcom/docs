@@ -7,7 +7,9 @@ The users endpoint allows you to CRUD users within your Cal.com instance.
 {% note type="warning" %}
 In self-hosted enterprise instances, user endpoints are exclusively designated for performing Create, Read, Update, and Delete (CRUD) operations. 
 
-Please note that the Users Endpoint is **not accessible on our hosted platform**, as these actions are primarily reserved for administrative API requests. The only exception is the GET request, which permits retrieval of individual user information (non-admin) associated with the originating request.
+Please note that the Users Endpoint is **not accessible on our hosted platform**, as these actions are primarily reserved for administrative API requests. The only exception is the GET request, which permits retrieval of individual user information (non-admin) associated with the originating request, i.e. the user who made the request. 
+
+Also note that Team/Organization admins **will not** be able to access the data of their team members either for the reason mentioned above.
 {% /note %}
 
 ## User Object
