@@ -411,19 +411,7 @@ Depending on the location selected, the location object can be one of the
 
 {% openapidoc method="POST" url="https://api.cal.com/docs" path="/event-types" /%}
 
-## Find an event type
-
-{% openapidoc method="GET" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
-
-## Edit an existing event type
-
-{% openapidoc method="PATCH" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
-
-## Remove an existing event type
-
-{% openapidoc method="DELETE" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
-
-## Managed Event Types
+### Managed Event Types
 
 To create a Managed Event Type via API, pass in a request of similar structure as a team event type, except the following:
   - `schedulingType` should be set to `MANAGED`
@@ -443,4 +431,18 @@ To create a Managed Event Type via API, pass in a request of similar structure a
       }
   ```
 This should create a parent event type of scheduling type `MANAGED`. Next, create a child event type which essentially connects to this parent event-type, but is of an individual user instead of being a team event. The request should be pretty much the same, except without a `teamId` or `schedulingType` and with a `userId`.
+
+
+## Find an event type
+
+{% openapidoc method="GET" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
+
+## Edit an existing event type
+
+{% openapidoc method="PATCH" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
+
+## Remove an existing event type
+
+{% openapidoc method="DELETE" url="https://api.cal.com/docs" path="/event-types/{id}" /%}
+
 
