@@ -1653,6 +1653,10 @@ export const openApiSpec = {
                             }
                           },
                           "description": "Meeting location"
+                        },
+                        "smsReminderNumber": {
+                          "type": "number",
+                          "description": "SMS reminder number"
                         }
                       }
                     },
@@ -1698,10 +1702,6 @@ export const openApiSpec = {
                     "seatsShowAvailabilityCount": {
                       "type": "boolean",
                       "description": "Show the number of available seats"
-                    },
-                    "smsReminderNumber": {
-                      "type": "number",
-                      "description": "SMS reminder number"
                     }
                   }
                 },
