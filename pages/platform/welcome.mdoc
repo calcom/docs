@@ -26,12 +26,12 @@ Here's some examples around how you can use atoms in your project.
 The below code snippet renders the Google calendar connect button which syncs a user's google calendar.  
 
 ```js
-import { GcalConnect } from "@calcom/atoms";
+import { Connect } from "@calcom/atoms";
 
 export default function Connect() {
   return (
     <main>
-      <GcalConnect />
+      <Connect.GoogleCalendar />
     </main>
   )
 }
@@ -40,12 +40,12 @@ export default function Connect() {
 If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop.
 
 ```js
-import { GcalConnect } from "@calcom/atoms";
+import { Connect } from "@calcom/atoms";
 
 export default function Connect() {
   return (
     <main>
-      <GcalConnect className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
+      <Connect.GoogleCalendar className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
     </main>
   )
 }
