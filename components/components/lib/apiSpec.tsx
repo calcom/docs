@@ -4830,6 +4830,12 @@ export const openApiSpec = {
               "name": "eventTypeSlug",
               "type": "integer",
               "description": "Slug of the event type to fetch available slots against [To be used when not using eventTypeId]"
+            },
+            {
+              "in": "query",
+              "name": "orgSlug",
+              "type": "integer",
+              "description": "Slug of the organization that the user belongs to, in case the user belongs to an organization[To be used when not using eventTypeId]"
             }
           ],
           "responses": {
