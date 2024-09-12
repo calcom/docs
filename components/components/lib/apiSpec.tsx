@@ -4780,7 +4780,7 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "apiKey",
-              "type": "integer",
+              "type": "string",
               "example": "cal_live_<unique_identifier>",
               "required": true,
               "description": "Your API Key"
@@ -4811,7 +4811,7 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "timeZone",
-              "type": "integer",
+              "type": "string",
               "description": "TimeZone for the slot lookup"
             },
             {
@@ -4828,13 +4828,13 @@ export const openApiSpec = {
             {
               "in": "query",
               "name": "eventTypeSlug",
-              "type": "integer",
+              "type": "string",
               "description": "Slug of the event type to fetch available slots against [To be used when not using eventTypeId]"
             },
             {
               "in": "query",
               "name": "orgSlug",
-              "type": "integer",
+              "type": "string",
               "description": "Slug of the organization that the user belongs to, in case the user belongs to an organization[To be used when not using eventTypeId]"
             }
           ],
