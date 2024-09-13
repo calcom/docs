@@ -4822,7 +4822,7 @@ export const openApiSpec = {
               "items": {
                 "type": "string"
               },
-              "description": "An array of usernames [To be used when not using eventTypeId]",
+              "description": "An array of usernames, or team slug in case of a team event [To be used when not using eventTypeId]",
               "example": ["user1", "user2", "user3"]
             },
             {
@@ -4836,6 +4836,12 @@ export const openApiSpec = {
               "name": "orgSlug",
               "type": "string",
               "description": "Slug of the organization that the user belongs to, in case the user belongs to an organization[To be used when not using eventTypeId]"
+            },
+            {
+              "in": "query",
+              "name": "isTeamEvent",
+              "type": "boolean",
+              "description": "True if the event is a team event"
             }
           ],
           "responses": {
