@@ -131,11 +131,6 @@ MDXContent.files=${JSON.stringify(files)}`;
         permanent: true,
         basePath: false,
       },
-      {
-        source: '/docs/api',
-        destination: '/docs/enterprise-features/api',
-        permanent: true,
-      },
     ]
   },
 };
