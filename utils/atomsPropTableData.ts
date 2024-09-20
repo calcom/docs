@@ -37,6 +37,7 @@ export const availabilitySettingsAtomPropsData: AtomsProp[] = [
     {name: 'labels', required: false, description: 'Helpful if you wanna pass in your own lables for i18n'},
     {name: 'customClassNames', required: false, description: 'To pass in custom classnames from outside for styling the atom'}, 
     {name: 'onUpdateSuccess', required: false, description: 'A callback function to handle updating user availability successfully'},
+    {name: 'onBeforeUpdate', required: false, description: 'Allows validating schedule before it is sent to the server. If it returns true the updated schedule is sent to the server, else it is not sent.'},
     {name: 'onUpdateError', required: false, description: 'A callback function that gets triggered when the user availability fails to update'}, 
     {name: 'onDeleteSuccess', required: false, description: 'A callback function that gets triggered when the user availability is deleted successfully'},
     {name: 'onDeleteError', required: false, description: 'A callback function that gets triggered when the user availability is not deleted successfully'},
