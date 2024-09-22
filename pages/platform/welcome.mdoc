@@ -125,7 +125,7 @@ This is how the apple calendar connect button actually looks like.
 
 The apple calendar atom works a bit differently than outlook and google calendar. We don't get redirected to an OAuth consent page, instead a modal appears which prompts us to create an app specific password to use with Cal.com; this is how the modal looks like
 
-{% img src="/docs/images/apple_calendar_modal.png" /%}
+{% img src="/docs/images/AppleCalendarModal.png" /%}
 
 {% note type="info" %}If you try to put your Apple Id password in the above password field, it will throw an error. It only accepts an app specific password generated from https://appleid.apple.com/account/manage.{% /note %}
 
@@ -154,7 +154,7 @@ export default function Availability() {
 
 This is how the availability settings atom actually looks like
 
-{% img src="/docs/images/availability_settings.png" /%}
+{% img src="/docs/images/AvailabilitySettings.png" /%}
 
 If a user wishes to add further adjustments to their availability for special occasions or events, they can use the date overrides feature. Date overrides enables users to pick any date that they're currently available and set specific hours for availability on that day or mark themselves entirely unavailable. Once that day is passed, the date override is automatically deleted.
 
@@ -182,15 +182,15 @@ export default function Availability() {
 
 This is how the availability settings atom actually looks like with date overrides
 
-{% img src="/docs/images/date_overrides.png" /%}
+{% img src="/docs/images/DateOverrides.png" /%}
 
 When a user tries to add date overrides for their availability, a modal appears which prompts the user to select the date and availability they want to override.
 
-{% img src="/docs/images/date_overrides_modal.png" /%}
+{% img src="/docs/images/DateOverridesModal.png" /%}
 
 After successfully adding a date override, this is how the availability settings atom looks like
 
-{% img src="/docs/images/date_overrides_added.png" /%}
+{% img src="/docs/images/AvailibilitySettingsWithDateOverrides.png" /%}
 
 ### 5. Booker atom
 
@@ -216,7 +216,36 @@ export default function Booker( props : BookerProps ) {
 
 This is how the booker atom actually looks like
 
-{% img src="/docs/images/booker.png" /%}
+{% img src="/docs/images/BookerAtom.jpg" /%}
+
+It is also possible to change the booker layout into a week or column view, you just need to pass in the view prop the layout you want to use. The layouts are as follows: **MONTH_VIEW,** **WEEK_VIEW** and **COLUMN_VIEW**.
+
+Below code snippet renders the booker atom with the week view layout.
+
+```js
+import { Booker } from "@calcom/atoms";
+
+export default function Booker( props : BookerProps ) {
+  return (
+    <>
+      <Booker
+        view="WEEK_VIEW"
+        eventSlug={props.eventTypeSlug}
+        username={props.calUsername}
+        onCreateBookingSuccess={() => {
+          console.log("booking created successfully");
+         }}
+      />
+    <>
+  )
+}
+```
+
+This is how the week view layout atom will look like. Both the week and column layouts come with an Overlay Calendar feature, which allows users to overlay multiple calendars on top of their primary calendar.
+
+{% img src="/docs/images/CalendarOverlay.jpg" /%}
+
+{% img src="/docs/images/OverlayCalendarColumn.png" /%}
 
 ### 6. Booker embed atom
 
@@ -239,11 +268,11 @@ export default function BookerEmbed( props : BookerEmbedProps ) {
   )
 }
 ```
-This is how the booker embed atom actually looks like
+This is how the booker embed atom actually looks like.
 
-{% img src="/docs/images/booker.png" /%}
+{% img src="/docs/images/BookerAtom.jpg" /%}
 
-{% note type="info" %}For the time being, the booker embed atom does not include the following features: Calendar Overlay and Out Of Office.{% /note %}
+{% note type="info" %}For the time being, the Booker Embed and the Booker atom does not include the Out Of Office feature.{% /note %}
 
 ### 7. Calendar settings atom
 
@@ -263,7 +292,7 @@ export default function CalendarSettingsComponent( props : CalendarSettingsCompo
 
 This is how the calendar settings atom will look like
 
-{% img src="/docs/images/calendar_settings_atom.png" /%}
+{% img src="/docs/images/CalendarSettingsAtom.png" /%}
 
 Additionally, if you wish to select either the Destination Calendar or the Selected Calendar, we also provide atoms specifically designed for this purpose.
 
@@ -284,7 +313,7 @@ export default function DestinationCalendars( props : DestinationCalendarsProps 
 ```
 This is how the destination calendar settings atom will look like.
 
-{% img src="/docs/images/destination_calendar_settings.png" /%}
+{% img src="/docs/images/DestinationCalendarSetting.png" /%}
 
 **2. Selected calendar settings atom**
 
@@ -303,7 +332,7 @@ export default function SelectedCalendars( props : SelectedCalendarsProps ) {
 ```
 This is how the selected calendar settings atom will look like
 
-{% img src="/docs/images/selected_calendar_settings.png" /%}
+{% img src="/docs/images/SelectedCalendarSetting.png" /%}
 
 ## Platform apis
 
