@@ -81,9 +81,13 @@ Body:
 }
 ```
 
-Make sure to store the user id, access and refresh tokens in your database and connect them to each user. For example, you can add “calAtomsAccessToken” and “calAtomsRefreshToken” properties to your user database model.
+First, make sure to store the user id, access and refresh tokens in your database and connect them to each user. For example, you can add “calAtomsAccessToken” and “calAtomsRefreshToken” properties to your user database model.
 
 You will be able to provide an access token to our atoms so that they can handle scheduling on behalf of the user associated with the token. access tokens expires, so you will have to refresh them using the refresh token.
+
+Second, if `timeZone` is passed in the request, then user's default schedule from 9AM to 5PM will be created in the specified timezone. Then, using `AvailabilitySettings` atom, user can customize their availability. However,
+if the `timeZone` is not passed,  then user has no default schedule and user can't be booked and user can't set availability using the `AvailabilitySettings` atom. You will have to set it up manually via the `/schedules` endpoints.
+We recommend setting the `timeZone` for ease of use.
 
 ## 4. Backend: setting up refresh token endpoint
 
@@ -224,16 +228,16 @@ export default MyApp;
 
 ## 6. Frontend: using atoms
 
-It’s very easy, just import the atom and drop it in code! For example, for users to connect their Google Calendar drop in GcalConnect - it will handle everything.
+It’s very easy, just import the atom and drop it in code! For example, for users to connect their Google Calendar drop in "Connect.GoogleCalendar" component - it will handle everything.
 
 ```js
-import { GcalConnect } from "@calcom/atoms";
+import { Connect } from "@calcom/atoms";
 
 ...
 export default function Connect() {
   return (
     <main>
-	    <GcalConnect/>
+	    <Connect.GoogleCalendar />
     </main>
   );
 }
@@ -242,7 +246,7 @@ export default function Connect() {
 If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop that every atom has:
 
 ```js
-<GcalConnect className="text-white hover:bg-orange-700" />
+<Connect.GoogleCalendar className="text-white hover:bg-orange-700" />
 ```
 
 other more complex atoms will expose multiple classNames and props to react to events happening in the atoms

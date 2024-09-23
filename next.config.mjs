@@ -126,6 +126,12 @@ MDXContent.files=${JSON.stringify(files)}`;
   async redirects() {
     return [
       {
+        source: '/docs/api',
+        destination: '/docs/enterprise-features/api',
+        basePath: false,
+        permanent: true,
+      },
+      {
         source: '/',
         destination: '/docs',
         permanent: true,

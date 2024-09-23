@@ -9,6 +9,7 @@ export const getColorClass = (color: TagColor) => {
     case TagColor.amber: return "bg-amber-50 text-amber-600"
     case TagColor.rose: return "bg-rose-50 text-rose-600"
     case TagColor.violet: return "bg-violet-50 text-violet-600"
+    case TagColor.slate: return "bg-slate-700 text-slate-100"
     default: return "bg-neutral-50 text-neutral-600"
   }
 }
@@ -19,7 +20,8 @@ export const Tag = ({ label = "", color = TagColor.neutral, size = "sm", round =
     getColorClass(color),
     {
       "rounded": !round,
-      "rounded-full": round,
+      "rounded-full": round && size !== "xs",
+      "rounded-md": round && size === "xs",
       "text-xs": size === "xs",
       "text-sm": size === "sm",
       "px-1": !round,
@@ -30,4 +32,8 @@ export const Tag = ({ label = "", color = TagColor.neutral, size = "sm", round =
 
 export const FileTag = ({ label= "" }) => {
   return <Tag label={label} color={TagColor.fuchsia} />
+}
+
+export const DatatypeTag = ({ label ="" }) => {
+  return <Tag label={label} color={TagColor.slate} round={true} size="xs" />
 }

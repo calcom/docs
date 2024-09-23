@@ -26,12 +26,12 @@ Here's some examples around how you can use atoms in your project.
 The below code snippet renders the Google calendar connect button which syncs a user's google calendar.  
 
 ```js
-import { GcalConnect } from "@calcom/atoms";
+import { Connect } from "@calcom/atoms";
 
 export default function Connect() {
   return (
     <main>
-      <GcalConnect />
+      <Connect.GoogleCalendar />
     </main>
   )
 }
@@ -40,12 +40,12 @@ export default function Connect() {
 If you need to customize the appearance of any atom, you can pass in custom css styles via a className prop.
 
 ```js
-import { GcalConnect } from "@calcom/atoms";
+import { Connect } from "@calcom/atoms";
 
 export default function Connect() {
   return (
     <main>
-      <GcalConnect className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
+      <Connect.GoogleCalendar className="h-[40px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-center text-base font-semibold text-transparent text-white hover:bg-orange-700" />
     </main>
   )
 }
@@ -247,34 +247,7 @@ This is how the week view layout atom will look like. Both the week and column l
 
 {% img src="/docs/images/OverlayCalendarColumn.png" /%}
 
-### 6. Booker embed atom
-
-The below code snippet renders the booker embed atom through which an existing user can embed cal.com into their own website without the need to create an OAuth client or access token. All that is required is the username and event slug of their already existing account. This is the key difference between the booker atom and the booker embed atom.
-
-```js
-import { BookerEmbed } from "@calcom/atoms";
-
-export default function BookerEmbed( props : BookerEmbedProps ) {
-  return (
-    <>
-      <BookerEmbed
-        eventSlug={props.eventTypeSlug}
-        username={props.calUsername}
-        onCreateBookingSuccess={() => {
-          console.log("booking created successfully");
-         }}
-      />
-    <>
-  )
-}
-```
-This is how the booker embed atom actually looks like.
-
-{% img src="/docs/images/BookerAtom.jpg" /%}
-
-{% note type="info" %}For the time being, the Booker Embed and the Booker atom does not include the Out Of Office feature.{% /note %}
-
-### 7. Calendar settings atom
+### 6. Calendar settings atom
 
 The below code snippet renders the calendar settings atom through which you can configure how your event types interact with your calendars. The atom gives you the ability to select where to add events when you're booked. Additionally, you can also select which calendars you want to check for conflicts to prevent double bookings.
 
