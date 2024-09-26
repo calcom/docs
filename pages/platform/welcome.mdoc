@@ -192,6 +192,9 @@ After successfully adding a date override, this is how the availability settings
 
 {% img src="/docs/images/date_overrides_added.png" /%}
 
+
+If the toggle buttons are not working, then you need to set reading direction on the html tag like this `<html dir="ltr"> ... </html>`
+
 ### 5. Booker atom
 
 The below code snippet renders the booker atom through which a user can be booked for any event that they have set.
@@ -277,6 +280,31 @@ export default function SelectedCalendars( props : SelectedCalendarsProps ) {
 This is how the selected calendar settings atom will look like
 
 {% img src="/docs/images/selected_calendar_settings.png" /%}
+
+### Dark theme
+
+To enable the dark theme in Cal.com atoms, you need to make use of the customClassNames prop. Here’s how to do it step-by-step:
+
+1.Browse Atoms Reference:
+
+Go to the Cal.com [atoms reference](https://cal.com/docs/platform/atoms-reference#props).
+Search for "customClassNames" on the page. Atoms that support this prop can have a dark mode.
+
+2.Set Up Dark Mode:
+
+In your code, you need to manually set the background color using Tailwind classes.
+Add a dark class to the containerClassName within the customClassNames prop and then specify the background color using Tailwind CSS.
+Example Implementation:
+
+```js
+<AvailabilitySettings
+    customClassNames={{
+        containerClassName: "dark bg-black"
+    }}
+/>
+```
+
+In this example, the dark class is added to containerClassName, and the background color is set to black (bg-black).
 
 ## Platform apis
 
